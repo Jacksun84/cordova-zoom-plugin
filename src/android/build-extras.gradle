@@ -6,7 +6,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         multiDexEnabled true
-        vectorDrawables.useSupportLibrary = true
+        vectorDrawables.useSupportLibrary = false
+        useAndroidX true
     }
 
     packagingOptions {
