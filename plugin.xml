@@ -20,13 +20,10 @@
             <!-- Adding FileProvider with tools:replace -->
             <provider
                 android:name="androidx.core.content.FileProvider"
-                android:authorities="${applicationId}.fileprovider"
+                android:authorities="${applicationId}.cdv.core.file.provider"
                 tools:replace="android:authorities"
                 android:grantUriPermissions="true"
                 android:exported="false">
-                <meta-data
-                    android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/file_paths" />
             </provider>            
         </config-file>   
      
