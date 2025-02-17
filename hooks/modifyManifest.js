@@ -35,6 +35,10 @@ module.exports = function (context) {
             if (provider.attrib['android:authorities'] === '${applicationId}.opener.provider') {
                 modified = checkAndAddToolsReplace(provider, 'android:authorities') || modified;
             }
+
+            if (provider.attrib['android:authorities'] === '${applicationId}.cdv.core.file.provider') {
+                modified = checkAndAddToolsReplace(provider, 'android:authorities') || modified;
+            }
         });
 
         // Modify <meta-data> tag
