@@ -1,4 +1,4 @@
-package com.outsystems.plugins.fileviewer;
+package cordova.plugin.zoom;
 
 import androidx.core.content.FileProvider;
 
