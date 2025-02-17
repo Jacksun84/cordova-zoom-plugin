@@ -15,6 +15,21 @@
                 <param name="android-package" value="cordova.plugin.zoom.Zoom" />
             </feature>
         </config-file>
+
+        <config-file parent="application" target="AndroidManifest.xml">
+            <!-- Adding FileProvider with tools:replace -->
+            <provider
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="${applicationId}.fileprovider"
+                tools:replace="android:authorities"
+                android:grantUriPermissions="true"
+                android:exported="false">
+                <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/file_paths" />
+            </provider>            
+        </config-file>   
+     
         <config-file parent="/*" target="AndroidManifest.xml">
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.INTERNET" />
@@ -32,18 +47,6 @@
             <uses-permission android:name="android.permission.WAKE_LOCK" />
             <uses-permission android:name="android.permission.CALL_PHONE" />
             <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
-            <!-- Adding FileProvider with tools:replace -->
-            <provider
-                android:name="cordova.plugin.OSFileProvider"
-                android:authorities="${applicationId}.opener.provider"
-                tools:replace="android:authorities"
-                android:grantUriPermissions="true"
-                android:exported="false">
-                <meta-data
-                    android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/file_paths" />
-            </provider>
         </config-file>
         <dependency id="cordova-androidx-build" url="https://github.com/Pushwoosh/cordova-androidx-build.git" />
         <source-file framework="true" src="libs/android/commonlib.aar" target-dir="libs/android" />
