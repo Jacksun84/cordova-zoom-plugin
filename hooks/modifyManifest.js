@@ -51,12 +51,11 @@ module.exports = function (context) {
 
         // Modify <application> tag
         const applications = manifestTree.findall(".//application[@android:appComponentFactory]");
-        providers.forEach(provider => {
-            if (provider.attrib['android:appComponentFactory'] === 'androidx.core.app.CoreComponentFactory') {
-                modified = checkAndAddToolsReplace(provider, 'android:appComponentFactory') || modified;
+        applications.forEach(application => {
+            if (application.attrib['android:appComponentFactory'] === 'androidx.core.app.CoreComponentFactory') {
+                modified = checkAndAddToolsReplace(application, 'android:appComponentFactory') || modified;
             }
         });
-
 
         console.log("--- ✅ --- modified ::" + modified);
 
