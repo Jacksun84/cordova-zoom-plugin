@@ -54,7 +54,7 @@ module.exports = function (context) {
         const applications = manifestTree.findall(".//application[@android:appComponentFactory]");
         let total = 0;
         applications.forEach(application => {
-            console.log("--- ✅ --- Found application tag ::" + total);
+            console.log("--- ✅ --- Found application attrib [" + application.attrib + "] :: "+total);
             if (application.attrib['android:appComponentFactory'] === 'androidx.core.app.CoreComponentFactory') {
                 console.log("--- ✅ --- Found attribute :: androidx.core.app.CoreComponentFactory ---");
                 modified = checkAndAddToolsReplace(application, 'android:appComponentFactory') || modified;
