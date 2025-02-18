@@ -50,11 +50,16 @@ module.exports = function (context) {
         });
 
         // Modify <application> tag
+        console.log("--- ✅ --- Modify application tag ---");
         const applications = manifestTree.findall(".//application[@android:appComponentFactory]");
+        let total = 0;
         applications.forEach(application => {
+            console.log("--- ✅ --- Found application tag ::" + total);
             if (application.attrib['android:appComponentFactory'] === 'androidx.core.app.CoreComponentFactory') {
+                console.log("--- ✅ --- Found attribute :: androidx.core.app.CoreComponentFactory ---");
                 modified = checkAndAddToolsReplace(application, 'android:appComponentFactory') || modified;
             }
+            total = total++;
         });
 
         console.log("--- ✅ --- modified ::" + modified);
