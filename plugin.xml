@@ -29,6 +29,12 @@
         </config-file>   
         -->
 
+        <!-- Avoid conflits between com.android.support:support-compat:28.0.0 and androidx.core:core:1.13.1 (CoreComponentFactory)-->
+        <config-file parent="/*" target="AndroidManifest.xml">
+            <application tools:replace="android:appComponentFactory"
+                         android:appComponentFactory="androidx.core.app.CoreComponentFactory" />
+        </config-file>
+
         <config-file parent="/*" target="AndroidManifest.xml">
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.INTERNET" />
