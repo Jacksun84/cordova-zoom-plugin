@@ -29,10 +29,7 @@
         </config-file>   
         -->    
 
-        <config-file parent="/*" target="AndroidManifest.xml">
-            <!-- Avoid conflits between com.android.support:support-compat:28.0.0 and androidx.core:core:1.13.1 (CoreComponentFactory)-->
-            <application tools:replace="android:appComponentFactory" android:appComponentFactory="androidx.core.app.CoreComponentFactory" />
-            
+        <config-file parent="/*" target="AndroidManifest.xml">    
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -56,6 +53,7 @@
         <framework custom="true" src="src/android/build-android.gradle" target-dir="." type="gradleReference" />
         <hook type="after_plugin_install" src="hooks/setUserPasswordZoomSDK.js" />
         <hook type="after_prepare" src="hooks/modifyManifest.js" />
+        <hook type="after_prepare" src="hooks/fixAppComponentFactoryOnAndroidManifest.js" />        
     </platform>
 
     <!-- IOS section -->
