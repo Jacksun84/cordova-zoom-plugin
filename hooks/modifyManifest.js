@@ -49,6 +49,15 @@ module.exports = function (context) {
             }
         });
 
+        // Modify <application> tag
+        const applications = manifestTree.findall(".//application[@android:appComponentFactory]");
+        providers.forEach(provider => {
+            if (provider.attrib['android:appComponentFactory'] === 'androidx.core.app.CoreComponentFactory') {
+                modified = checkAndAddToolsReplace(provider, 'android:appComponentFactory') || modified;
+            }
+        });
+
+
         console.log("--- ✅ --- modified ::" + modified);
 
         if (modified) {
