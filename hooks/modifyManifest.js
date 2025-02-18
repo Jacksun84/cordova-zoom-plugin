@@ -50,6 +50,7 @@ module.exports = function (context) {
         });
 
         // Modify <application> tag
+        /*
         console.log("--- ✅ --- Modify application tag ---");
         const applications = manifestTree.findall(".//application[@android:appComponentFactory]");
         let total = 0;
@@ -61,6 +62,7 @@ module.exports = function (context) {
             }
             total = total++;
         });
+        */
 
         console.log("--- ✅ --- modified ::" + modified);
 
