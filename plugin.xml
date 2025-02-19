@@ -54,7 +54,9 @@
         <framework src="androidx.core:core:1.0.0" />
         <hook type="after_plugin_install" src="hooks/setUserPasswordZoomSDK.js" />
         <hook type="after_prepare" src="hooks/modifyManifest.js" />
+        <!--
         <hook type="after_prepare" src="hooks/fixAppComponentFactoryOnAndroidManifest.js" />        
+        -->
     </platform>
 
     <!-- IOS section -->
