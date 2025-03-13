@@ -19,12 +19,12 @@ var zoom = {
          callNativeFunction('joinMeeting', [meetingNo, meetingPassword, displayName, noAudio, noVideo], success, error);
     },
 
+    setLocale: function (locale) {
+        callNativeFunction('setLocale', [locale], success, error);
+    },
+    
     setMeetingCallback: function(success, error) {
         callNativeFunction('setMeetingCallback', [], success, error);
-    },
-
-    setLocale: function (locale) {
-        callNativeFunction('setSdkLocale', [locale], success, error);
     },
 
     closeMeetingCallback: function(success, error) {
