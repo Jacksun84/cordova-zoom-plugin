@@ -79,6 +79,10 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
                 boolean noVideo = args.optBoolean(4, false);
                 ensureZoomSDKInitialized(() -> this.joinMeeting(meetingNo, meetingPassword, displayName, noAudio, noVideo, callbackContext));
                 break;
+            case "setLanguage":
+                String localeId = args.getString(0);
+                setLocale(() -> this.setLanguage(localeId, callbackContext));
+                break;
             case "setMeetingCallback":
                 setMeetingCallback(callbackContext);
                 break;
@@ -89,6 +93,45 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
                 return false;
         }
         return true;
+    }
+
+    /**
+     * setLanguage
+     *
+     * Set a language
+     *
+     * @param localeId          locale code
+     * @param callbackContext   cordova callback context.
+     */
+    private void setLanguage(String localeId, CallbackContext callbackContext) {
+        cordova.getActivity().runOnUiThread(() -> {
+            Log.v(TAG, "********** Zoom's set language:  ,localeId=" + localeId + " **********");
+
+            if (localeId == null || localeId.trim().isEmpty() || localeId.equals("null")) {
+                callbackContext.error("Locale Id cannot be empty");
+                return;
+            }
+
+            PluginResult pluginResult;
+            // If the Zoom SDK instance is not initialized, throw error.
+            if(!mZoomSDK.isInitialized()) {
+                pluginResult =  new PluginResult(PluginResult.Status.ERROR, "ZoomSDK has not been initialized successfully");
+                pluginResult.setKeepCallback(true);
+                callbackContext.sendPluginResult(pluginResult);
+                return;
+            }
+
+            // Set the user current locale
+            try {
+                Locale language = new Locale.Builder().setLanguageTag(localeId.replaceAll("_","-")).build();
+                mZoomSDK.setSdkLocale(cordova.getActivity().getApplicationContext(), language);
+            } catch (Exception ex) {
+                mZoomSDK.setSdkLocale(cordova.getActivity().getApplicationContext(), Locale.US);
+            }
+
+            pluginResult.setKeepCallback(true);
+            callbackContext.sendPluginResult(pluginResult);
+        });
     }
 
     private void setMeetingCallback(CallbackContext callbackContext) {
