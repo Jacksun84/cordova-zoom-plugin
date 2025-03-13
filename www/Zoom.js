@@ -20,7 +20,7 @@ var zoom = {
     },
 
     setLanguage: function (language) {
-        callNativeFunction('setLocale', [language], success, error);
+        callNativeFunction('setLanguage', [language], success, error);
     },
     
     setMeetingCallback: function(success, error) {
