@@ -19,7 +19,7 @@ var zoom = {
          callNativeFunction('joinMeeting', [meetingNo, meetingPassword, displayName, noAudio, noVideo], success, error);
     },
 
-    setLanguage: function(language) {
+    setLanguage: function(language, success, error) {
         callNativeFunction('setLanguage', [language], success, error);
     },
     
