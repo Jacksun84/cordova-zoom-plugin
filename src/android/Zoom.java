@@ -125,7 +125,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             try {
                 Locale language = new Locale.Builder().setLanguageTag(localeId.replaceAll("_","-")).build();
                 mZoomSDK.setSdkLocale(cordova.getActivity().getApplicationContext(), language);
-                pluginResult =  new PluginResult(PluginResult.Status.OK, "Locale has now in:  "+localeId.replaceAll("_","-"));
+                pluginResult =  new PluginResult(PluginResult.Status.OK, "Locale has now in:  "+language.getLanguage());
             } catch (Exception ex) {
                 mZoomSDK.setSdkLocale(cordova.getActivity().getApplicationContext(), Locale.US);
                 pluginResult =  new PluginResult(PluginResult.Status.OK, "Locale set to default:  "+Locale.US.toString());
