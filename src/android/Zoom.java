@@ -160,7 +160,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
                     } catch (IllformedLocaleException ie) {
                         //mZoomSDK.setSdkLocale(cordova.getActivity().getApplicationContext(), Locale.US);
                         //callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Please pass valid language and country codes. [ERROR:" + ie.getMessage() + "]"));
-                        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "Please pass valid language and country codes. [ERROR:" + ie.getMessage() + "]"));                        
+                        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "Please pass valid language and country codes. [ERROR:" + ie.getMessage() + "]"));
                     }
                 }
             });
