@@ -8,6 +8,7 @@ import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.IllformedLocaleException;
 import java.util.Locale;
 
 import us.zoom.sdk.JoinMeetingOptions;
@@ -133,6 +134,44 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             pluginResult.setKeepCallback(true);
             callbackContext.sendPluginResult(pluginResult);
         });
+    }
+
+    /**
+     * setLanguage
+     *
+     * Set a language
+     *
+     * @param localeId          locale code
+     * @param callbackContext   cordova callback context.
+     */
+    private void setLanguageV2(String localeId, CallbackContext callbackContext) {
+        try {
+            cordova.getActivity().runOnUiThread( new Runnable() {
+
+                @Override
+                public void run() {
+                    Log.v(TAG, "********** Zoom's set language: ,localeId=" + localeId + " **********");
+                    
+                    ZoomSDK zoomSDK = ZoomSDK.getInstance();
+                    try {
+                        Locale language = new Locale.Builder().setLanguageTag(localeId.replaceAll("_","-")).build();
+                        mZoomSDK.setSdkLocale(cordova.getActivity().getApplicationContext(), language);
+                        callbackContext.sendPluginResult(PluginResult.Status.OK, "Language changed to: "+language.getLanguage());
+
+                    } catch (IllformedLocaleException ie) {
+                        //mZoomSDK.setSdkLocale(cordova.getActivity().getApplicationContext(), Locale.US);
+                        //callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Please pass valid language and country codes. [ERROR:" + ie.getMessage() + "]"));
+                        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "Please pass valid language and country codes. [ERROR:" + ie.getMessage() + "]"));                    
+                        callbackContext.setKeepCallback(true);
+                    }
+
+                }
+
+            });
+
+        } catch (Exception e) {
+            callbackContext.error(e.getMessage());
+        }
     }
 
     private void setMeetingCallback(CallbackContext callbackContext) {
