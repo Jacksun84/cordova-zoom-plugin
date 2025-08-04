@@ -81,7 +81,8 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
                 break;
             case "setLocale":
                 String localeId = args.getString(0);
-                ensureZoomSDKInitialized(() -> this.setLanguage(localeId, callbackContext));
+                //ensureZoomSDKInitialized(() -> this.setLanguage(localeId, callbackContext));
+                this.setLanguageV2(localeId, callbackContext);
                 break;
             case "setMeetingCallback":
                 setMeetingCallback(callbackContext);
@@ -147,7 +148,6 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
     private void setLanguageV2(String localeId, CallbackContext callbackContext) {
         try {
             cordova.getActivity().runOnUiThread( new Runnable() {
-
                 @Override
                 public void run() {
                     Log.v(TAG, "********** Zoom's set language: ,localeId=" + localeId + " **********");
@@ -156,19 +156,15 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
                     try {
                         Locale language = new Locale.Builder().setLanguageTag(localeId.replaceAll("_","-")).build();
                         mZoomSDK.setSdkLocale(cordova.getActivity().getApplicationContext(), language);
-                        callbackContext.sendPluginResult(PluginResult.Status.OK, "Language changed to: "+language.getLanguage());
-
+                        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Language changed to: "+language.getLanguage()));
                     } catch (IllformedLocaleException ie) {
                         //mZoomSDK.setSdkLocale(cordova.getActivity().getApplicationContext(), Locale.US);
                         //callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Please pass valid language and country codes. [ERROR:" + ie.getMessage() + "]"));
                         callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "Please pass valid language and country codes. [ERROR:" + ie.getMessage() + "]"));                    
                         callbackContext.setKeepCallback(true);
                     }
-
                 }
-
             });
-
         } catch (Exception e) {
             callbackContext.error(e.getMessage());
         }
