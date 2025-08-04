@@ -78,7 +78,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
                 boolean noVideo = args.optBoolean(4, false);
                 ensureZoomSDKInitialized(() -> this.joinMeeting(meetingNo, meetingPassword, displayName, noAudio, noVideo, callbackContext));
                 break;
-            case "setLanguage":
+            case "setLocale":
                 String localeId = args.getString(0);
                 ensureZoomSDKInitialized(() -> this.setLanguage(localeId, callbackContext));
                 break;

@@ -94,8 +94,8 @@ class Zoom: CDVPlugin {
         self.callStatusCallback = nil
     }
 
-    @objc(setLanguage:)
-    func setLanguage(command: CDVInvokedUrlCommand) {
+    @objc(setLocale:)
+    func setLocale(command: CDVInvokedUrlCommand) {
         let pluginResult: CDVPluginResult
         guard let localeId = command.arguments[0] as? String, !localeId.isEmpty else {
             pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Locale Id cannot be empty")
