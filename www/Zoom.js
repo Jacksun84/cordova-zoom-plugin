@@ -11,6 +11,10 @@ function callNativeFunction(name, args, success, error) {
 
 var zoom = {
 
+    isSDKInitialized: function(success, error) {
+        callNativeFunction('isSDKInitialized', [], success, error);
+    },
+
     initialize: function(token, language, success, error) {
         callNativeFunction('initialize', [token, language], success, error);
     },

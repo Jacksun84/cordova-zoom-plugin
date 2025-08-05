@@ -12,6 +12,14 @@ import MobileRTC
 class Zoom: CDVPlugin {
     var command: CDVInvokedUrlCommand?
     var callStatusCallback: String?
+
+    @objc(isSDKInitialized:)
+    func isSDKInitialized(command: CDVInvokedUrlCommand) {
+        let initialized = MobileRTC.shared().isRTCAuthorized()
+        
+        let pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: initialized)
+        self.commandDelegate.send(pluginResult, callbackId: command.callbackId)
+    }
     
     @objc(initialize:)
     func initialize(command: CDVInvokedUrlCommand) {

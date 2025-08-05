@@ -62,6 +62,9 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
         this.callbackContext = callbackContext;
 
         switch(action) {
+            case "isSDKInitialized":
+                isSDKInitialized(callbackContext);
+                break;
             case "initialize":
                 String jwtToken = args.getString(0);
                 String languageTag = "en_US";
@@ -103,16 +106,16 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
      * @param callbackContext
      */
     private void isSDKInitialized(CallbackContext callbackContext) {
-    cordova.getActivity().runOnUiThread(() -> {
-        try {
-            boolean initialized = mZoomSDK != null && mZoomSDK.isInitialized();
-            PluginResult result = new PluginResult(PluginResult.Status.OK, initialized);
-            callbackContext.sendPluginResult(result);
-        } catch (Exception e) {
-            callbackContext.error("Error checking SDK initialization: " + e.getMessage());
-        }
-    });
-}
+        cordova.getActivity().runOnUiThread(() -> {
+            try {
+                boolean initialized = mZoomSDK != null && mZoomSDK.isInitialized();
+                PluginResult result = new PluginResult(PluginResult.Status.OK, initialized);
+                callbackContext.sendPluginResult(result);
+            } catch (Exception e) {
+                callbackContext.error("Error checking SDK initialization: " + e.getMessage());
+            }
+        });
+    }
 
     /**
      * setLanguage
