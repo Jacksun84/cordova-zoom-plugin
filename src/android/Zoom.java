@@ -82,7 +82,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             case "setLocale":
                 String localeId = args.getString(0);
                 //ensureZoomSDKInitialized(() -> this.setLanguage(localeId, callbackContext));
-                this.setLanguageV2(localeId, callbackContext);
+                setLanguageV2(localeId, callbackContext);
                 break;
             case "setMeetingCallback":
                 setMeetingCallback(callbackContext);
