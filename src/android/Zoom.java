@@ -85,7 +85,6 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             case "setLocale":
                 String localeId = args.getString(0);
                 ensureZoomSDKInitialized(() -> this.setLanguage(localeId, callbackContext));
-                //setLanguageV2(localeId, callbackContext);
                 break;
             case "setMeetingCallback":
                 setMeetingCallback(callbackContext);
@@ -158,38 +157,6 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
         });
     }
 
-    /**
-     * setLanguage
-     *
-     * Set a language
-     *
-     * @param localeId          locale code
-     * @param callbackContext   cordova callback context.
-     */
-    private void setLanguageV2(String localeId, CallbackContext callbackContext) {
-        try {
-            cordova.getActivity().runOnUiThread( new Runnable() {
-                @Override
-                public void run() {
-                    Log.v(TAG, "********** Zoom's set language: ,localeId=" + localeId + " **********");
-                    
-                    ZoomSDK zoomSDK = ZoomSDK.getInstance();
-                    try {
-                        Locale language = new Locale.Builder().setLanguageTag(localeId.replaceAll("_","-")).build();
-                        mZoomSDK.setSdkLocale(cordova.getActivity().getApplicationContext(), language);
-                        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Language changed to: "+language.getLanguage()));
-                    } catch (IllformedLocaleException ie) {
-                        //mZoomSDK.setSdkLocale(cordova.getActivity().getApplicationContext(), Locale.US);
-                        //callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, "Please pass valid language and country codes. [ERROR:" + ie.getMessage() + "]"));
-                        callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "Please pass valid language and country codes. [ERROR:" + ie.getMessage() + "]"));
-                    }
-                }
-            });
-        } catch (Exception e) {
-            callbackContext.error(e.getMessage());
-        }
-    }
-
     private void setMeetingCallback(CallbackContext callbackContext) {
         this.callStatusCallback = callbackContext;
     }
@@ -222,10 +189,6 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             if (mZoomSDK.isInitialized()) {
                 callbackContext.error("Zoom already initialized!");
                 return;
-                //PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, "Successfully initialize Zoom SDK.");
-                //pluginResult.setKeepCallback(true);
-                //callbackContext.sendPluginResult(pluginResult);
-                //return;
             }
 
             if (jwtToken == null) {

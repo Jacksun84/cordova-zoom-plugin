@@ -58,11 +58,12 @@ Before you try out our SDK, you would need the following to get started:
  ```
 
 ## Last Updates/Improvements
+- Added new method to know if the Zoom SDK as already initialized or not
 - Removed unecessary android permissions (USE_FULL_SCREEN_INTENT, READ_MEDIA_IMAGES,READ_MEDIA_VIDEO) to be compatible with last google policies.
 - Update cordova-androidx-build url from https://github.com/Pushwoosh/cordova-androidx-build.git to https://github.com/Pushwoosh/cordova-androidx-build.git#1.1-OS to be compatible with the same dependencies from https://github.com/Pushwoosh/pushwoosh-phonegap-plugin.git#8.3.27-OS (https://www.outsystems.com/forge/component-overview/1556/pushwoosh-plugin-o11).
-- Added the necessary androidx dependencies to src/android/build-android.gradle file to fix runtime craches when changing the background image/effects.
+- Gradle file (src/android/build-android.gradle) updated/reornanized with the correct versions of dependencies according to the zoom sdk samples.
+- Added necessary androidx dependencies to src/android/build-android.gradle file to fix runtime craches when changing the background image/effects.
 - Change javascript method setLanguage to setLocale to avoid OS errors (setLanguage is not a function).
-
 ## Installing
 Local:
   Clone or download a copy of our SDK files from GitHub. After you unzipped the file, you should have the following folders:
