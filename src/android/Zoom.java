@@ -81,8 +81,8 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
                 break;
             case "setLocale":
                 String localeId = args.getString(0);
-                //ensureZoomSDKInitialized(() -> this.setLanguage(localeId, callbackContext));
-                setLanguageV2(localeId, callbackContext);
+                ensureZoomSDKInitialized(() -> this.setLanguage(localeId, callbackContext));
+                //setLanguageV2(localeId, callbackContext);
                 break;
             case "setMeetingCallback":
                 setMeetingCallback(callbackContext);
@@ -199,13 +199,12 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
 
             // If the SDK has been successfully initialized, simply return.
             if (mZoomSDK.isInitialized()) {
-                // callbackContext.error("Zoom already initialized!");
-                // return;
-
-                PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, "Successfully initialize Zoom SDK.");
-                pluginResult.setKeepCallback(true);
-                callbackContext.sendPluginResult(pluginResult);
+                callbackContext.error("Zoom already initialized!");
                 return;
+                //PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, "Successfully initialize Zoom SDK.");
+                //pluginResult.setKeepCallback(true);
+                //callbackContext.sendPluginResult(pluginResult);
+                //return;
             }
 
             if (jwtToken == null) {
