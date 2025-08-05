@@ -97,6 +97,24 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
     }
 
     /**
+     * isSDKInitialized
+     * Check if the SDK was already initialized
+     * 
+     * @param callbackContext
+     */
+    private void isSDKInitialized(CallbackContext callbackContext) {
+    cordova.getActivity().runOnUiThread(() -> {
+        try {
+            boolean initialized = mZoomSDK != null && mZoomSDK.isInitialized();
+            PluginResult result = new PluginResult(PluginResult.Status.OK, initialized);
+            callbackContext.sendPluginResult(result);
+        } catch (Exception e) {
+            callbackContext.error("Error checking SDK initialization: " + e.getMessage());
+        }
+    });
+}
+
+    /**
      * setLanguage
      *
      * Set a language
