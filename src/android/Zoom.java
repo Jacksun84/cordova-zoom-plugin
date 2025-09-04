@@ -305,7 +305,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
     public void onMeetingLeaveComplete(long ret) {
         Log.i(TAG, "onMeetingLeaveComplete, meetingStatus=MEETING_STATUS_DISCONNECTING");
 
-        sendMeetingCallback("MEETING_STATUS_DISCONNECTING");
+        sendMeetingCallback(MeetingStatus.MEETING_STATUS_DISCONNECTING);
         //if (ret == MeetingEndReason.END_BY_HOST || MeetingEndReason.END_BY_HOST) {
         // Do something
         //}
