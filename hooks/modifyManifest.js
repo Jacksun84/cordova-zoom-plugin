@@ -40,8 +40,8 @@ module.exports = function (context) {
         // Modify <application> tag
         const applications = manifestTree.findall(".//application[@android:networkSecurityConfig]");
         applications.forEach(application => {
-            if (metaData.attrib['android:networkSecurityConfig'] === '@xml/network_security_config') {
-                modified = checkAndAddToolsReplace(metaData, 'android:networkSecurityConfig') || modified;
+            if (application.attrib['android:networkSecurityConfig'] === '@xml/network_security_config') {
+                modified = checkAndAddToolsReplace(application, 'android:networkSecurityConfig') || modified;
             }
         });
 
