@@ -15,9 +15,11 @@
                 <param name="android-package" value="cordova.plugin.zoom.Zoom" />
             </feature>
         </config-file>
+        <!--
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <application tools:replace="android:networkSecurityConfig" />
         </config-file>
+        -->
         <config-file parent="/*" target="AndroidManifest.xml">
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.INTERNET" />
