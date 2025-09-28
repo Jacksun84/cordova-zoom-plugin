@@ -14,7 +14,7 @@
             <feature name="Zoom">
                 <param name="android-package" value="cordova.plugin.zoom.Zoom" />
             </feature>
-        </config-file
+        </config-file>
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <application tools:replace="android:networkSecurityConfig" />
         </config-file>
