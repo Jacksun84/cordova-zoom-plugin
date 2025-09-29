@@ -1,6 +1,7 @@
-apply plugin: 'com.android.application'
-apply plugin: 'org.jetbrains.compose'
-apply plugin: 'kotlin-android'
+plugin {
+    id 'kotlin-android'
+    id 'com.android.application'
+}
 
 android {
     compileSdkVersion = 35
