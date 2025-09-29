@@ -7,12 +7,6 @@
 
      <!-- Android section -->
     <platform name="android">
-        <!--
-        <preference name="GradlePluginKotlinEnabled" value="true" />
-        <preference name="GradlePluginKotlinVersion" value="1.9.0" />
-        <preference name="GradlePluginJavaVersion" value="11" />
-        -->
-        
         <preference name="ANDROID_ZOOM_SDK_PASSWORD"/>
 
         <config-file parent="/*" target="res/xml/config.xml">
