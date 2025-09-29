@@ -328,7 +328,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             case MeetingError.MEETING_ERROR_CLIENT_INCOMPATIBLE:
                 message.append("Zoom SDK version is too low to connect to the meeting");
                 break;
-            case MeetingError.MEETING_ERROR_DISALLOW_HOST_RESGISTER_WEBINAR:
+            case MeetingError.MEETING_ERROR_DISALLOW_HOST_REGISTER_WEBINAR:
                 message.append("Cannot register a webinar using the host email");
                 break;
             case MeetingError.MEETING_ERROR_DISALLOW_PANELIST_REGISTER_WEBINAR:
