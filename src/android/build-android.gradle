@@ -76,8 +76,12 @@ dependencies {
     implementation 'androidx.window:window-java:1.1.0'
 
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.20'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.20'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.20'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-common:1.7.20'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.7.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.7.1'
+    implementation 'org.jetbrains:annotations:23.0.0'
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
