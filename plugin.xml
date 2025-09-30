@@ -15,6 +15,10 @@
             </feature>
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml">
+            <application
+                android:networkSecurityConfig="@xml/network_security_config"
+                tools:replace="android:networkSecurityConfig"
+                tools:node="replace" />
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -35,13 +39,6 @@
             <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" tools:node="remove" />
             <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" tools:node="remove" />
         </config-file>
-        <!-- Patch <application> -->
-        <edit-config file="AndroidManifest.xml" target="/manifest/application" mode="merge">
-            <application
-                android:networkSecurityConfig="@xml/network_security_config"
-                tools:replace="android:networkSecurityConfig"
-                tools:node="replace" />
-        </edit-config>          
         <!-- Update pushwoosh cordova dependencies to avoid conflicts between zoom and pushwoosh-->
         <dependency id="cordova-androidx-build" url="https://github.com/Pushwoosh/cordova-androidx-build.git#1.1-OS" />
         <source-file framework="true" src="libs/android/commonlib.aar" target-dir="libs/android" />
