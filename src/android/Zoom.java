@@ -268,6 +268,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             MeetingService meetingService = mZoomSDK.getMeetingService();
             meetingService.addListener(this);
 
+            /*
             //Atempt to avoid password dialog in zoom interface when joining
             String joinUrl="https://zoom.us/j/"+meetingNo+"?pwd="+meetingPassword;
             boolean result = meetingService.handZoomWebUrl(joinUrl);
@@ -278,8 +279,8 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             pr.setKeepCallback(true);
             callbackContext.sendPluginResult(pr);
             return;
-
-            /*
+            */
+            
             JoinMeetingParams params = new JoinMeetingParams();
             params.displayName = displayName;
             params.meetingNo = meetingNumber;
@@ -298,8 +299,6 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             }
             pluginResult1.setKeepCallback(true);
             callbackContext.sendPluginResult(pluginResult1);
-
-            */
         });
     }
 
