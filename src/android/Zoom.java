@@ -269,7 +269,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             meetingService.addListener(this);
 
             //Atempt to avoid password dialog in zoom interface when joining
-            string joinUrl="https://zoom.us/j/"+meetingNo+"?pwd="+meetingPassword;
+            String joinUrl="https://zoom.us/j/"+meetingNo+"?pwd="+meetingPassword;
             boolean result = meetingService.handZoomWebUrl(joinUrl);
 
             PluginResult pr = (result) 
