@@ -34,21 +34,21 @@
             <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" tools:node="remove" />
             <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" tools:node="remove" />
             <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" tools:node="remove" />
-        </config-file>        
-        <!-- Update pushwoosh cordova dependencies to avoid conflicts between zoom and pushwoosh-->
-        <dependency id="cordova-androidx-build" url="https://github.com/Pushwoosh/cordova-androidx-build.git#1.1-OS" />
-        <source-file framework="true" src="libs/android/commonlib.aar" target-dir="libs/android" />
-        <source-file src="src/android/Zoom.java" target-dir="src/cordova/plugin/zoom" />
-        <framework custom="true" src="src/android/build-android.gradle" target-dir="." type="gradleReference" />        
-        <hook type="after_plugin_install" src="hooks/setUserPasswordZoomSDK.js" />
-        <hook type="after_prepare" src="hooks/modifyManifest.js" />
+        </config-file>
         <!-- Patch <application> -->
         <edit-config file="AndroidManifest.xml" target="/manifest/application" mode="merge">
             <application
                 android:networkSecurityConfig="@xml/network_security_config"
                 tools:replace="android:networkSecurityConfig"
                 tools:node="replace" />
-        </edit-config>        
+        </edit-config>          
+        <!-- Update pushwoosh cordova dependencies to avoid conflicts between zoom and pushwoosh-->
+        <dependency id="cordova-androidx-build" url="https://github.com/Pushwoosh/cordova-androidx-build.git#1.1-OS" />
+        <source-file framework="true" src="libs/android/commonlib.aar" target-dir="libs/android" />
+        <source-file src="src/android/Zoom.java" target-dir="src/cordova/plugin/zoom" />
+        <framework custom="true" src="src/android/build-android.gradle" target-dir="." type="gradleReference" />        
+        <hook type="after_plugin_install" src="hooks/setUserPasswordZoomSDK.js" />
+        <hook type="after_prepare" src="hooks/modifyManifest.js" />      
     </platform>
 
     <!-- IOS section -->
