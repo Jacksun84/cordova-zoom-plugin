@@ -268,16 +268,22 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             MeetingService meetingService = mZoomSDK.getMeetingService();
             meetingService.addListener(this);
 
+            //Atempt to avoid password dialog in zoom interface when joining
+            string joinUrl="https://zoom.us/j/"+meetingNo+"?pwd="+meetingPassword;
+            boolean result = meetingService.handZoomWebUrl(joinUrl);
+
+            PluginResult pr = (result) 
+                ? new PluginResult(PluginResult.Status.OK, getMeetingErrorMessage(MeetingError.MEETING_ERROR_SUCCESS))
+                : new PluginResult(PluginResult.Status.ERROR, "Error joining meeting (handZoomWebUrl)");
+            pr.setKeepCallback(true);
+            callbackContext.sendPluginResult(pr);
+            return;
+
+            /*
             JoinMeetingParams params = new JoinMeetingParams();
             params.displayName = displayName;
             params.meetingNo = meetingNumber;
-            //params.password = meetingPassword;
-
-            /**  
-             * Attempt to use joinUrl instead of meetingNo and password to bypass the dialog password on Zoom UI
-             * This should restore the old behavior (no password dialog, smooth join) even after updgrade to 6.3.10.+
-             * */
-            params.zoomUrl = "https://zoom.us/j/"+meetingNo+"?pwd="+meetingPassword;
+            params.password = meetingPassword;
 
             JoinMeetingOptions opts = new JoinMeetingOptions();
             opts.no_audio = noAudio;
@@ -292,6 +298,8 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             }
             pluginResult1.setKeepCallback(true);
             callbackContext.sendPluginResult(pluginResult1);
+
+            */
         });
     }
 
