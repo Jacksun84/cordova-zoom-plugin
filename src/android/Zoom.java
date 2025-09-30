@@ -236,7 +236,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
      */
     private void joinMeeting(String meetingNo, String meetingPassword, String displayName, boolean noAudio, boolean noVideo, CallbackContext callbackContext) {
         cordova.getActivity().runOnUiThread(() -> {
-            Log.v(TAG, "********** Zoom's join meeting called ,meetingNo=" + meetingNo + " **********");
+            Log.v(TAG, "********** Zoom's join meeting called ,meetingNo=" + meetingNo + " meetingPwd="+meetingPassword+" **********");
 
             if (meetingNo == null || meetingNo.trim().isEmpty() || meetingNo.equals("null")) {
                 callbackContext.error("Meeting number cannot be empty");
@@ -271,7 +271,13 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             JoinMeetingParams params = new JoinMeetingParams();
             params.displayName = displayName;
             params.meetingNo = meetingNumber;
-            params.password = meetingPassword;
+            //params.password = meetingPassword;
+
+            /**  
+             * Attempt to use joinUrl instead of meetingNo and password to bypass the dialog password on Zoom UI
+             * This should restore the old behavior (no password dialog, smooth join) even after updgrade to 6.3.10.+
+             * */
+            params.zoomUrl = "https://zoom.us/j/"+meetingNo+"?pwd="+meetingPassword;
 
             JoinMeetingOptions opts = new JoinMeetingOptions();
             opts.no_audio = noAudio;
