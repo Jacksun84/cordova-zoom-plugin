@@ -38,6 +38,7 @@ module.exports = function (context) {
         }
 
         // Function to check if attribute already exists in tools:node
+        /*
         function checkAndAddToolsNode(element, attributeValue) {
             const toolsNode = element.attrib['tools:node'];
             if (toolsNode) {
@@ -51,13 +52,14 @@ module.exports = function (context) {
             }
             return false;
         }
+        */
 
         // Modify <application> tag        
         const applications = manifestTree.findall(".//application[@android:networkSecurityConfig]");
         applications.forEach(application => {
             if (application.attrib['android:networkSecurityConfig'] === '@xml/network_security_config') {
                 modified = checkAndAddToolsReplace(application, 'android:networkSecurityConfig') || modified;
-                modified = checkAndAddToolsNode(application, 'replace') || modified;
+                //modified = checkAndAddToolsNode(application, 'replace') || modified; This was the suggestion, but it doesn't work
             }
         });
         
