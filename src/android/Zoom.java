@@ -281,6 +281,8 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             return;
             */
             
+            Log.i(TAG, "*** Zoom's join meeting called ,meetingNo=" + meetingNo + " meetingPwd="+meetingPassword+" displayName="+displayName+" ***");
+
             JoinMeetingParams params = new JoinMeetingParams();
             params.displayName = displayName;
             params.meetingNo = meetingNumber;
