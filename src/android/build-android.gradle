@@ -1,4 +1,4 @@
-/**apply plugin: 'org.jetbrains.compose'**/
+apply plugin: 'org.jetbrains.compose'
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
