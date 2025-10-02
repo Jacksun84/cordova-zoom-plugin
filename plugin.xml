@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="cordova.plugin.zoom" version="5.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+<plugin id="cordova.plugin.zoom" version="5.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
     <name>Zoom</name>
     <js-module name="Zoom" src="www/Zoom.js">
         <clobbers target="cordova.plugins.Zoom" />
@@ -39,9 +39,9 @@
         <dependency id="cordova-androidx-build" url="https://github.com/Pushwoosh/cordova-androidx-build.git#1.1-OS" />
         <source-file framework="true" src="libs/android/commonlib.aar" target-dir="libs/android" />
         <source-file src="src/android/Zoom.java" target-dir="src/cordova/plugin/zoom" />
-        <framework custom="true" src="src/android/build-android.gradle" target-dir="." type="gradleReference" />        
+        <framework custom="true" src="src/android/build-android.gradle" target-dir="." type="gradleReference" />
         <hook type="after_plugin_install" src="hooks/setUserPasswordZoomSDK.js" />
-        <hook type="after_prepare" src="hooks/modifyManifest.js" />      
+        <hook type="after_prepare" src="hooks/modifyManifest.js" />
     </platform>
 
     <!-- IOS section -->
