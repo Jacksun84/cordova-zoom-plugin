@@ -10,6 +10,9 @@ android {
     packagingOptions {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/LICENSE'
+
+        // Optional, try excluding the resource file
+        exclude "res/xml/msdk_network_security_config.xml"
     }
     lintOptions {
         checkReleaseBuilds false
