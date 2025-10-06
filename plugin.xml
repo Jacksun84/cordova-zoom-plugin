@@ -29,13 +29,6 @@
             </feature>
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml">
-
-            <!-- Override networkSecurityConfig attribute -->
-             <application
-                xmlns:tools="http://schemas.android.com/tools"
-                android:networkSecurityConfig="@xml/merged_network_security_config"
-                tools:replace="android:networkSecurityConfig" />
-
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.READ_PHONE_STATE" />
