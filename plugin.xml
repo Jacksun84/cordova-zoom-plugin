@@ -8,6 +8,20 @@
      <!-- Android section -->
     <platform name="android">
         <preference name="ANDROID_ZOOM_SDK_PASSWORD"/>
+        
+        <!-- Include merged config -->
+        <resource-file src="src/android/res/xml/merged_network_security_config.xml"
+                    target="app/src/main/res/xml/merged_network_security_config.xml" />
+
+        <!-- Override networkSecurityConfig attribute -->
+         <!--
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <application
+                xmlns:tools="http://schemas.android.com/tools"
+                android:networkSecurityConfig="@xml/merged_network_security_config"
+                tools:replace="android:networkSecurityConfig" />
+        </config-file>
+        -->
 
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="Zoom">
@@ -15,6 +29,13 @@
             </feature>
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml">
+
+            <!-- Override networkSecurityConfig attribute -->
+             <application
+                xmlns:tools="http://schemas.android.com/tools"
+                android:networkSecurityConfig="@xml/merged_network_security_config"
+                tools:replace="android:networkSecurityConfig" />
+
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.READ_PHONE_STATE" />
