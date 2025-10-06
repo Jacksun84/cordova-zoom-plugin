@@ -37,8 +37,22 @@ module.exports = function (context) {
             return false;
         }
 
+        // Function to check if attribute already exists in tools:remove
+        function checkAndAddToolsRemove(element, attributeValue) {
+            const toolsRemove = element.attrib['tools:remove'];
+            if (toolsRemove) {
+                if (!toolsRemove.split(',').includes(attributeValue)) {
+                    element.attrib['tools:remove'] = toolsRemove + ',' + attributeValue;
+                    return true;
+                }
+            } else {
+                element.attrib['tools:remove'] = attributeValue;
+                return true;
+            }
+            return false;
+        }
+
         // Function to check if attribute already exists in tools:node
-        /*
         function checkAndAddToolsNode(element, attributeValue) {
             const toolsNode = element.attrib['tools:node'];
             if (toolsNode) {
@@ -52,22 +66,20 @@ module.exports = function (context) {
             }
             return false;
         }
-        */
 
         // Modify <application> tag
-        /*
         const applications = manifestTree.findall(".//application[@android:networkSecurityConfig]");
         applications.forEach(application => {
             if (application.attrib['android:networkSecurityConfig'] === '@xml/network_security_config') {
-                modified = checkAndAddToolsReplace(application, 'android:networkSecurityConfig') || modified;
+                //modified = checkAndAddToolsReplace(application, 'android:networkSecurityConfig') || modified;
 
-                //modified = checkAndAddToolsNode(application, 'replace') || modified; This was the suggestion, but it doesn't work
+                modified = checkAndAddToolsNode(application, 'merge') || modified; //This was the suggestion, but it doesn't work
+                modified = checkAndAddToolsRemove(application, 'remove') || modified;
 
                 // Override networkSecurityConfig attribute
                 application.attrib['android:networkSecurityConfig'] = '@xml/merged_network_security_config';
             }
         });
-        */
         
 
         // Modify <provider> tag

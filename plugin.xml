@@ -20,9 +20,11 @@
         </config-file>
         <config-file parent="/*" target="AndroidManifest.xml">
             <!-- Try removing the Zoom SDK's attribute entirely during merge-->
+            <!--
             <application tools:node="merge"
             tools:remove="android:networkSecurityConfig"
             android:networkSecurityConfig="@xml/merged_network_security_config" />
+            -->
 
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.INTERNET" />
