@@ -74,7 +74,7 @@ module.exports = function (context) {
                 //modified = checkAndAddToolsReplace(application, 'android:networkSecurityConfig') || modified;
 
                 modified = checkAndAddToolsNode(application, 'merge') || modified; //This was the suggestion, but it doesn't work
-                modified = checkAndAddToolsRemove(application, 'remove') || modified;
+                modified = checkAndAddToolsRemove(application, 'android:networkSecurityConfig') || modified;
 
                 // Override networkSecurityConfig attribute
                 application.attrib['android:networkSecurityConfig'] = '@xml/merged_network_security_config';
