@@ -71,13 +71,13 @@ module.exports = function (context) {
         const applications = manifestTree.findall(".//application[@android:networkSecurityConfig]");
         applications.forEach(application => {
             if (application.attrib['android:networkSecurityConfig'] === '@xml/network_security_config') {
-                //modified = checkAndAddToolsReplace(application, 'android:networkSecurityConfig') || modified;
+                modified = checkAndAddToolsReplace(application, 'android:networkSecurityConfig') || modified;
 
-                modified = checkAndAddToolsNode(application, 'merge') || modified; //This was the suggestion, but it doesn't work
-                modified = checkAndAddToolsRemove(application, 'android:networkSecurityConfig') || modified;
+                //modified = checkAndAddToolsNode(application, 'merge') || modified; //This was the suggestion, but it doesn't work
+                //modified = checkAndAddToolsRemove(application, 'android:networkSecurityConfig') || modified;
 
                 // Override networkSecurityConfig attribute
-                application.attrib['android:networkSecurityConfig'] = '@xml/merged_network_security_config';
+                //application.attrib['android:networkSecurityConfig'] = '@xml/merged_network_security_config';
             }
         });
         
