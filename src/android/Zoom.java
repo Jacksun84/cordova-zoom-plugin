@@ -283,6 +283,9 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             
             Log.i(TAG, "*** Zoom's join meeting called ,meetingNo=" + meetingNo + " meetingPwd="+meetingPassword+" displayName="+displayName+" ***");
 
+            MeetingService meetingService = mZoomSDK.getMeetingService();
+            meetingService.addListener(this);
+            
             JoinMeetingParams params = new JoinMeetingParams();
             params.displayName = displayName;
             params.meetingNo = meetingNumber;
@@ -308,7 +311,10 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
     public void onMeetingStatusChanged(MeetingStatus meetingStatus, int errorCode, int internalErrorCode) {
         Log.i(TAG, "onMeetingStatusChanged, meetingStatus=" + meetingStatus + ", errorCode=" + errorCode + ", internalErrorCode=" + internalErrorCode);
 
-        sendMeetingCallback(meetingStatus);
+        //sendMeetingCallback(meetingStatus);
+        sendMeetingCallback(
+            meetingStatus 
+            + "onMeetingStatusChanged, meetingStatus=\" + meetingStatus + \", errorCode=\" + errorCode + \", internalErrorCode=\" + internalErrorCode");
     }
 
     @Override

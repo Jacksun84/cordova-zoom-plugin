@@ -10,9 +10,10 @@
         <preference name="ANDROID_ZOOM_SDK_PASSWORD"/>
         
         <!-- Include merged config -->
+         <!--
         <resource-file src="src/android/res/xml/merged_network_security_config.xml"
                     target="app/src/main/res/xml/merged_network_security_config.xml" />
-
+        -->
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="Zoom">
                 <param name="android-package" value="cordova.plugin.zoom.Zoom" />
