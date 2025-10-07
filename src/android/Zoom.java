@@ -318,6 +318,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
                     ", internalErrorCode="+internalErrorCode);
             pluginResult.setKeepCallback(true);
             this.callStatusCallback.sendPluginResult(pluginResult);
+        }
 
         sendMeetingCallback(meetingStatus);
     }
