@@ -8,6 +8,7 @@ import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.IllformedLocaleException;
 import java.util.Locale;
 
 import us.zoom.sdk.JoinMeetingOptions;
@@ -61,6 +62,9 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
         this.callbackContext = callbackContext;
 
         switch(action) {
+            case "isSDKInitialized":
+                isSDKInitialized(callbackContext);
+                break;
             case "initialize":
                 String jwtToken = args.getString(0);
                 String languageTag = "en_US";
@@ -92,6 +96,24 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
                 return false;
         }
         return true;
+    }
+
+    /**
+     * isSDKInitialized
+     * Check if the SDK was already initialized
+     * 
+     * @param callbackContext
+     */
+    private void isSDKInitialized(CallbackContext callbackContext) {
+        cordova.getActivity().runOnUiThread(() -> {
+            try {
+                boolean initialized = mZoomSDK != null && mZoomSDK.isInitialized();
+                PluginResult result = new PluginResult(PluginResult.Status.OK, initialized);
+                callbackContext.sendPluginResult(result);
+            } catch (Exception e) {
+                callbackContext.error("Error checking SDK initialization: " + e.getMessage());
+            }
+        });
     }
 
     /**
