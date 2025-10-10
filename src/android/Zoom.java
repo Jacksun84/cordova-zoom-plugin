@@ -256,6 +256,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             }
 
             PluginResult pluginResult;
+
             // If the Zoom SDK instance is not initialized, throw error.
             if(!mZoomSDK.isInitialized()) {
                 pluginResult =  new PluginResult(PluginResult.Status.ERROR, "ZoomSDK has not been initialized successfully");
@@ -267,19 +268,6 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             // Get meeting service instance.
             MeetingService meetingService = mZoomSDK.getMeetingService();
             meetingService.addListener(this);
-
-            /*
-            //Atempt to avoid password dialog in zoom interface when joining
-            String joinUrl="https://zoom.us/j/"+meetingNo+"?pwd="+meetingPassword;
-            boolean result = meetingService.handZoomWebUrl(joinUrl);
-
-            PluginResult pr = (result) 
-                ? new PluginResult(PluginResult.Status.OK, getMeetingErrorMessage(MeetingError.MEETING_ERROR_SUCCESS))
-                : new PluginResult(PluginResult.Status.ERROR, "Error joining meeting (handZoomWebUrl)");
-            pr.setKeepCallback(true);
-            callbackContext.sendPluginResult(pr);
-            return;
-            */
             
             Log.i(TAG, "*** Zoom's join meeting called ,meetingNo=" + meetingNo + " meetingPwd="+meetingPassword+" displayName="+displayName+" ***");
             
@@ -307,15 +295,6 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
     @Override
     public void onMeetingStatusChanged(MeetingStatus meetingStatus, int errorCode, int internalErrorCode) {
         Log.i(TAG, "onMeetingStatusChanged, meetingStatus=" + meetingStatus + ", errorCode=" + errorCode + ", internalErrorCode=" + internalErrorCode);
-
-        if(this.callStatusCallback != null) {
-            PluginResult pluginResult =  new PluginResult(
-                PluginResult.Status.OK,
-                    "onMeetingStatusChanged, errorCode="+errorCode+
-                    ", internalErrorCode="+internalErrorCode);
-            pluginResult.setKeepCallback(true);
-            this.callStatusCallback.sendPluginResult(pluginResult);
-        }
 
         sendMeetingCallback(meetingStatus);
     }
