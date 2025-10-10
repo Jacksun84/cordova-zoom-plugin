@@ -236,7 +236,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
      */
     private void joinMeeting(String meetingNo, String meetingPassword, String displayName, boolean noAudio, boolean noVideo, CallbackContext callbackContext) {
         cordova.getActivity().runOnUiThread(() -> {
-            Log.v(TAG, "********** Zoom's join meeting called ,meetingNo=" + meetingNo + " meetingPwd="+meetingPassword+" **********");
+            Log.v(TAG, "********** Zoom's join meeting called ,meetingNo=" + meetingNo +" **********");
 
             if (meetingNo == null || meetingNo.trim().isEmpty() || meetingNo.equals("null")) {
                 callbackContext.error("Meeting number cannot be empty");
@@ -268,8 +268,6 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             // Get meeting service instance.
             MeetingService meetingService = mZoomSDK.getMeetingService();
             meetingService.addListener(this);
-            
-            Log.i(TAG, "*** Zoom's join meeting called ,meetingNo=" + meetingNo + " meetingPwd="+meetingPassword+" displayName="+displayName+" ***");
             
             JoinMeetingParams params = new JoinMeetingParams();
             params.displayName = displayName;
