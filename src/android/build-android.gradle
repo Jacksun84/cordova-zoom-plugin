@@ -29,11 +29,17 @@ repositories {
         dirs 'libs/android'
     }
     maven {
-        url = uri("https://maven.pkg.github.com/Jacksun84/mobile-sdk-android")
+        url = uri("https://maven.pkg.github.com/pcamilojunior/mobile-sdk-android")
         credentials {
-            username = "Jacksun84"
+            username = "pcamilojunior"
             password = "ANDROID_ZOOM_SDK_PASSWORD"
         }
+
+        //url = uri("https://maven.pkg.github.com/Jacksun84/mobile-sdk-android")
+        //credentials {
+        //    username = "Jacksun84"
+        //    password = "ANDROID_ZOOM_SDK_PASSWORD"
+        //}
     }
 }
 
@@ -56,9 +62,9 @@ repositories {
 }**/
 
 dependencies {
-    /* implementation 'com.outsystems.experts:zoom-sdk-android:6.1.1.22760'   */
-    
-    implementation 'com.jacksun:zoom-sdk-android:6.3.10.27979'
+   // implementation 'com.jacksun:zoom-sdk-android:6.3.10.27979'
+
+    implementation 'com.outsystems.experts:zoom-sdk-android:6.3.10.27979'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation 'androidx.security:security-crypto:1.1.0-alpha05'
     implementation 'com.google.crypto.tink:tink-android:1.7.0'
