@@ -236,7 +236,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
      */
     private void joinMeeting(String meetingNo, String meetingPassword, String displayName, boolean noAudio, boolean noVideo, CallbackContext callbackContext) {
         cordova.getActivity().runOnUiThread(() -> {
-            Log.v(TAG, "********** Zoom's join meeting called ,meetingNo=" + meetingNo + " **********");
+            Log.v(TAG, "********** Zoom's join meeting called ,meetingNo=" + meetingNo +" **********");
 
             if (meetingNo == null || meetingNo.trim().isEmpty() || meetingNo.equals("null")) {
                 callbackContext.error("Meeting number cannot be empty");
@@ -256,6 +256,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             }
 
             PluginResult pluginResult;
+
             // If the Zoom SDK instance is not initialized, throw error.
             if(!mZoomSDK.isInitialized()) {
                 pluginResult =  new PluginResult(PluginResult.Status.ERROR, "ZoomSDK has not been initialized successfully");
@@ -267,7 +268,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             // Get meeting service instance.
             MeetingService meetingService = mZoomSDK.getMeetingService();
             meetingService.addListener(this);
-
+            
             JoinMeetingParams params = new JoinMeetingParams();
             params.displayName = displayName;
             params.meetingNo = meetingNumber;
@@ -328,7 +329,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             case MeetingError.MEETING_ERROR_CLIENT_INCOMPATIBLE:
                 message.append("Zoom SDK version is too low to connect to the meeting");
                 break;
-            case MeetingError.MEETING_ERROR_DISALLOW_HOST_RESGISTER_WEBINAR:
+            case MeetingError.MEETING_ERROR_DISALLOW_HOST_REGISTER_WEBINAR:
                 message.append("Cannot register a webinar using the host email");
                 break;
             case MeetingError.MEETING_ERROR_DISALLOW_PANELIST_REGISTER_WEBINAR:
