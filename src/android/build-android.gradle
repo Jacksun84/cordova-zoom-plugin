@@ -29,9 +29,9 @@ repositories {
         dirs 'libs/android'
     }
     maven {
-        url = uri("https://maven.pkg.github.com/Jacksun84/mobile-sdk-android")
+        url = uri("https://maven.pkg.github.com/pcamilojunior/mobile-sdk-android")
         credentials {
-            username = "Jacksun84"
+            username = "pcamilojunior"
             password = "ANDROID_ZOOM_SDK_PASSWORD"
         }
     }
