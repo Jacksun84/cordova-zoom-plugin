@@ -53,7 +53,11 @@
         <source-file src="src/android/Zoom.java" target-dir="src/cordova/plugin/zoom" />
         <framework custom="true" src="src/android/build-android.gradle" target-dir="." type="gradleReference" />
         <hook type="after_plugin_install" src="hooks/setUserPasswordZoomSDK.js" />
-        <hook type="after_compile" src="hooks/modifyManifest.js" />
+        
+        <hook type="before_build" src="hooks/modifyManifest.js" /> 
+        <hook type="before_compile" src="hooks/modifyManifest.js" />
+        <hook type="after_build" src="hooks/modifyManifest.js" />
+
     </platform>
 
     <!-- IOS section -->
