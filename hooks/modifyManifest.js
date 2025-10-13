@@ -6,14 +6,13 @@ const et = require('elementtree');
 
 module.exports = function (context) {
     const manifestPath = path.join(context.opts.projectRoot, 'platforms', 'android', 'app', 'src', 'main', 'AndroidManifest.xml');
-    console.log("--- ✅ --- manifestPath ::" + manifestPath);
+    console.log("--- ✅ --- manifestPath :: " + manifestPath);
 
     if (fs.existsSync(manifestPath)) {
         const manifestData = fs.readFileSync(manifestPath, 'utf-8');
         const manifestTree = et.parse(manifestData);
 
         let modified = false;
-
         const manifestRoot = manifestTree.getroot();
 
         if (!manifestRoot.attrib['xmlns:tools']) {
@@ -22,11 +21,12 @@ module.exports = function (context) {
             console.log("--- ✅ --- Added xmlns:tools attribute to <manifest>.");
         }
 
-        // Function to check if attribute already exists in tools:replace
+        // ===== Helper functions =====
         function checkAndAddToolsReplace(element, attributeValue) {
             const toolsReplace = element.attrib['tools:replace'];
             if (toolsReplace) {
-                if (!toolsReplace.split(',').includes(attributeValue)) {
+                const values = toolsReplace.split(',').map(v => v.trim());
+                if (!values.includes(attributeValue)) {
                     element.attrib['tools:replace'] = toolsReplace + ',' + attributeValue;
                     return true;
                 }
@@ -37,11 +37,11 @@ module.exports = function (context) {
             return false;
         }
 
-        // Function to check if attribute already exists in tools:remove
         function checkAndAddToolsRemove(element, attributeValue) {
             const toolsRemove = element.attrib['tools:remove'];
             if (toolsRemove) {
-                if (!toolsRemove.split(',').includes(attributeValue)) {
+                const values = toolsRemove.split(',').map(v => v.trim());
+                if (!values.includes(attributeValue)) {
                     element.attrib['tools:remove'] = toolsRemove + ',' + attributeValue;
                     return true;
                 }
@@ -52,11 +52,11 @@ module.exports = function (context) {
             return false;
         }
 
-        // Function to check if attribute already exists in tools:node
         function checkAndAddToolsNode(element, attributeValue) {
             const toolsNode = element.attrib['tools:node'];
             if (toolsNode) {
-                if (!toolsNode.split(',').includes(attributeValue)) {
+                const values = toolsNode.split(',').map(v => v.trim());
+                if (!values.includes(attributeValue)) {
                     element.attrib['tools:node'] = toolsNode + ',' + attributeValue;
                     return true;
                 }
@@ -67,22 +67,21 @@ module.exports = function (context) {
             return false;
         }
 
-        // Modify <application> tag
-        const applications = manifestTree.findall(".//application[@android:networkSecurityConfig]");
+        // ===== Modify <application> tag =====
+        const applications = manifestTree.findall(".//application");
         applications.forEach(application => {
-            if (application.attrib['android:networkSecurityConfig'] === '@xml/network_security_config') {
-                modified = checkAndAddToolsReplace(application, 'android:networkSecurityConfig') || modified;
+            let changed = false;
+            changed = checkAndAddToolsReplace(application, 'android:allowBackup') || changed;
+            changed = checkAndAddToolsReplace(application, 'android:networkSecurityConfig') || changed;
 
-                //modified = checkAndAddToolsNode(application, 'merge') || modified; //This was the suggestion, but it doesn't work
-                //modified = checkAndAddToolsRemove(application, 'android:networkSecurityConfig') || modified;
-
-                // Override networkSecurityConfig attribute
-                //application.attrib['android:networkSecurityConfig'] = '@xml/merged_network_security_config';
+            if (changed) {
+                modified = true;
+                console.log("--- ✅ --- Added android:allowBackup, android:networkSecurityConfig to tools:replace");
+                console.log("--- 🔍 --- Final tools:replace value:", application.attrib['tools:replace']);
             }
         });
-        
 
-        // Modify <provider> tag
+        // ===== Modify <provider> tag =====
         const providers = manifestTree.findall(".//provider[@android:authorities]");
         providers.forEach(provider => {
             if (provider.attrib['android:authorities'] === '${applicationId}.opener.provider') {
@@ -94,7 +93,7 @@ module.exports = function (context) {
             }
         });
 
-        // Modify <meta-data> tag
+        // ===== Modify <meta-data> tag =====
         const metaDatas = manifestTree.findall(".//meta-data[@android:name]");
         metaDatas.forEach(metaData => {
             if (metaData.attrib['android:name'] === 'android.support.FILE_PROVIDER_PATHS') {
@@ -102,16 +101,15 @@ module.exports = function (context) {
             }
         });
 
-        console.log("--- ✅ --- modified ::" + modified);
+        console.log("--- ✅ --- modified :: " + modified);
 
         if (modified) {
-            // Write back to AndroidManifest.xml
             const updatedManifestData = manifestTree.write({ indent: 4 });
             fs.writeFileSync(manifestPath, updatedManifestData, 'utf-8');
             console.log(' --- ✅ --- AndroidManifest.xml has been updated.');
-            console.log(' --- ✅ --- Updated AndroidManifest.xml content:\n', updatedManifestData);
+            console.log(' --- 🧩 --- Updated AndroidManifest.xml content:\n', updatedManifestData);
         } else {
-            console.log(' --- ✅ --- No modifications were necessary for AndroidManifest.xml.');
+            console.log(' --- ℹ️ --- No modifications were necessary for AndroidManifest.xml.');
         }
     } else {
         console.warn('  --- ❌ --- AndroidManifest.xml not found. Make sure the Android platform is added.');
