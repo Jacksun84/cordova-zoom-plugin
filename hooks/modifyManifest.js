@@ -5,65 +5,115 @@ const path = require('path');
 const et = require('elementtree');
 
 module.exports = function (context) {
-    const manifestPath = path.join(
-        context.opts.projectRoot,
-        'platforms',
-        'android',
-        'app',
-        'src',
-        'main',
-        'AndroidManifest.xml'
-    );
+    const manifestPath = path.join(context.opts.projectRoot, 'platforms', 'android', 'app', 'src', 'main', 'AndroidManifest.xml');
+    console.log("--- ✅ --- manifestPath ::" + manifestPath);
 
-    console.log("[Zoom Plugin] 📄 Manifest path:", manifestPath);
+    if (fs.existsSync(manifestPath)) {
+        const manifestData = fs.readFileSync(manifestPath, 'utf-8');
+        const manifestTree = et.parse(manifestData);
 
-    if (!fs.existsSync(manifestPath)) {
-        console.warn("[Zoom Plugin] ⚠️ AndroidManifest.xml not found!");
-        return;
-    }
+        let modified = false;
 
-    const manifestData = fs.readFileSync(manifestPath, 'utf-8');
-    const manifestTree = et.parse(manifestData);
-    const manifestRoot = manifestTree.getroot();
+        const manifestRoot = manifestTree.getroot();
 
-    let modified = false;
-
-    // ✅ Garantir xmlns:tools
-    if (!manifestRoot.attrib['xmlns:tools']) {
-        manifestRoot.attrib['xmlns:tools'] = "http://schemas.android.com/tools";
-        console.log("[Zoom Plugin] ✅ Added xmlns:tools to <manifest>");
-        modified = true;
-    }
-
-    // ✅ Pega a tag <application>
-    const application = manifestTree.find(".//application");
-    if (application) {
-        const toolsReplace = application.attrib['tools:replace'];
-
-        if (toolsReplace) {
-            // Já existe tools:replace → adicionar android:networkSecurityConfig se faltar
-            if (!toolsReplace.includes('android:networkSecurityConfig')) {
-                application.attrib['tools:replace'] = toolsReplace + ',android:networkSecurityConfig';
-                console.log("[Zoom Plugin] 🔧 Added android:networkSecurityConfig to existing tools:replace");
-                modified = true;
-            }
-        } else {
-            // Não existe tools:replace → cria com os dois
-            application.attrib['tools:replace'] = 'android:allowBackup,android:networkSecurityConfig';
-            console.log("[Zoom Plugin] ✅ Created tools:replace with allowBackup + networkSecurityConfig");
+        if (!manifestRoot.attrib['xmlns:tools']) {
+            manifestRoot.attrib['xmlns:tools'] = "http://schemas.android.com/tools";
             modified = true;
+            console.log("--- ✅ --- Added xmlns:tools attribute to <manifest>.");
+        }
+
+        // Function to check if attribute already exists in tools:replace
+        function checkAndAddToolsReplace(element, attributeValue) {
+            const toolsReplace = element.attrib['tools:replace'];
+            if (toolsReplace) {
+                if (!toolsReplace.split(',').includes(attributeValue)) {
+                    element.attrib['tools:replace'] = toolsReplace + ',' + attributeValue;
+                    return true;
+                }
+            } else {
+                element.attrib['tools:replace'] = attributeValue;
+                return true;
+            }
+            return false;
+        }
+
+        // Function to check if attribute already exists in tools:remove
+        function checkAndAddToolsRemove(element, attributeValue) {
+            const toolsRemove = element.attrib['tools:remove'];
+            if (toolsRemove) {
+                if (!toolsRemove.split(',').includes(attributeValue)) {
+                    element.attrib['tools:remove'] = toolsRemove + ',' + attributeValue;
+                    return true;
+                }
+            } else {
+                element.attrib['tools:remove'] = attributeValue;
+                return true;
+            }
+            return false;
+        }
+
+        // Function to check if attribute already exists in tools:node
+        function checkAndAddToolsNode(element, attributeValue) {
+            const toolsNode = element.attrib['tools:node'];
+            if (toolsNode) {
+                if (!toolsNode.split(',').includes(attributeValue)) {
+                    element.attrib['tools:node'] = toolsNode + ',' + attributeValue;
+                    return true;
+                }
+            } else {
+                element.attrib['tools:node'] = attributeValue;
+                return true;
+            }
+            return false;
+        }
+
+        // Modify <application> tag
+        const applications = manifestTree.findall(".//application[@android:networkSecurityConfig]");
+        applications.forEach(application => {
+            if (application.attrib['android:networkSecurityConfig'] === '@xml/network_security_config') {
+                modified = checkAndAddToolsReplace(application, 'android:networkSecurityConfig') || modified;
+
+                //modified = checkAndAddToolsNode(application, 'merge') || modified; //This was the suggestion, but it doesn't work
+                //modified = checkAndAddToolsRemove(application, 'android:networkSecurityConfig') || modified;
+
+                // Override networkSecurityConfig attribute
+                //application.attrib['android:networkSecurityConfig'] = '@xml/merged_network_security_config';
+            }
+        });
+        
+
+        // Modify <provider> tag
+        const providers = manifestTree.findall(".//provider[@android:authorities]");
+        providers.forEach(provider => {
+            if (provider.attrib['android:authorities'] === '${applicationId}.opener.provider') {
+                modified = checkAndAddToolsReplace(provider, 'android:authorities') || modified;
+            }
+
+            if (provider.attrib['android:authorities'] === '${applicationId}.cdv.core.file.provider') {
+                modified = checkAndAddToolsReplace(provider, 'android:authorities') || modified;
+            }
+        });
+
+        // Modify <meta-data> tag
+        const metaDatas = manifestTree.findall(".//meta-data[@android:name]");
+        metaDatas.forEach(metaData => {
+            if (metaData.attrib['android:name'] === 'android.support.FILE_PROVIDER_PATHS') {
+                modified = checkAndAddToolsReplace(metaData, 'android:resource') || modified;
+            }
+        });
+
+        console.log("--- ✅ --- modified ::" + modified);
+
+        if (modified) {
+            // Write back to AndroidManifest.xml
+            const updatedManifestData = manifestTree.write({ indent: 4 });
+            fs.writeFileSync(manifestPath, updatedManifestData, 'utf-8');
+            console.log(' --- ✅ --- AndroidManifest.xml has been updated.');
+            console.log(' --- ✅ --- Updated AndroidManifest.xml content:\n', updatedManifestData);
+        } else {
+            console.log(' --- ✅ --- No modifications were necessary for AndroidManifest.xml.');
         }
     } else {
-        console.warn("[Zoom Plugin] ⚠️ <application> tag not found in AndroidManifest.xml");
-    }
-
-    // ✅ Salva arquivo atualizado
-    if (modified) {
-        const updatedData = manifestTree.write({ indent: 4 });
-        fs.writeFileSync(manifestPath, updatedData, 'utf-8');
-        console.log("[Zoom Plugin] ✅ AndroidManifest.xml updated successfully.");
-        console.log(updatedData);
-    } else {
-        console.log("[Zoom Plugin] ℹ️ No modifications needed in AndroidManifest.xml.");
+        console.warn('  --- ❌ --- AndroidManifest.xml not found. Make sure the Android platform is added.');
     }
 };
