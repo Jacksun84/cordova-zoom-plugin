@@ -1,7 +1,7 @@
 module.exports = function (context) {
   const { exec } = require("child_process");
 
-  console.log("Waiting for 100 milliseconds before executing delayed task...");
+  console.log("Waiting for 200 milliseconds before executing delayed task...");
 
   // Return a Promise so Cordova waits until completion
   return new Promise((resolve, reject) => {
@@ -25,7 +25,7 @@ module.exports = function (context) {
           resolve(); // signal completion
         }
       );
-    }, 100);
+    }, 200);
   });
 
 };

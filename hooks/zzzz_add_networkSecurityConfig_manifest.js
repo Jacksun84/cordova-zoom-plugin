@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-console.log("Running hook to add NetworkSecurityConfig tag to manifest required by Zoom");
-
 const fs = require('fs');
 const path = require('path');
 const et = require('elementtree');
