@@ -15,6 +15,7 @@ module.exports = function (context) {
         let modified = false;
         const manifestRoot = manifestTree.getroot();
 
+        // ===== Ensure xmlns:tools exists =====
         if (!manifestRoot.attrib['xmlns:tools']) {
             manifestRoot.attrib['xmlns:tools'] = "http://schemas.android.com/tools";
             modified = true;
@@ -37,46 +38,25 @@ module.exports = function (context) {
             return false;
         }
 
-        function checkAndAddToolsRemove(element, attributeValue) {
-            const toolsRemove = element.attrib['tools:remove'];
-            if (toolsRemove) {
-                const values = toolsRemove.split(',').map(v => v.trim());
-                if (!values.includes(attributeValue)) {
-                    element.attrib['tools:remove'] = toolsRemove + ',' + attributeValue;
-                    return true;
-                }
-            } else {
-                element.attrib['tools:remove'] = attributeValue;
-                return true;
-            }
-            return false;
-        }
-
-        function checkAndAddToolsNode(element, attributeValue) {
-            const toolsNode = element.attrib['tools:node'];
-            if (toolsNode) {
-                const values = toolsNode.split(',').map(v => v.trim());
-                if (!values.includes(attributeValue)) {
-                    element.attrib['tools:node'] = toolsNode + ',' + attributeValue;
-                    return true;
-                }
-            } else {
-                element.attrib['tools:node'] = attributeValue;
-                return true;
-            }
-            return false;
-        }
-
         // ===== Modify <application> tag =====
         const applications = manifestTree.findall(".//application");
         applications.forEach(application => {
             let changed = false;
+
+            // 👇 This reproduces the OutSystems plugin behavior
+            if (application.attrib['android:allowBackup'] !== 'false') {
+                application.attrib['android:allowBackup'] = 'false';
+                changed = true;
+                console.log("--- 🩵 --- Set android:allowBackup=\"false\" (same as OutSystems disable-backup).");
+            }
+
+            // Add our networkSecurityConfig replace rule
             changed = checkAndAddToolsReplace(application, 'android:allowBackup') || changed;
             changed = checkAndAddToolsReplace(application, 'android:networkSecurityConfig') || changed;
 
             if (changed) {
                 modified = true;
-                console.log("--- ✅ --- Added android:allowBackup, android:networkSecurityConfig to tools:replace");
+                console.log("--- ✅ --- Updated tools:replace for application.");
                 console.log("--- 🔍 --- Final tools:replace value:", application.attrib['tools:replace']);
             }
         });
