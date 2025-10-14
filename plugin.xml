@@ -59,7 +59,9 @@
         <hook type="before_compile" src="hooks/modifyManifest.js" />
         <hook type="after_build" src="hooks/modifyManifest.js" />
 
-        <hook type="after_prepare" src="hooks/removeDisableBackupPlugin.js" />
+        <hook type="after_build" src="hooks/disableBackupOverride.js" />
+
+        <!-- <hook type="after_prepare" src="hooks/removeDisableBackupPlugin.js" /> -->
 
     </platform>
 
