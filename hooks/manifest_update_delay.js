@@ -16,8 +16,8 @@ module.exports = function(context) {
     }
 
     // Delay the execution by 5 seconds (5000 ms)
-    console.log("Waiting for 5 seconds before executing delayed task...");
-    setTimeout(delayedExecution, 5000); // Change 5000 to the delay you need in ms
+    console.log("Waiting for 300 miliseconds before executing delayed task...");
+    setTimeout(delayedExecution, 300); // Change 5000 to the delay you need in ms
 
     /*
     return Q.delay(5000)  // Delay for 5 seconds using Q library
