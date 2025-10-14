@@ -1,29 +1,31 @@
-module.exports = function(context) {
-    const exec = require('child_process').exec;
+module.exports = function (context) {
+  const { exec } = require("child_process");
 
-    // Function to be executed with a delay
-    function delayedExecution() {
-        console.log("Executing delayed action after 5 seconds");
+  console.log("Waiting for 100 milliseconds before executing delayed task...");
 
-        // Your logic here
-        exec('node plugins/cordova.plugin.zoom/hooks/zzzz_add_networkSecurityConfig_manifest.js', (err, stdout, stderr) => {
-            if (err) {
-                console.error("Error executing delayed script:", err);
-                return;
-            }
-            console.log("Zoom plugin script executed successfully.");
-        });
-    }
+  // Return a Promise so Cordova waits until completion
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("Executing delayed action after 100ms");
 
-    // Delay the execution by 5 seconds (5000 ms)
-    console.log("Waiting for 100 miliseconds before executing delayed task...");
-    setTimeout(delayedExecution, 100); // Change 5000 to the delay you need in ms
+      // Run your secondary script
+      exec(
+        "node plugins/cordova.plugin.zoom/hooks/zzzz_add_networkSecurityConfig_manifest.js",
+        (err, stdout, stderr) => {
+          console.log("Zoom plugin stdout:", stdout);
+          console.log("Zoom plugin stderr:", stderr);
 
-    /*
-    return Q.delay(5000)  // Delay for 5 seconds using Q library
-        .then(delayedExecution)  // Execute the delayed function after the delay
-        .catch((err) => {
-            console.error("Error during delayed execution:", err);
-        });
-    */
+          if (err) {
+            console.error("Error executing delayed script:", err);
+            reject(err); // reject the promise on error
+            return;
+          }
+
+          console.log("Zoom plugin script executed successfully.");
+          resolve(); // signal completion
+        }
+      );
+    }, 100);
+  });
+
 };
