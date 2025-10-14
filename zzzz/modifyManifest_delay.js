@@ -1,31 +1,31 @@
 module.exports = function (context) {
   const { exec } = require("child_process");
+  const path = require("path");
 
-  console.log("Waiting for 200 milliseconds before executing delayed task...");
+  console.log("[Zoom Plugin] Waiting 200ms before final manifest adjustment...");
 
-  // Return a Promise so Cordova waits until completion
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      console.log("Executing delayed action after 100ms");
-
-      // Run your secondary script
-      exec(
-        "node plugins/cordova.plugin.zoom/hooks/zzzz_add_networkSecurityConfig_manifest.js",
-        (err, stdout, stderr) => {
-          console.log("Zoom plugin stdout:", stdout);
-          console.log("Zoom plugin stderr:", stderr);
-
-          if (err) {
-            console.error("Error executing delayed script:", err);
-            reject(err); // reject the promise on error
-            return;
-          }
-
-          console.log("Zoom plugin script executed successfully.");
-          resolve(); // signal completion
-        }
+      const projectRoot = context.opts.projectRoot;
+      const scriptPath = path.join(
+        projectRoot,
+        "plugins/cordova.plugin.zoom/zzzz/zzzz_add_networkSecurityConfig_manifest.js"
       );
+
+      console.log("[Zoom Plugin] Executing:", scriptPath);
+
+      exec(`node "${scriptPath}"`, (err, stdout, stderr) => {
+        console.log("[Zoom Plugin] stdout:", stdout);
+        console.log("[Zoom Plugin] stderr:", stderr);
+
+        if (err) {
+          console.error("[Zoom Plugin] Error executing script:", err);
+          return reject(err);
+        }
+
+        console.log("[Zoom Plugin] Manifest update complete.");
+        resolve();
+      });
     }, 200);
   });
-
 };

@@ -39,7 +39,7 @@ module.exports = function (context) {
         // Modify <application> tag
         const applications = manifestTree.findall(".//application[@android:networkSecurityConfig]");
         applications.forEach(application => {
-            console.log("--- ✅ [Zoom Plugin] -- application ::" + application.attrib);
+            console.log("--- ✅ [Zoom Plugin] -- application ::" + application.attrib['android:networkSecurityConfig']);
             if (application.attrib['android:networkSecurityConfig'] === '@xml/network_security_config') {
                 modified = checkAndAddToolsReplace(application, 'android:networkSecurityConfig') || modified;
             }
@@ -49,7 +49,7 @@ module.exports = function (context) {
         // Modify <toolreplace> attribute
         const toolsReplaces = manifestTree.findall(".//application[@tools:replace]");
         toolsReplaces.forEach(tr => {
-            console.log("--- ✅ [Zoom Plugin] --- tools replace ::" + tr.attrib);
+            console.log("--- ✅ [Zoom Plugin] --- tools replace ::" + tr.attrib['tools:replace']);
             if (tr.attrib['tools:replace'] === 'android:allowBackup') {
                 modified = checkAndAddToolsReplace(tr, 'android:networkSecurityConfig') || modified;
             }
