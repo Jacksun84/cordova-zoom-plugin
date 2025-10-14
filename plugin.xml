@@ -55,11 +55,8 @@
         <framework custom="true" src="src/android/build-android.gradle" target-dir="." type="gradleReference" />
         <hook type="after_plugin_install" src="hooks/setUserPasswordZoomSDK.js" />
         
-        <hook type="before_build" src="hooks/modifyManifest.js" /> 
         <hook type="before_compile" src="hooks/modifyManifest.js" />
-        <hook type="after_build" src="hooks/modifyManifest.js" />
-
-        <hook type="after_build" src="hooks/disableBackupOverride.js" />
+        <hook type="after_compile" src="hooks/disableBackupOverride.js" />
         <hook type="after_compile" src="hooks/disableBackupOverride.js" />
 
         <!-- <hook type="after_prepare" src="hooks/removeDisableBackupPlugin.js" /> -->
