@@ -40,6 +40,7 @@ module.exports = function (context) {
         // Modify <application> tag
         const applications = manifestTree.findall(".//application[@android:networkSecurityConfig]");
         applications.forEach(application => {
+            console.log("--- ✅ [Zoom Plugin] -- application ::" + application.attrib);
             if (application.attrib['android:networkSecurityConfig'] === '@xml/network_security_config') {
                 modified = checkAndAddToolsReplace(application, 'android:networkSecurityConfig') || modified;
             }
