@@ -1,12 +1,5 @@
 module.exports = function(context) {
     const exec = require('child_process').exec;
-    const path = require('path');
-
-    // Get the project root
-    const projectRoot = context.opts.projectRoot;
-
-    // Build the correct path to the script (adjust the path as necessary)
-    const scriptPath = path.join(projectRoot, 'plugins/cordova.plugin.zoom/hooks/zzzz_add_networkSecurityConfig_manifest.js');
 
     // Function to be executed with a delay
     function delayedExecution() {
