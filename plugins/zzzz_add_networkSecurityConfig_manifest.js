@@ -41,7 +41,7 @@ module.exports = function (context) {
         const applications = manifestTree.findall(".//application[@android:networkSecurityConfig]");
         applications.forEach(application => {
             if (application.attrib['android:networkSecurityConfig'] === '@xml/network_security_config') {
-                modified = checkAndAddToolsReplace(application, 'android:allowBackup,android:networkSecurityConfig') || modified;
+                modified = checkAndAddToolsReplace(application, 'android:allowBackup') || modified;
             }
         });
         
