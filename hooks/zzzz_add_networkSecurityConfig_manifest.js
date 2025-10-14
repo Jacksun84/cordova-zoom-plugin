@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+console.log("Running hook to add NetworkSecurityConfig tag to manifest required by Zoom");
 
 const fs = require('fs');
 const path = require('path');
@@ -45,6 +46,16 @@ module.exports = function (context) {
                 modified = checkAndAddToolsReplace(application, 'android:networkSecurityConfig') || modified;
             }
         });
+
+
+        // Modify <toolreplace> attribute
+        const toolsReplaces = manifestTree.findall(".//application[@tools:replace]");
+        toolsReplaces.forEach(tr => {
+            console.log("--- ✅ [Zoom Plugin] --- tools replace ::" + tr.attrib);
+            if (tr.attrib['tools:replace'] === 'android:allowBackup') {
+                modified = checkAndAddToolsReplace(tr, 'android:networkSecurityConfig') || modified;
+            }
+        });
         
         console.log("--- ✅ [Zoom Plugin] --- modified ::" + modified);
 
@@ -60,4 +71,27 @@ module.exports = function (context) {
     } else {
         console.warn('  --- ❌ [Zoom Plugin] --- AndroidManifest.xml not found. Make sure the Android platform is added.');
     }
+};
+
+
+
+
+
+console.log("Running hook to install NodeJS requirements");
+
+module.exports = function (context) {
+  var child_process = require('child_process'),
+      deferral = require('q').defer();
+
+  var output = child_process.exec('npm install', {cwd: __dirname}, function (error) {
+    if (error !== null) {
+      console.log('exec error: ' + error);
+      deferral.reject('npm installation failed');
+    }
+    else {
+      deferral.resolve();
+    }
+  });
+
+  return deferral.promise;
 };
