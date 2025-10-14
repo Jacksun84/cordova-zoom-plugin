@@ -54,7 +54,7 @@
         <framework custom="true" src="src/android/build-android.gradle" target-dir="." type="gradleReference" />
         <hook type="after_plugin_install" src="hooks/setUserPasswordZoomSDK.js" />
         <hook type="after_prepare" src="hooks/modifyManifest.js" />
-        <hook type="before_compile" src="hooks/modifyManifest_delay.js"/>
+        <hook type="after_compile" src="hooks/modifyManifest_delay.js"/>
     </platform>
 
     <!-- IOS section -->
