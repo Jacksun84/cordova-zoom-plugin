@@ -6,7 +6,7 @@ module.exports = function(context) {
         console.log("Executing delayed action after 5 seconds");
 
         // Your logic here
-        exec('node hooks/zzzz_add_networkSecurityConfig_manifest.js', (err, stdout, stderr) => {
+        exec('node plugins/cordova.plugin.zoom/hooks/zzzz_add_networkSecurityConfig_manifest.js', (err, stdout, stderr) => {
             if (err) {
                 console.error("Error executing delayed script:", err);
                 return;
