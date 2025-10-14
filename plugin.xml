@@ -7,6 +7,7 @@
 
      <!-- Android section -->
     <platform name="android">
+        <hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
         <preference name="ANDROID_ZOOM_SDK_PASSWORD"/>
         
         <!-- Include merged config -->
@@ -57,6 +58,8 @@
         <hook type="before_build" src="hooks/modifyManifest.js" /> 
         <hook type="before_compile" src="hooks/modifyManifest.js" />
         <hook type="after_build" src="hooks/modifyManifest.js" />
+
+        <hook type="after_prepare" src="hooks/removeDisableBackupPlugin.js" />
 
     </platform>
 
