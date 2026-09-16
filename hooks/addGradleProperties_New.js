@@ -16,7 +16,7 @@ module.exports = function(context) {
     if (fs.existsSync(gradlePropertiesPath)) {
         let content = fs.readFileSync(gradlePropertiesPath, 'utf8');
 
-        console.log(' --- ✅ --- Gradle properties path: ', gradlePropertiesPath);
+        console.log(' --- ✅ --- Gradle properties path:', gradlePropertiesPath);
         console.log(' --- 🔍 --- Gradle properties:\n', content);
         
         // Prevent duplicate appending

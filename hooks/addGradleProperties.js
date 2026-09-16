@@ -20,10 +20,10 @@ module.exports = function(context) {
         console.log(' --- 🔍 --- Gradle properties:\n', content);
         
         // Prevent duplicate appending
-        if (!content.includes('android.enableR8.fullMode')) {
+        /*if (!content.includes('android.enableR8.fullMode')) {
             fs.appendFileSync(gradlePropertiesPath, propertiesToAppend, 'utf8');
             console.log('--- 🧩 --- Successfully updated gradle.properties for MABS build with: .',propertiesToAppend);
-        }
+        }*/
     } else {
         console.warn('gradle.properties not found at: ' + gradlePropertiesPath);
     }
