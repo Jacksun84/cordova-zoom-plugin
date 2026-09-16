@@ -8,6 +8,10 @@
      <!-- Android section -->
     <platform name="android">
         <hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
+        
+        <!-- Add this hook to modify gradle.properties before compilation -->
+        <hook type="before_compile" src="hooks/addGradleProperties.js"/>
+
         <preference name="ANDROID_ZOOM_SDK_PASSWORD"/>
         
         <!-- Include merged config -->
