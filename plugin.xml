@@ -8,10 +8,6 @@
      <!-- Android section -->
     <platform name="android">
         <hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
-        
-        <!-- Add this hook to modify gradle.properties before compilation -->
-        <hook type="before_compile" src="hooks/addGradleProperties.js"/>
-
         <preference name="ANDROID_ZOOM_SDK_PASSWORD"/>
         
         <!-- Include merged config -->
@@ -58,6 +54,9 @@
         <source-file src="src/android/Zoom.java" target-dir="src/cordova/plugin/zoom" />
         <framework custom="true" src="src/android/build-android.gradle" target-dir="." type="gradleReference" />
         <hook type="after_plugin_install" src="hooks/setUserPasswordZoomSDK.js" />
+
+        <!-- Add this hook to modify gradle.properties to ensure R8 / Global Synthetics Handling in graddle.properties -->
+        <hook type="before_compile" src="hooks/addGradleProperties.js"/>
         
         <hook type="before_compile" src="hooks/modifyManifest.js" />
         <hook type="after_prepare" src="hooks/fixAllowBackup.js" />
