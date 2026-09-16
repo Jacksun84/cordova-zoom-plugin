@@ -23,6 +23,7 @@ module.exports = function(context) {
         if (!content.includes('android.enableJetifier')) {
             content += propertiesToAppend;
         }
+        console.log(' --- 🧩 --- Gradle properties file :\n', content);
 
         fs.writeFileSync(gradlePropertiesPath, content, 'utf8');
         console.log('Successfully cleaned and updated gradle.properties.');
