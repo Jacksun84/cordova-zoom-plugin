@@ -3,6 +3,14 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
+// Force the R8Task and Java compile tasks to use extended heap memory
+gradle.projectsEvaluated {
+    tasks.matching { it.name.startsWith("minify") || it.name.contains("R8") }.configureEach {
+        // Pass memory flags directly to the R8 worker process
+        options.forkOptions.jvmArgs += ['-Xmx4096m', '-XX:MaxMetaspaceSize=1024m']
+    }
+}
+
 // Force creation of proguard-rules.pro in the app directory during Gradle evaluation
 def proguardFile = file("proguard-rules.pro")
 if (!proguardFile.exists()) {
@@ -15,12 +23,6 @@ if (!proguardFile.exists()) {
 -dontwarn us.zoom.**
 -dontwarn com.zipow.**
 """
-}
-// 2. Force JVM Memory override directly on Gradle tasks
-gradle.projectsEvaluated {
-    tasks.withType(JavaCompile) {
-        options.compilerArgs << "-Xmaxerrs" << "1000"
-    }
 }
 
 android {
