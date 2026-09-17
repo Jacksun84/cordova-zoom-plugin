@@ -362,9 +362,6 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             case MeetingError.MEETING_ERROR_MMR_ERROR:
                 message.append("Server error");
                 break;
-            case MeetingError.MEETING_ERROR_CLIENT_INCOMPATIBLE:
-                message.append("Network error");
-                break;
             case MeetingError.MEETING_ERROR_NETWORK_UNAVAILABLE:
                 message.append("Network unavailable");
                 break;
@@ -392,7 +389,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             case MeetingError.MEETING_ERROR_UNKNOWN:
                 message.append("Unknown error");
                 break;
-            case MeetingError.MEETING_ERROR_USER_FULL:
+            case MeetingError.MEETING_ERROR_MEETING_OVER:
                 message.append("Number of participants is full.");
                 break;
             case MeetingError.MEETING_ERROR_WEB_SERVICE_FAILED:
