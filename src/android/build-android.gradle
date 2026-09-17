@@ -3,12 +3,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
-// Set heap memory directly on the root project's extra properties
-rootProject.ext {
-    org.gradle.jvmargs = "-Xmx4096m -XX:MaxMetaspaceSize=1024m"
-}
-
-// Automatically generate proguard-rules.pro if it's missing in the app container
+// 1. Generate proguard-rules.pro inside the app module if missing
 def proguardFile = file("../app/proguard-rules.pro")
 if (!proguardFile.exists()) {
     proguardFile.text = """
@@ -23,13 +18,13 @@ if (!proguardFile.exists()) {
 }
 
 android {
-    compileSdkVersion = 36
+    compileSdk = 36
     buildToolsVersion = "36.0.0"
 
     // Enable R8 / Code Shrinking [Enabling code shrinking (R8) forces AGP to pass a global synthetics consumer to D8, which resolves the Record desugaring conflict]
     defaultConfig {
         // Core library desugaring requires minSdkVersion 21+
-        minSdkVersion 24
+        minSdkVersion 28
         multiDexEnabled true
     }
     buildTypes {
@@ -70,6 +65,7 @@ android {
 }
 repositories {
     jcenter()
+    google()
     maven {
         url 'https://maven.google.com/'
         name 'Google'
