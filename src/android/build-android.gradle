@@ -11,8 +11,8 @@ gradle.projectsEvaluated {
     }
 }
 
-// Force creation of proguard-rules.pro in the app directory during Gradle evaluation
-def proguardFile = file("proguard-rules.pro")
+// Automatically generate proguard-rules.pro if it's missing in the app container
+def proguardFile = file("../app/proguard-rules.pro")
 if (!proguardFile.exists()) {
     proguardFile.text = """
 -keep class com.zipow.** { *; }
@@ -39,12 +39,12 @@ android {
         debug {
             minifyEnabled true
             //shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), '../app/proguard-rules.pro'
         }
         release {
             minifyEnabled true
             //shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), '../app/proguard-rules.pro'
         }
     }
     compileOptions {
