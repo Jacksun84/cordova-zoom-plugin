@@ -4,8 +4,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion = 36
-    buildToolsVersion = "36.0.0"
+    compileSdkVersion = 35
+    buildToolsVersion = "35.0.0"
 
     // Enable R8 / Code Shrinking [Enabling code shrinking (R8) forces AGP to pass a global synthetics consumer to D8, which resolves the Record desugaring conflict]
     defaultConfig {
@@ -15,13 +15,13 @@ android {
     }
     buildTypes {
         debug {
-            minifyEnabled false
-            shrinkResources false
+            minifyEnabled true
+            //shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         release {
-            minifyEnabled false
-            shrinkResources false
+            minifyEnabled true
+            //shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
