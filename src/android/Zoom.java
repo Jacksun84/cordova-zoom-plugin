@@ -391,9 +391,6 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             case MeetingError.MEETING_ERROR_UNKNOWN:
                 message.append("Unknown error");
                 break;
-            case MeetingError.MEETING_ERROR_MEETING_OVER:
-                message.append("Number of participants is full.");
-                break;
             case MeetingError.MEETING_ERROR_WEB_SERVICE_FAILED:
                 message.append("Request to web service failed.");
                 break;
