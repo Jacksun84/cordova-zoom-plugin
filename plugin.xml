@@ -10,8 +10,6 @@
         <hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
         <preference name="ANDROID_ZOOM_SDK_PASSWORD"/>
 
-        <!-- set the Gradle memory preference directly in config.xml-->
-        <preference name="GradlePluginJVMArgs" value="-Xmx4096m -XX:MaxMetaspaceSize=1024m" />
         
         <!-- Include merged config -->
          <!--

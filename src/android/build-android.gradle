@@ -16,6 +16,12 @@ if (!proguardFile.exists()) {
 -dontwarn com.zipow.**
 """
 }
+// 2. Force JVM Memory override directly on Gradle tasks
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xmaxerrs" << "1000"
+    }
+}
 
 android {
     compileSdkVersion = 36
@@ -44,6 +50,9 @@ android {
         coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '11'
     }
     // end
 
@@ -101,6 +110,9 @@ dependencies {
 
     //implementation 'com.outsystems.experts:zoom-sdk-android:6.3.10.27979'
     //implementation 'com.jacksun:zoom-sdk-android:6.3.10.27979'
+
+    // Desugar JDK library version for API 36 / AGP 8+
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
 
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation 'androidx.security:security-crypto:1.1.0-alpha05'
@@ -161,9 +173,6 @@ dependencies {
     implementation 'androidx.compose.material:material:1.9.4'
     implementation 'androidx.activity:activity-compose:1.11.0'
     implementation 'io.coil-kt:coil-compose:2.3.0'
-
-    // Add the desugar JDK library dependency
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
 
     implementation(name:'commonlib', ext:'aar')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
