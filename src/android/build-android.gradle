@@ -3,12 +3,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
-// Force the R8Task and Java compile tasks to use extended heap memory
-gradle.projectsEvaluated {
-    tasks.matching { it.name.startsWith("minify") || it.name.contains("R8") }.configureEach {
-        // Pass memory flags directly to the R8 worker process
-        options.forkOptions.jvmArgs += ['-Xmx4096m', '-XX:MaxMetaspaceSize=1024m']
-    }
+// Set heap memory directly on the root project's extra properties
+rootProject.ext {
+    org.gradle.jvmargs = "-Xmx4096m -XX:MaxMetaspaceSize=1024m"
 }
 
 // Automatically generate proguard-rules.pro if it's missing in the app container
@@ -38,12 +35,12 @@ android {
     buildTypes {
         debug {
             minifyEnabled true
-            //shrinkResources false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), '../app/proguard-rules.pro'
         }
         release {
             minifyEnabled true
-            //shrinkResources false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), '../app/proguard-rules.pro'
         }
     }
