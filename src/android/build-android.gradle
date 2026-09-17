@@ -7,20 +7,30 @@ android {
     compileSdkVersion = 36
     buildToolsVersion = "36.0.0"
 
+    // Enable R8 / Code Shrinking [Enabling code shrinking (R8) forces AGP to pass a global synthetics consumer to D8, which resolves the Record desugaring conflict]
     defaultConfig {
         // Core library desugaring requires minSdkVersion 21+
         minSdkVersion 24
+        multiDexEnabled true
     }
-
+    buildTypes {
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
     compileOptions {
         // Enable Java 8+ API desugaring
         coreLibraryDesugaringEnabled true
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
-    kotlinOptions {
-        jvmTarget = '17'
-    }
+    // end
+
     
     packagingOptions {
         exclude 'META-INF/NOTICE'
