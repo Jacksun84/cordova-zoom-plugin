@@ -7,13 +7,22 @@ apply plugin: 'kotlin-android'
 def proguardFile = file("../app/proguard-rules.pro")
 if (!proguardFile.exists()) {
     proguardFile.text = """
+# Zoom SDK keep rules
 -keep class com.zipow.** { *; }
 -keep class us.zoom.** { *; }
 -keep class com.jacksun.** { *; }
 -keep class cordova.plugin.zoom.** { *; }
+
 -keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
+
+# Ignore missing optional classes from Zoom SDK and Kotlin Swing extensions
 -dontwarn us.zoom.**
 -dontwarn com.zipow.**
+-dontwarn com.google.zxing.**
+-dontwarn java.awt.**
+-dontwarn javax.swing.**
+-dontwarn kotlinx.coroutines.swing.**
+-dontwarn io.reactivex.rxjava3.schedulers.Schedulers
 """
 }
 
@@ -145,7 +154,7 @@ dependencies {
     implementation 'org.jetbrains:annotations:23.0.0'
     // end
 
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.9.0'
+    //implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.9.0'
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1'
