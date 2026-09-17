@@ -3,9 +3,23 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
+// Force creation of proguard-rules.pro in the app directory during Gradle evaluation
+def proguardFile = file("proguard-rules.pro")
+if (!proguardFile.exists()) {
+    proguardFile.text = """
+-keep class com.zipow.** { *; }
+-keep class us.zoom.** { *; }
+-keep class com.jacksun.** { *; }
+-keep class cordova.plugin.zoom.** { *; }
+-keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
+-dontwarn us.zoom.**
+-dontwarn com.zipow.**
+"""
+}
+
 android {
-    compileSdkVersion = 35
-    buildToolsVersion = "35.0.0"
+    compileSdkVersion = 36
+    buildToolsVersion = "36.0.0"
 
     // Enable R8 / Code Shrinking [Enabling code shrinking (R8) forces AGP to pass a global synthetics consumer to D8, which resolves the Record desugaring conflict]
     defaultConfig {

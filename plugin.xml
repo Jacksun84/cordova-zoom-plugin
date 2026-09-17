@@ -17,7 +17,7 @@
         -->
 
         <!-- Mandatory to allocated 4GB heap memory in gradle.properties-->
-        <resource-file src="src/android/proguard-rules.pro" target="app/proguard-rules.pro" />
+        <!--<resource-file src="src/android/proguard-rules.pro" target="app/proguard-rules.pro" />-->
 
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="Zoom">
