@@ -7,7 +7,15 @@ apply plugin: 'kotlin-android'
 def proguardFile = file("../app/proguard-rules.pro")
 if (!proguardFile.exists()) {
     proguardFile.text = """
-# Zoom SDK keep rules
+# Cordova Core Reflection Rules (Prevents "Failed to create webview" crash)
+-keep class org.apache.cordova.** { *; }
+-keep public class * extends org.apache.cordova.CordovaPlugin
+-keep public class * extends org.apache.cordova.CordovaWebViewEngine
+-keep public class org.apache.cordova.engine.SystemWebViewEngine {
+    public <init>(android.content.Context, org.apache.cordova.CordovaPreferences);
+}
+
+# Zoom SDK Keep Rules
 -keep class com.zipow.** { *; }
 -keep class us.zoom.** { *; }
 -keep class com.jacksun.** { *; }
@@ -15,7 +23,7 @@ if (!proguardFile.exists()) {
 
 -keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
 
-# Ignore missing optional classes from Zoom SDK and Kotlin Swing extensions
+# Suppress Warnings
 -dontwarn us.zoom.**
 -dontwarn com.zipow.**
 -dontwarn com.google.zxing.**
@@ -154,7 +162,7 @@ dependencies {
     implementation 'org.jetbrains:annotations:23.0.0'
     // end
 
-    //implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.9.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.9.0'
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1'
