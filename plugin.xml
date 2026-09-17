@@ -60,7 +60,7 @@
         <hook type="after_plugin_install" src="hooks/setUserPasswordZoomSDK.js" />
 
         <!-- Add this hook to modify gradle.properties to ensure R8 / Global Synthetics Handling in graddle.properties -->
-        <hook type="before_plugin_install" src="hooks/addGradleProperties.js"/>
+        <hook type="before_build" src="hooks/addGradleProperties.js"/>
         
         <hook type="before_compile" src="hooks/modifyManifest.js" />
         <hook type="after_prepare" src="hooks/fixAllowBackup.js" />
