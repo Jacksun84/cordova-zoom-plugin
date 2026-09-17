@@ -362,7 +362,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             case MeetingError.MEETING_ERROR_MMR_ERROR:
                 message.append("Server error");
                 break;
-            case MeetingError.MEETING_ERROR_NETWORK_ERROR:
+            case MeetingError.MEETING_ERROR_CLIENT_INCOMPATIBLE:
                 message.append("Network error");
                 break;
             case MeetingError.MEETING_ERROR_NETWORK_UNAVAILABLE:
