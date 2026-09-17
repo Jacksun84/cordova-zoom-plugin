@@ -9,6 +9,9 @@
     <platform name="android">
         <hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
         <preference name="ANDROID_ZOOM_SDK_PASSWORD"/>
+
+        <!-- set the Gradle memory preference directly in config.xml-->
+        <preference name="GradlePluginJVMArgs" value="-Xmx4096m -XX:MaxMetaspaceSize=1024m" />
         
         <!-- Include merged config -->
          <!--
@@ -60,7 +63,7 @@
         <hook type="after_plugin_install" src="hooks/setUserPasswordZoomSDK.js" />
 
         <!-- Add this hook to modify gradle.properties to ensure R8 / Global Synthetics Handling in graddle.properties -->
-        <hook type="before_build" src="hooks/addGradleProperties.js"/>
+        <hook type="before_compile" src="hooks/addGradleProperties.js"/>
         
         <hook type="before_compile" src="hooks/modifyManifest.js" />
         <hook type="after_prepare" src="hooks/fixAllowBackup.js" />
