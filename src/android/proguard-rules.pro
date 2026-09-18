@@ -1,26 +1,42 @@
-# Prevent R8 from stripping Zoom SDK native interfaces and reflection classes
--keep class  us.zoom.**{*;}
--keep class  com.zipow.**{*;}
--keep class  us.zipow.**{*;}
--keep class  org.webrtc.**{*;}
--keep class  us.google.protobuf.**{*;}
--keep class  com.google.crypto.tink.**{*;}
--keep class  androidx.security.crypto.**{*;}
--keep class androidx.** {*;}
--keep class android.support.** {*;}
+# Cordova Core Reflection Rules
+-keep class org.apache.cordova.** { *; }
+-keep public class * extends org.apache.cordova.CordovaPlugin
+-keep public class * extends org.apache.cordova.CordovaWebViewEngine
+-keep public class org.apache.cordova.engine.SystemWebViewEngine {
+    public <init>(android.content.Context, org.apache.cordova.CordovaPreferences);
+}
+
+# Zoom SDK Keep Rules
+-keep class com.zipow.** { *; }
+-keep class us.zoom.** { *; }
+-keep class com.jacksun.** { *; }
+-keep class cordova.plugin.zoom.** { *; }
+-keep class org.webrtc.** { *; }
+-keep class us.google.protobuf.** { *; }
+-keep class com.google.crypto.tink.** { *; }
+-keep class androidx.security.crypto.** { *; }
+-keep class androidx.** { *; }
+-keep class android.support.** { *; }
 -keep class com.google.** { *; }
+
+-keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
+
+# Suppress Warnings
+-dontwarn us.zoom.**
+-dontwarn com.zipow.**
+-dontwarn com.google.zxing.**
+-dontwarn java.awt.**
+-dontwarn javax.swing.**
+-dontwarn kotlinx.coroutines.swing.**
+-dontwarn io.reactivex.rxjava3.schedulers.Schedulers
 -dontwarn com.android.**
 -dontwarn com.google.**
 -dontwarn com.microsoft.**
--dontwarn com.zipow.**
 -dontwarn javax.lang.**
 -dontwarn kotlin.jvm.internal.**
 -dontwarn kotlinx.parcelize.**
 -dontwarn org.**
--dontwarn us.zoom.**
 -dontwarn xcrash.**
--dontwarn java.awt.**
--dontwarn javax.swing.**
 -dontwarn kotlin.uuid.ExperimentalUuidApi
 -dontwarn kotlin.uuid.Uuid$Companion
 -dontwarn kotlin.uuid.Uuid

@@ -82,14 +82,7 @@ android {
         debug {
             minifyEnabled true
             shrinkResources false
-            // Lightweight R8 pass: Keep all classes, disable obfuscation & optimization
-            postprocessing {
-                removeUnusedCode false
-                removeUnusedResources false
-                obfuscate false
-                optimizeCode false
-                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), '../app/proguard-rules.pro'
-            }   
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), '../app/proguard-rules.pro'
         }
         release {
             minifyEnabled true
