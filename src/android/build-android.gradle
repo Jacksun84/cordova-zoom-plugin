@@ -1,21 +1,5 @@
 //apply plugin: 'org.jetbrains.compose'
 
-/*
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        // Upgrade Kotlin Gradle Plugin to support 2.x metadata
-        classpath 'com.android.tools.build:gradle:8.10.0'
-        classpath 'org.jetbrains.compose:compose-gradle-plugin:1.12.0'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.20'
-        classpath 'org.jetbrains.kotlin:compose-compiler-gradle-plugin:2.4.20'
-    }
-}
-*/
-
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
@@ -69,6 +53,63 @@ if (!proguardFile.exists()) {
 """
 }
 */
+
+// Generate the exact proguard.cfg file that AGP expects inside the app module
+def proguardContent = """
+# Cordova Core Reflection Rules (Prevents "Failed to create webview" crash)
+-keep class org.apache.cordova.** { *; }
+-keep public class * extends org.apache.cordova.CordovaPlugin
+-keep public class * extends org.apache.cordova.CordovaWebViewEngine
+-keep public class org.apache.cordova.engine.SystemWebViewEngine {
+    public <init>(android.content.Context, org.apache.cordova.CordovaPreferences);
+}
+
+# Zoom SDK Keep Rules
+-keep class com.zipow.** { *; }
+-keep class us.zoom.** { *; }
+-keep class com.jacksun.** { *; }
+-keep class cordova.plugin.zoom.** { *; }
+-keep class org.webrtc.** { *; }
+-keep class us.google.protobuf.** { *; }
+-keep class com.google.crypto.tink.** { *; }
+-keep class androidx.security.crypto.** { *; }
+
+-keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
+
+# Suppress ALL warnings for missing optional packages inside Zoom SDK
+-dontwarn us.zoom.**
+-dontwarn us.zoom.libtools.**
+-dontwarn us.zoom.intunelib.**
+-dontwarn us.zoom.thirdparty.login.**
+-dontwarn com.zipow.**
+-dontwarn com.google.zxing.**
+-dontwarn com.google.android.play.**
+-dontwarn com.google.firebase.**
+-dontwarn com.microsoft.**
+-dontwarn com.blueparrott.**
+-dontwarn com.davemorrissey.**
+-dontwarn com.scwang.smart.refresh.**
+-dontwarn com.symbol.emdk.**
+-dontwarn io.noties.markwon.**
+-dontwarn io.noties.prism4j.**
+-dontwarn org.commonmark.**
+-dontwarn retrofit2.**
+-dontwarn coil.**
+-dontwarn java.awt.**
+-dontwarn javax.swing.**
+-dontwarn javax.lang.**
+-dontwarn kotlinx.coroutines.swing.**
+-dontwarn io.reactivex.rxjava3.schedulers.Schedulers
+-dontwarn com.android.**
+-dontwarn kotlin.jvm.internal.**
+-dontwarn kotlinx.parcelize.**
+-dontwarn org.**
+-dontwarn xcrash.**
+-dontwarn kotlin.uuid.**
+"""
+
+// Write rules to both filenames so AGP finds it regardless of path resolution
+file("../app/proguard-rules.pro").text = proguardContent
 
 android {
     compileSdk = 36
