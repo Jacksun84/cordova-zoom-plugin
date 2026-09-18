@@ -247,7 +247,7 @@ dependencies {
     implementation 'com.squareup.okio:okio:3.9.0'
     implementation 'androidx.vectordrawable:vectordrawable-animated:1.1.0'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
-    implementation 'com.google.protobuf:protobuf-java:4.28.2'
+    // implementation 'com.google.protobuf:protobuf-java:4.28.2'
     implementation 'com.airbnb.android:lottie:4.0.0'
     implementation 'com.google.android.exoplayer:exoplayer-core:2.17.1'
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.17.1'
