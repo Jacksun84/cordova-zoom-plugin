@@ -94,6 +94,7 @@ def proguardContent = """
 -dontwarn com.google.zxing.**
 -dontwarn com.google.android.play.**
 -dontwarn com.google.firebase.**
+-dontwarn com.google.api.client.**
 -dontwarn com.microsoft.**
 -dontwarn com.blueparrott.**
 -dontwarn com.davemorrissey.**
