@@ -82,6 +82,9 @@ def proguardContent = """
 # Zoom SDK Keep Rules
 -keep class com.zipow.** { *; }
 -keep class us.zoom.** { *; }
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
 -keep class com.jacksun.** { *; }
 -keep class cordova.plugin.zoom.** { *; }
 -keep class org.webrtc.** { *; }
