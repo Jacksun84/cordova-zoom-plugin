@@ -7,7 +7,7 @@ buildscript {
     }
     dependencies {
         // Upgrade Kotlin Gradle Plugin to support 2.x metadata
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.20'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.4.20'
     }
 }
 
@@ -31,6 +31,13 @@ if (!proguardFile.exists()) {
 -keep class us.zoom.** { *; }
 -keep class com.jacksun.** { *; }
 -keep class cordova.plugin.zoom.** { *; }
+-keep class  org.webrtc.**{*;}
+-keep class  us.google.protobuf.**{*;}
+-keep class  com.google.crypto.tink.**{*;}
+-keep class  androidx.security.crypto.**{*;}
+-keep class androidx.** {*;}
+-keep class android.support.** {*;}
+-keep class com.google.** { *; }
 
 -keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
 
@@ -42,6 +49,18 @@ if (!proguardFile.exists()) {
 -dontwarn javax.swing.**
 -dontwarn kotlinx.coroutines.swing.**
 -dontwarn io.reactivex.rxjava3.schedulers.Schedulers
+
+-dontwarn com.android.**
+-dontwarn com.google.**
+-dontwarn com.microsoft.**
+-dontwarn javax.lang.**
+-dontwarn kotlin.jvm.internal.**
+-dontwarn kotlinx.parcelize.**
+-dontwarn org.**
+-dontwarn xcrash.**
+-dontwarn kotlin.uuid.ExperimentalUuidApi
+-dontwarn kotlin.uuid.Uuid$Companion
+-dontwarn kotlin.uuid.Uuid
 """
 }
 
@@ -166,16 +185,24 @@ dependencies {
     implementation 'androidx.window:window-java:1.1.0'
 
     // start 
-    // probably we can remove these ones since they are from _internal-unified-test-platform-android-test-plugin-host-retention 
+    /*
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.23'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.23'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.23'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-common:1.9.23'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.9.0'
     implementation 'org.jetbrains:annotations:23.0.0'
-    // end
+    */
 
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.9.0'
+    // Force Kotlin stdlib to 2.0+
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:2.4.20'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.4.20'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.4.20'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-common:2.4.20'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.11.0'
+    implementation 'org.jetbrains:annotations:26.1.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.11.0'
+    // end
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1'
@@ -198,9 +225,6 @@ dependencies {
     implementation 'androidx.compose.material:material:1.9.4'
     implementation 'androidx.activity:activity-compose:1.11.0'
     implementation 'io.coil-kt:coil-compose:2.3.0'
-
-    // Force Kotlin stdlib to 2.0+
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:2.0.20'
 
     implementation(name:'commonlib', ext:'aar')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
