@@ -10,6 +10,9 @@ module.exports = function(context) {
         '',
         '# Added by Zoom Plugin hook',
         'org.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=1024m',
+        'android.defaults.buildfeatures.buildconfig=true',
+        'android.nonFinalResIds=false',
+        'android.nonTransitiveRClass=false'
     ].join('\n');
 
     if (fs.existsSync(gradlePropertiesPath)) {
