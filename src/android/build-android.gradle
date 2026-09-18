@@ -231,7 +231,9 @@ dependencies {
     // Kotlin coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.9.0'
+    
+    // REMOVED THIS LINE (Swing is for desktop environments only)
+    // implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.9.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.9.0'
     implementation 'org.jetbrains:annotations:23.0.0'
 
