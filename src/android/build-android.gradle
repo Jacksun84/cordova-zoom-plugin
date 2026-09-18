@@ -1,5 +1,16 @@
 //apply plugin: 'org.jetbrains.compose'
 
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        // Upgrade Kotlin Gradle Plugin to support 2.x metadata
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.20'
+    }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
@@ -62,8 +73,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+    // Set JVM target to match Java 17/11 compatibility
     kotlinOptions {
         jvmTarget = '11'
+        freeCompilerArgs += ["-Xskip-metadata-version-check"] // Forces Kotlin compiler to ignore metadata mismatches
     }
     // end
 
@@ -185,6 +198,9 @@ dependencies {
     implementation 'androidx.compose.material:material:1.9.4'
     implementation 'androidx.activity:activity-compose:1.11.0'
     implementation 'io.coil-kt:coil-compose:2.3.0'
+
+    // Force Kotlin stdlib to 2.0+
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:2.0.20'
 
     implementation(name:'commonlib', ext:'aar')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
