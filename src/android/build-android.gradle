@@ -98,8 +98,8 @@ def proguardContent = """
 -keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
 
 # CRITICAL: Disable R8 optimization & obfuscation passes to eliminate OOM & Record desugaring errors
--dontoptimize
--dontobfuscate
+#-dontoptimize
+#-dontobfuscate
 
 # Suppress ALL warnings for missing optional packages inside Zoom SDK
 -dontwarn us.zoom.**
