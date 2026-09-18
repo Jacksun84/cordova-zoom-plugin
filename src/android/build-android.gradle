@@ -64,6 +64,7 @@ if (!proguardFile.exists()) {
 -dontwarn org.**
 -dontwarn xcrash.**
 -dontwarn kotlin.uuid.ExperimentalUuidApi
+-dontwarn kotlin.uuid.Uuid\\$Companion
 -dontwarn kotlin.uuid.Uuid
 """
 }
@@ -80,9 +81,16 @@ android {
     }
     buildTypes {
         debug {
-            minifyEnabled false
+            minifyEnabled true
             shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), '../app/proguard-rules.pro'
+            // Lightweight R8 pass: Keep all classes, disable obfuscation & optimization
+            postprocessing {
+                removeUnusedCode false
+                removeUnusedResources false
+                obfuscate false
+                optimizeCode false
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), '../app/proguard-rules.pro'
+            }   
         }
         release {
             minifyEnabled true
@@ -121,10 +129,11 @@ android {
 repositories {
     google()
     mavenCentral()
+    /*
     maven {
         url 'https://maven.google.com/'
         name 'Google'
-    }
+    }*/
     flatDir {
         dirs 'libs/android'
     }
