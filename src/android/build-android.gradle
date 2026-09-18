@@ -7,7 +7,10 @@ buildscript {
     }
     dependencies {
         // Upgrade Kotlin Gradle Plugin to support 2.x metadata
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.4.20'
+        classpath 'com.android.tools.build:gradle:8.10.0'
+        classpath 'org.jetbrains.compose:compose-gradle-plugin:1.12.0'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.20'
+        classpath 'org.jetbrains.kotlin:compose-compiler-gradle-plugin:2.4.20'
     }
 }
 
