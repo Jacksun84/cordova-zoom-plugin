@@ -54,11 +54,13 @@ if (!proguardFile.exists()) {
 }
 */
 
+// Force 4GB heap size inside gradle.properties & disable aggressive R8 full mode
 def gradlePropsFile = file("../gradle.properties")
 if (gradlePropsFile.exists()) {
     def props = new Properties()
     gradlePropsFile.withInputStream { props.load(it) }
     props['org.gradle.jvmargs'] = '-Xmx4096m -XX:MaxMetaspaceSize=1024m'
+    props['android.enableR8.fullMode'] = 'false'
     gradlePropsFile.withOutputStream { props.store(it, 'Updated JVM Args') }
 }
 
@@ -91,6 +93,10 @@ def proguardContent = """
 -keep class com.google.** { *; }
 
 -keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
+
+# CRITICAL: Disable R8 optimization & obfuscation passes to eliminate OOM & Record desugaring errors
+-dontoptimize
+-dontobfuscate
 
 # Suppress ALL warnings for missing optional packages inside Zoom SDK
 -dontwarn us.zoom.**
@@ -146,15 +152,6 @@ android {
             minifyEnabled true
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), file("../app/proguard-rules.pro")
-            
-            // Disable heavy R8 passes to prevent OutOfMemoryError
-            postprocessing {
-                removeUnusedCode false
-                removeUnusedResources false
-                obfuscate false
-                optimizeCode false
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), file("../app/proguard-rules.pro")
-            }
         }
         release {
             minifyEnabled true
