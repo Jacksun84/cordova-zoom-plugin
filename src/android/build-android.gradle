@@ -59,8 +59,8 @@ def gradlePropsFile = file("../gradle.properties")
 if (gradlePropsFile.exists()) {
     def props = new Properties()
     gradlePropsFile.withInputStream { props.load(it) }
-    props['org.gradle.jvmargs'] = '-Xmx4096m -XX:MaxMetaspaceSize=1024m'
-    props['android.enableR8.fullMode'] = 'false'
+    props['org.gradle.jvmargs'] = '-Xmx6168m -XX:MaxMetaspaceSize=1024m'
+    //props['android.enableR8.fullMode'] = 'false'
     gradlePropsFile.withOutputStream { props.store(it, 'Updated JVM Args') }
 }
 
@@ -82,9 +82,9 @@ def proguardContent = """
 # Zoom SDK Keep Rules
 -keep class com.zipow.** { *; }
 -keep class us.zoom.** { *; }
--keepclassmembers class * {
-    @android.webkit.JavascriptInterface <methods>;
-}
+#-keepclassmembers class * {
+#    @android.webkit.JavascriptInterface <methods>;
+#}
 -keep class com.jacksun.** { *; }
 -keep class cordova.plugin.zoom.** { *; }
 -keep class org.webrtc.** { *; }
