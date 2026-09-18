@@ -54,6 +54,14 @@ if (!proguardFile.exists()) {
 }
 */
 
+def gradlePropsFile = file("../gradle.properties")
+if (gradlePropsFile.exists()) {
+    def props = new Properties()
+    gradlePropsFile.withInputStream { props.load(it) }
+    props['org.gradle.jvmargs'] = '-Xmx4096m -XX:MaxMetaspaceSize=1024m'
+    gradlePropsFile.withOutputStream { props.store(it, 'Updated JVM Args') }
+}
+
 // Global exclude rule to prevent duplicate class conflicts between protobuf-java and protobuf-javalite
 configurations.all {
     exclude group: 'com.google.protobuf', module: 'protobuf-java'
@@ -135,9 +143,18 @@ android {
     }
     buildTypes {
         debug {
-            minifyEnabled false
+            minifyEnabled true
             shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), file("../app/proguard-rules.pro")
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), file("../app/proguard-rules.pro")
+            
+            // Disable heavy R8 passes to prevent OutOfMemoryError
+            postprocessing {
+                removeUnusedCode false
+                removeUnusedResources false
+                obfuscate false
+                optimizeCode false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), file("../app/proguard-rules.pro")
+            }
         }
         release {
             minifyEnabled true
