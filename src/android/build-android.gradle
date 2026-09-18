@@ -1,5 +1,6 @@
 //apply plugin: 'org.jetbrains.compose'
 
+/*
 buildscript {
     repositories {
         google()
@@ -13,8 +14,11 @@ buildscript {
         classpath 'org.jetbrains.kotlin:compose-compiler-gradle-plugin:2.4.20'
     }
 }
+*/
 
 apply plugin: 'com.android.application'
+apply plugin: 'org.jetbrains.compose'
+apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 apply plugin: 'kotlin-android'
 
 // 1. Generate proguard-rules.pro inside the app module if missing
@@ -61,6 +65,8 @@ if (!proguardFile.exists()) {
 -dontwarn kotlinx.parcelize.**
 -dontwarn org.**
 -dontwarn xcrash.**
+-dontwarn kotlin.uuid.ExperimentalUuidApi
+-dontwarn kotlin.uuid.Uuid
 """
 }
 
@@ -116,6 +122,7 @@ android {
 }
 repositories {
     google()
+    mavenCentral()
     maven {
         url 'https://maven.google.com/'
         name 'Google'
