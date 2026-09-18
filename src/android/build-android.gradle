@@ -89,12 +89,12 @@ android {
     compileOptions {
         // Enable Java 8+ API desugaring
         coreLibraryDesugaringEnabled true
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     // Set JVM target to match Java 17/11 compatibility
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = '11'
         freeCompilerArgs += ["-Xskip-metadata-version-check"] // Forces Kotlin compiler to ignore metadata mismatches
     }
     // end
@@ -115,7 +115,6 @@ android {
     }
 }
 repositories {
-    jcenter()
     google()
     maven {
         url 'https://maven.google.com/'
@@ -197,13 +196,13 @@ dependencies {
     */
 
     // Force Kotlin stdlib to 2.0+
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:2.4.20'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.4.20'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.4.20'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-common:2.4.20'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.11.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:2.0.20'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.0.20'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.20'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-common:2.0.20'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.0'
     implementation 'org.jetbrains:annotations:26.1.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.11.0'
+    //implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.11.0'
     // end
 
     implementation 'androidx.core:core-ktx:1.8.0'
