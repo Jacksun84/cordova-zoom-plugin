@@ -62,7 +62,7 @@ if (!proguardFile.exists()) {
 -dontwarn org.**
 -dontwarn xcrash.**
 -dontwarn kotlin.uuid.ExperimentalUuidApi
--dontwarn kotlin.uuid.Uuid$Companion
+-dontwarn kotlin.uuid.Uuid\\$Companion
 -dontwarn kotlin.uuid.Uuid
 """
 }
