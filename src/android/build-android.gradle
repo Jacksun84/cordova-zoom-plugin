@@ -3,57 +3,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
-// 1. Generate proguard-rules.pro inside the app module if missing
-/*
-def proguardFile = file("../app/proguard-rules.pro")
-if (!proguardFile.exists()) {
-    proguardFile.text = """
-# Cordova Core Reflection Rules (Prevents "Failed to create webview" crash)
--keep class org.apache.cordova.** { *; }
--keep public class * extends org.apache.cordova.CordovaPlugin
--keep public class * extends org.apache.cordova.CordovaWebViewEngine
--keep public class org.apache.cordova.engine.SystemWebViewEngine {
-    public <init>(android.content.Context, org.apache.cordova.CordovaPreferences);
-}
-
-# Zoom SDK Keep Rules
--keep class com.zipow.** { *; }
--keep class us.zoom.** { *; }
--keep class com.jacksun.** { *; }
--keep class cordova.plugin.zoom.** { *; }
--keep class  org.webrtc.**{*;}
--keep class  us.google.protobuf.**{*;}
--keep class  com.google.crypto.tink.**{*;}
--keep class  androidx.security.crypto.**{*;}
--keep class androidx.** {*;}
--keep class android.support.** {*;}
--keep class com.google.** { *; }
-
--keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
-
-# Suppress Warnings
--dontwarn us.zoom.**
--dontwarn com.zipow.**
--dontwarn com.google.zxing.**
--dontwarn java.awt.**
--dontwarn javax.swing.**
--dontwarn kotlinx.coroutines.swing.**
--dontwarn io.reactivex.rxjava3.schedulers.Schedulers
-
--dontwarn com.android.**
--dontwarn com.google.**
--dontwarn com.microsoft.**
--dontwarn javax.lang.**
--dontwarn kotlin.jvm.internal.**
--dontwarn kotlinx.parcelize.**
--dontwarn org.**
--dontwarn xcrash.**
--dontwarn kotlin.uuid.ExperimentalUuidApi
--dontwarn kotlin.uuid.Uuid
-"""
-}
-*/
-
 // Force 4GB heap size inside gradle.properties & disable aggressive R8 full mode
 def gradlePropsFile = file("../gradle.properties")
 if (gradlePropsFile.exists()) {
@@ -71,68 +20,30 @@ configurations.all {
 
 // Generate the exact ProGuard rules file that AGP expects inside the app module directory
 def proguardContent = """
-# Cordova Core Reflection Rules (Prevents "Failed to create webview" crash)
--keep class org.apache.cordova.** { *; }
--keep public class * extends org.apache.cordova.CordovaPlugin
--keep public class * extends org.apache.cordova.CordovaWebViewEngine
--keep public class org.apache.cordova.engine.SystemWebViewEngine {
-    public <init>(android.content.Context, org.apache.cordova.CordovaPreferences);
-}
-
-# Zoom SDK Keep Rules
--keep class com.zipow.** { *; }
--keep class us.zoom.** { *; }
-#-keepclassmembers class * {
-#    @android.webkit.JavascriptInterface <methods>;
-#}
--keep class com.jacksun.** { *; }
--keep class cordova.plugin.zoom.** { *; }
--keep class org.webrtc.** { *; }
--keep class us.google.protobuf.** { *; }
--keep class com.google.crypto.tink.** { *; }
--keep class androidx.security.crypto.** { *; }
--keep class androidx.** { *; }
--keep class android.support.** { *; }
+-keep class  us.zoom.**{*;}
+-keep class  com.zipow.**{*;}
+-keep class  us.zipow.**{*;}
+-keep class  org.webrtc.**{*;}
+-keep class  us.google.protobuf.**{*;}
+-keep class  com.google.crypto.tink.**{*;}
+-keep class  androidx.security.crypto.**{*;}
+-keep class androidx.** {*;}
+-keep class android.support.** {*;}
 -keep class com.google.** { *; }
-
--keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
-
-# CRITICAL: Disable R8 optimization & obfuscation passes to eliminate OOM & Record desugaring errors
-#-dontoptimize
-#-dontobfuscate
-
-# Suppress ALL warnings for missing optional packages inside Zoom SDK
--dontwarn us.zoom.**
--dontwarn us.zoom.libtools.**
--dontwarn us.zoom.intunelib.**
--dontwarn us.zoom.thirdparty.login.**
--dontwarn us.zoom.android.apm.**
--dontwarn com.zipow.**
--dontwarn com.google.zxing.**
--dontwarn com.google.android.play.**
--dontwarn com.google.firebase.**
--dontwarn com.google.api.client.**
--dontwarn com.microsoft.**
--dontwarn com.blueparrott.**
--dontwarn com.davemorrissey.**
--dontwarn com.scwang.smart.refresh.**
--dontwarn com.symbol.emdk.**
--dontwarn io.noties.markwon.**
--dontwarn io.noties.prism4j.**
--dontwarn org.commonmark.**
--dontwarn retrofit2.**
--dontwarn coil.**
--dontwarn java.awt.**
--dontwarn javax.swing.**
--dontwarn javax.lang.**
--dontwarn kotlinx.coroutines.swing.**
--dontwarn io.reactivex.rxjava3.schedulers.Schedulers
 -dontwarn com.android.**
+-dontwarn com.google.**
+-dontwarn com.microsoft.**
+-dontwarn com.zipow.**
+-dontwarn javax.lang.**
 -dontwarn kotlin.jvm.internal.**
 -dontwarn kotlinx.parcelize.**
 -dontwarn org.**
+-dontwarn us.zoom.**
 -dontwarn xcrash.**
--dontwarn kotlin.uuid.**
+-dontwarn java.awt.**
+-dontwarn javax.swing.**
+-dontwarn kotlin.uuid.ExperimentalUuidApi
+-dontwarn kotlin.uuid.Uuid
 """
 
 // Write rules to all possible locations so AGP and MABS find the rules file
