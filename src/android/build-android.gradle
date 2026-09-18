@@ -54,7 +54,12 @@ if (!proguardFile.exists()) {
 }
 */
 
-// Generate the exact proguard.cfg file that AGP expects inside the app module
+// Global exclude rule to prevent duplicate class conflicts between protobuf-java and protobuf-javalite
+configurations.all {
+    exclude group: 'com.google.protobuf', module: 'protobuf-java'
+}
+
+// Generate the exact ProGuard rules file that AGP expects inside the app module directory
 def proguardContent = """
 # Cordova Core Reflection Rules (Prevents "Failed to create webview" crash)
 -keep class org.apache.cordova.** { *; }
@@ -73,6 +78,9 @@ def proguardContent = """
 -keep class us.google.protobuf.** { *; }
 -keep class com.google.crypto.tink.** { *; }
 -keep class androidx.security.crypto.** { *; }
+-keep class androidx.** { *; }
+-keep class android.support.** { *; }
+-keep class com.google.** { *; }
 
 -keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
 
@@ -81,6 +89,7 @@ def proguardContent = """
 -dontwarn us.zoom.libtools.**
 -dontwarn us.zoom.intunelib.**
 -dontwarn us.zoom.thirdparty.login.**
+-dontwarn us.zoom.android.apm.**
 -dontwarn com.zipow.**
 -dontwarn com.google.zxing.**
 -dontwarn com.google.android.play.**
@@ -108,8 +117,10 @@ def proguardContent = """
 -dontwarn kotlin.uuid.**
 """
 
-// Write rules to both filenames so AGP finds it regardless of path resolution
+// Write rules to all possible locations so AGP and MABS find the rules file
 file("../app/proguard-rules.pro").text = proguardContent
+file("../app/proguard.cfg").text = proguardContent
+file("proguard.cfg").text = proguardContent
 
 android {
     compileSdk = 36
@@ -125,12 +136,12 @@ android {
         debug {
             minifyEnabled true
             shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard.cfg'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), file("../app/proguard-rules.pro")
         }
         release {
             minifyEnabled true
             shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard.cfg'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), file("../app/proguard-rules.pro")
         }
     }
     compileOptions {
