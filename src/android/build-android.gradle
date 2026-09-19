@@ -151,7 +151,8 @@ repositories {
 }**/
 
 dependencies {
-    implementation 'com.jacksun:zoom-sdk-android:7.1.6.41900'
+    //implementation 'com.jacksun:zoom-sdk-android:7.1.6.41900'
+    implementation 'com.jacksun:zoom-sdk-android:7.0.5.40300'
 
     //implementation 'com.outsystems.experts:zoom-sdk-android:6.3.10.27979'
     //implementation 'com.jacksun:zoom-sdk-android:6.3.10.27979'
