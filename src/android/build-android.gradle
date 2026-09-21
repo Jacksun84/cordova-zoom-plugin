@@ -10,6 +10,8 @@ if (gradlePropsFile.exists()) {
     gradlePropsFile.withInputStream { props.load(it) }
     props['org.gradle.jvmargs'] = '-Xmx6168m -XX:MaxMetaspaceSize=1024m'
     //props['android.enableR8.fullMode'] = 'false'
+    props['android.useAndroidX'] = 'true'
+    props['android.enableJetifier'] = 'false' // Force disable Jetifier
     gradlePropsFile.withOutputStream { props.store(it, 'Updated JVM Args') }
 }
 
@@ -70,7 +72,9 @@ android {
     defaultConfig {
         // Core library desugaring requires minSdkVersion 21+
         minSdkVersion 28
+        targetSdkVersion 36
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         debug {
@@ -161,10 +165,12 @@ dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
 
     // Top-level dependencies to build the plugin
+    /*
     implementation 'com.android.tools.build:gradle:8.10.0'
     implementation 'org.jetbrains.compose:compose-gradle-plugin:1.9.0'
     implementation 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.2.20'
     implementation 'org.jetbrains.kotlin:compose-compiler-gradle-plugin:2.2.20'
+    */
 
     // Core Android libraries
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
@@ -374,6 +380,14 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.5.0'
     implementation 'androidx.room:room-ktx:2.5.0'
     implementation 'androidx.sqlite:sqlite-framework:2.3.0'
+
+    implementation 'com.google.api.grpc:proto-google-common-protos:2.48.0'
+    implementation 'io.grpc:grpc-stub:1.57.2'
+    implementation 'io.grpc:grpc-protobuf:1.57.2'
+    implementation 'com.google.j2objc:j2objc-annotations:2.8'
+    implementation 'io.grpc:grpc-context:1.57.2'
+    implementation 'io.grpc:grpc-api:1.69.1'
+    implementation 'org.checkerframework:checker-qual:3.43.0'
 
     implementation(name:'commonlib', ext:'aar')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
