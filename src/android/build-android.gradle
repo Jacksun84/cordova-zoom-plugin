@@ -94,7 +94,7 @@ android {
     }
     buildTypes {
         debug {
-            minifyEnabled true
+            minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), file("../app/proguard-rules.pro")
         }
@@ -405,6 +405,6 @@ dependencies {
     implementation 'io.grpc:grpc-api:1.69.1'
     implementation 'org.checkerframework:checker-qual:3.43.0'
 
-    implementation(name:'commonlib', ext:'aar')
+    //implementation(name:'commonlib', ext:'aar')
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 }
