@@ -32,27 +32,41 @@ def proguardContent = """
 -keep public class org.apache.cordova.engine.SystemWebView {
     public <init>(android.content.Context, android.util.AttributeSet);
 }
--keep class  us.zoom.**{*;}
--keep class  com.zipow.**{*;}
--keep class com.jacksun.** { *; }
 -keep class cordova.plugin.zoom.** { *; }
+-keep class com.jacksun.** { *; }
+-keep class  us.zoom.**{*;}
+-keep class us.zoom.proguard.** { *; }
+-keep class  com.zipow.**{*;}
 -keep class  us.zipow.**{*;}
 -keep class  org.webrtc.**{*;}
 -keep class  us.google.protobuf.**{*;}
+
+# Keep Zoom SDK Interfaces, Enums, and Inner Classes
+-keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
+-keepclassmembers class * implements us.zoom.sdk.** { *; }
+-keepclassmembers class * extends us.zoom.sdk.** { *; }
+-keepclassmembers enum us.zoom.** { *; }
+-keepclassmembers enum com.zipow.** { *; }
+
+# Crypto & Security
 -keep class  com.google.crypto.tink.**{*;}
 -keep class  androidx.security.crypto.**{*;}
 -keep class androidx.** {*;}
 -keep class android.support.** {*;}
 -keep class com.google.** { *; }
+
+# Dontwarn suppressions for missing/third-party classes during R8 processing
+-dontwarn us.zoom.**
+-dontwarn com.zipow.**
+-dontwarn us.zipow.**
+-dontwarn org.webrtc.**
 -dontwarn com.android.**
 -dontwarn com.google.**
 -dontwarn com.microsoft.**
--dontwarn com.zipow.**
 -dontwarn javax.lang.**
 -dontwarn kotlin.jvm.internal.**
 -dontwarn kotlinx.parcelize.**
 -dontwarn org.**
--dontwarn us.zoom.**
 -dontwarn xcrash.**
 -dontwarn java.awt.**
 -dontwarn javax.swing.**
@@ -68,6 +82,7 @@ file("proguard.cfg").text = proguardContent
 android {
     compileSdk = 36
     buildToolsVersion = "36.0.0"
+    namespace ="cordova.plugin.zoom"
 
     // Enable R8 / Code Shrinking [Enabling code shrinking (R8) forces AGP to pass a global synthetics consumer to D8, which resolves the Record desugaring conflict]
     defaultConfig {
