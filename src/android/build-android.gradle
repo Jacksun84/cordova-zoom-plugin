@@ -23,18 +23,19 @@ configurations.all {
 // Generate the exact ProGuard rules file that AGP expects inside the app module directory
 def proguardContent = """
 # Cordova Reflection Keep Rules (PREVENTS "Failed to create webview" CRASH)
-#-keep class org.apache.cordova.** { *; }
-#-keep public class * extends org.apache.cordova.CordovaPlugin
-#-keep public class * extends org.apache.cordova.CordovaWebViewEngine
-#-keep public class org.apache.cordova.engine.SystemWebViewEngine {
-#    public <init>(android.content.Context, org.apache.cordova.CordovaPreferences);
-#}
-#-keep public class org.apache.cordova.engine.SystemWebView {
-#    public <init>(android.content.Context, android.util.AttributeSet);
-#}
-##-keep class  us.zoom.**{*;}
+-keep class org.apache.cordova.** { *; }
+-keep public class * extends org.apache.cordova.CordovaPlugin
+-keep public class * extends org.apache.cordova.CordovaWebViewEngine
+-keep public class org.apache.cordova.engine.SystemWebViewEngine {
+    public <init>(android.content.Context, org.apache.cordova.CordovaPreferences);
+}
+-keep public class org.apache.cordova.engine.SystemWebView {
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+-keep class  us.zoom.**{*;}
 -keep class  com.zipow.**{*;}
-###-keep class com.jacksun.** { *; }
+-keep class com.jacksun.** { *; }
+-keep class cordova.plugin.zoom.** { *; }
 -keep class  us.zipow.**{*;}
 -keep class  org.webrtc.**{*;}
 -keep class  us.google.protobuf.**{*;}
