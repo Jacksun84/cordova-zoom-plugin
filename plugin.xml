@@ -14,7 +14,6 @@
     </js-module>
 
     <!-- Define a dynamic variable for installation -->
-    <preference name="GITHUB_USERNAME" default="" />
     <preference name="GITHUB_TOKEN" default="" />
 
         <!-- Target Android SDK requirements -->
@@ -34,7 +33,6 @@
 
         <config-file parent="/*" target="res/xml/config.xml">
             <!-- Pass this preference into Gradle build properties -->
-            <preference name="GITHUB_USERNAME" value="$GITHUB_USERNAME" />
             <preference name="GITHUB_TOKEN" value="$GITHUB_TOKEN" />
 
             <feature name="Zoom">
@@ -88,7 +86,7 @@
             <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" tools:node="remove" />
         </config-file>
         -->
-        
+
         <!-- Inject gradle.properties settings persistently -->
         <!--
         <config-file target="gradle.properties" parent="/*">

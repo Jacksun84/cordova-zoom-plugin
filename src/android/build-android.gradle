@@ -102,8 +102,7 @@ repositories {
     maven {
         url = uri("https://maven.pkg.github.com/Jacksun84/mobile-sdk-android")
         credentials {
-            // Pulls from environment variables on your machine or OutSystems MABS build server
-            username = project.hasProperty("GITHUB_USERNAME") ? project.property("GITHUB_USERNAME") : System.getenv("GITHUB_USERNAME")
+            username = "Jacksun84"
             // Falls back to system environment variable if the Cordova property is not provided
             password = project.hasProperty("GITHUB_TOKEN") ? project.property("GITHUB_TOKEN") : System.getenv("GITHUB_TOKEN")
         }
