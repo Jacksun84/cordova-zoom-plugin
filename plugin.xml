@@ -65,10 +65,8 @@
             <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" tools:node="remove" />
         </config-file>
 
+        <!--
         <config-file parent="/*" target="AndroidManifest.xml">
-            <!-- 1. Explicitly bind the tools namespace to the root manifest tag -->
-            <!--<manifest xmlns:tools="http://schemas.android.com/tools" />-->
-
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -89,7 +87,8 @@
             <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" tools:node="remove" />
             <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" tools:node="remove" />
         </config-file>
-
+        -->
+        
         <!-- Inject gradle.properties settings persistently -->
         <!--
         <config-file target="gradle.properties" parent="/*">
