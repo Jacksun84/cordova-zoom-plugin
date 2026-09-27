@@ -104,7 +104,8 @@ repositories {
         credentials {
             username = "Jacksun84"
             // Falls back to system environment variable if the Cordova property is not provided
-            password = project.hasProperty("GITHUB_TOKEN") ? project.property("GITHUB_TOKEN") : System.getenv("GITHUB_TOKEN")
+            password = "ANDROID_ZOOM_SDK_PASSWORD"
+            //project.hasProperty("GITHUB_TOKEN") ? project.property("GITHUB_TOKEN") : System.getenv("GITHUB_TOKEN")
         }
     }
 }

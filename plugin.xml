@@ -13,9 +13,6 @@
         <clobbers target="cordova.plugins.Zoom" />
     </js-module>
 
-    <!-- Define a dynamic variable for installation -->
-    <preference name="GITHUB_TOKEN" default="" />
-
         <!-- Target Android SDK requirements -->
     <!--
     <preference name="ANDROID-MINSDKVERSION" value="28" />
@@ -24,6 +21,8 @@
 
      <!-- Android section -->
     <platform name="android">
+        <preference name="ANDROID_ZOOM_SDK_PASSWORD"/>
+
         <hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
         <!--<preference name="ANDROID_ZOOM_SDK_PASSWORD"/>-->
 
@@ -33,7 +32,6 @@
 
         <config-file parent="/*" target="res/xml/config.xml">
             <!-- Pass this preference into Gradle build properties -->
-            <preference name="GITHUB_TOKEN" value="$GITHUB_TOKEN" />
 
             <feature name="Zoom">
                 <param name="android-package" value="cordova.plugin.zoom.Zoom" />
