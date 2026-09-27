@@ -41,15 +41,8 @@ repositories {
     maven {
         url = uri("https://maven.pkg.github.com/Jacksun84/mobile-sdk-android")
         credentials {
-            // Helper function to resolve Cordova preferences -> Project Properties -> Environment Variables
-            def getParam = { key ->
-                if (project.hasProperty(key) && project.property(key)) return project.property(key)
-                if (System.getenv(key)) return System.getenv(key)
-                if (project.hasProperty("cdvHelpers") && cdvHelpers.hasProperty(key)) return cdvHelpers.property(key)
-                return ""
-            }
             username = "Jacksun84"
-            password = getParam("ANDROID_ZOOM_SDK_PASSWORD")
+            password = project.hasProperty("ANDROID_ZOOM_SDK_PASSWORD") ? project.property("ANDROID_ZOOM_SDK_PASSWORD") : System.getenv("ANDROID_ZOOM_SDK_PASSWORD")
         }
     }
 }
