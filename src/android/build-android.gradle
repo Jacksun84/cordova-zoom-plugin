@@ -43,7 +43,6 @@ repositories {
         credentials {
             username = "Jacksun84"
             password = "ANDROID_ZOOM_SDK_PASSWORD"
-            //project.hasProperty("GITHUB_TOKEN") ? project.property("GITHUB_TOKEN") : System.getenv("GITHUB_TOKEN")
         }
     }
 }
