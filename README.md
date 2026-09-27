@@ -204,7 +204,7 @@ Copyright ©2020 Zoom Video Communications, Inc. All rights reserved.
 
 
 
-cordova plugin add ../cordova-zoom-plugin --variable GITHUB_TOKEN="token" --variable ANDROID-MINSDKVERSION="28" --variable ANDROID-TARGETSDKVERSION="36" --variable GITHUB_USERNAME="Jacksun84"
+cordova plugin add ../cordova-zoom-plugin  --variable ANDROID-MINSDKVERSION="28" --variable ANDROID-TARGETSDKVERSION="36" --variable GITHUB_USERNAME="Jacksun84"
 
 set GITHUB_TOKEN="token" ANDROID-MINSDKVERSION="28" ANDROID-TARGETSDKVERSION="36" GITHUB_USERNAME="Jacksun84"
 
@@ -289,7 +289,7 @@ cordova platform add android@15.0.0
 
 # 3. Add the local plugin
 cordova plugin add ../cordova-zoom-plugin
-cordova plugin add ../cordova-zoom-plugin --variable GITHUB_TOKEN="token" --variable ANDROID-MINSDKVERSION="28" --variable ANDROID-TARGETSDKVERSION="36" --variable GITHUB_USERNAME="Jacksun84"
+cordova plugin add ../cordova-zoom-plugin  --variable ANDROID-MINSDKVERSION="28" --variable ANDROID-TARGETSDKVERSION="36" --variable GITHUB_USERNAME="Jacksun84"
 
 # 4. Copy your mobilertc.aar into the platform libs directory
 mkdir -p platforms/android/app/libs
@@ -319,12 +319,12 @@ cordova run android
 # For this reason 
 
 # 1. Remove the cached plugin and platform from the project
-cordova plugin rm cordova.plugin.zoom --variable GITHUB_TOKEN="token" --variable ANDROID-MINSDKVERSION="28" --variable ANDROID-TARGETSDKVERSION="36" --variable GITHUB_USERNAME="Jacksun84" --variable ANDROID-COMPILESDKVERSION="36"
+cordova plugin rm cordova.plugin.zoom --variable ANDROID-MINSDKVERSION="28" --variable ANDROID-TARGETSDKVERSION="36" --variable GITHUB_USERNAME="Jacksun84" --variable ANDROID-COMPILESDKVERSION="36"
 
 cordova platform rm android
 
 # 2. Re-add the plugin from your local path (use --link so changes mirror instantly)
-cordova plugin add ../cordova-zoom-plugin --link --variable GITHUB_TOKEN="token" --variable ANDROID-MINSDKVERSION="28" --variable ANDROID-TARGETSDKVERSION="36" --variable GITHUB_USERNAME="Jacksun84"  --variable ANDROID-COMPILESDKVERSION="36"
+cordova plugin add ../cordova-zoom-plugin --link --variable ANDROID-MINSDKVERSION="28" --variable ANDROID-TARGETSDKVERSION="36" --variable GITHUB_USERNAME="Jacksun84"  --variable ANDROID-COMPILESDKVERSION="36"
 
 cordova platform add android
 
