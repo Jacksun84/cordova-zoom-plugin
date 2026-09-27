@@ -29,67 +29,6 @@ ext.postBuildExtras = {
     }
 }
 
-/*
-android {
-    compileSdkVersion = 36
-    buildToolsVersion = "36.0.0"
-
-    buildFeatures {
-        viewBinding true
-    }
-
-    viewBinding {
-        enabled = true
-    }
-
-    defaultConfig {
-        minSdkVersion 28
-        targetSdkVersion 36
-        multiDexEnabled true
-        vectorDrawables.useSupportLibrary = true
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled true
-            shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            minifyEnabled false
-            shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
-    }    
-    compileOptions {
-        // Enable support for modern Java language features used by the Zoom AAR
-        coreLibraryDesugaringEnabled true
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = '17'
-    }    
-    
-    packagingOptions {
-        //exclude 'META-INF/NOTICE'
-        //exclude 'META-INF/LICENSE'
-
-        //pickFirst 'lib/arm64-v8a/libmobilertc.so'
-        //pickFirst 'lib/armeabi-v7a/libmobilertc.so'
-        //pickFirst 'lib/x86/libmobilertc.so'
-        //pickFirst 'lib/x86_64/libmobilertc.so'
-
-        jniLibs {
-            useLegacyPackaging = true
-        }
-    }
-}
-*/
 repositories {
     google()
     mavenCentral()
@@ -103,7 +42,6 @@ repositories {
         url = uri("https://maven.pkg.github.com/Jacksun84/mobile-sdk-android")
         credentials {
             username = "Jacksun84"
-            // Falls back to system environment variable if the Cordova property is not provided
             password = "ANDROID_ZOOM_SDK_PASSWORD"
             //project.hasProperty("GITHUB_TOKEN") ? project.property("GITHUB_TOKEN") : System.getenv("GITHUB_TOKEN")
         }
