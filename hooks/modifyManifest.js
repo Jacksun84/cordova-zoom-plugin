@@ -94,12 +94,12 @@ module.exports = function (context) {
         if (modified) {
             const updatedManifestData = manifestTree.write({ indent: 4 });
             fs.writeFileSync(manifestPath, updatedManifestData, 'utf-8');
-            console.log(' --- ✅ --- AndroidManifest.xml has been updated.');
-            console.log(' --- 🧩 --- Updated AndroidManifest.xml content:\n', updatedManifestData);
+            console.log('--- ✅ --- AndroidManifest.xml has been updated.');
+            console.log('--- 🧩 --- Updated AndroidManifest.xml content:\n', updatedManifestData);
         } else {
-            console.log(' --- ℹ️ --- No modifications were necessary for AndroidManifest.xml.');
+            console.log('--- ℹ️ --- No modifications were necessary for AndroidManifest.xml.');
         }
     } else {
-        console.warn('  --- ❌ --- AndroidManifest.xml not found. Make sure the Android platform is added.');
+        console.warn('--- ❌ --- AndroidManifest.xml not found. Make sure the Android platform is added.');
     }
 };
