@@ -1,32 +1,73 @@
 <?xml version='1.0' encoding='utf-8'?>
-<plugin id="cordova.plugin.zoom" version="5.0" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+<plugin id="cordova.plugin.zoom" version="5.0"
+    xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+    xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:tools="http://schemas.android.com/tools">
+
     <name>Zoom</name>
+    <description>Cordova Plugin for Zoom Android SDK (v7.1.6+)</description>
+        <license>MIT</license>
+    <keywords>cordova,zoom,sdk,outsystems,meeting</keywords>
+
     <js-module name="Zoom" src="www/Zoom.js">
         <clobbers target="cordova.plugins.Zoom" />
     </js-module>
 
+    <!-- Define a dynamic variable for installation -->
+    <preference name="GITHUB_USERNAME" default="" />
+    <preference name="GITHUB_TOKEN" default="" />
+
+        <!-- Target Android SDK requirements -->
+    <!--
+    <preference name="ANDROID-MINSDKVERSION" value="28" />
+    <preference name="ANDROID-TARGETSDKVERSION" value="36" />
+    -->
+
      <!-- Android section -->
     <platform name="android">
         <hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
-        <preference name="ANDROID_ZOOM_SDK_PASSWORD"/>
-        
-        <!-- Include merged config -->
-         <!--
-        <resource-file src="src/android/res/xml/merged_network_security_config.xml"
-                    target="app/src/main/res/xml/merged_network_security_config.xml" />
-        -->
+        <!--<preference name="ANDROID_ZOOM_SDK_PASSWORD"/>-->
+
+        <!-- Copy network_security_config.xml to the platform res/xml folder -->
+        <resource-file src="src/android/res/xml/network_security_config.xml" 
+            target="res/xml/network_security_config.xml" />
+
         <config-file parent="/*" target="res/xml/config.xml">
+            <!-- Pass this preference into Gradle build properties -->
+            <preference name="GITHUB_USERNAME" value="$GITHUB_USERNAME" />
+            <preference name="GITHUB_TOKEN" value="$GITHUB_TOKEN" />
+
             <feature name="Zoom">
                 <param name="android-package" value="cordova.plugin.zoom.Zoom" />
             </feature>
         </config-file>
+
+        <!-- Force root manifest attributes to bind tools namespace -->
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+            <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+            <uses-permission android:name="android.permission.RECORD_AUDIO" />
+            <uses-permission android:name="android.permission.CAMERA" />
+            <uses-permission android:name="android.permission.BLUETOOTH"/>
+            <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+            <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+            <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+            <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+            <uses-permission android:name="android.permission.WAKE_LOCK" />
+            <uses-permission android:name="android.permission.CALL_PHONE" />
+            <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+            <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" tools:node="remove" />
+            <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" tools:node="remove" />
+            <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" tools:node="remove" />
+        </config-file>
+
         <config-file parent="/*" target="AndroidManifest.xml">
-            <!-- Try removing the Zoom SDK's attribute entirely during merge-->
-            <!--
-            <application tools:node="merge"
-            tools:remove="android:networkSecurityConfig"
-            android:networkSecurityConfig="@xml/merged_network_security_config" />
-            -->
+            <!-- 1. Explicitly bind the tools namespace to the root manifest tag -->
+            <!--<manifest xmlns:tools="http://schemas.android.com/tools" />-->
 
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.INTERNET" />
@@ -48,18 +89,62 @@
             <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" tools:node="remove" />
             <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" tools:node="remove" />
         </config-file>
+
+        <!-- Inject gradle.properties settings persistently -->
+        <!--
+        <config-file target="gradle.properties" parent="/*">
+            <property name="android.useAndroidX" value="true" />
+            <property name="android.enableJetifier" value="true" />
+            <property name="android.defaults.buildfeatures.buildconfig" value="true" />
+            <property name="android.nonFinalResIds" value="false" />
+            <property name="android.nonTransitiveRClass" value="false" />
+            <property name="android.enableDexingArtifactTransform" value="false" />
+        </config-file>
+    -->
+
         <!-- Update pushwoosh cordova dependencies to avoid conflicts between zoom and pushwoosh-->
         <dependency id="cordova-androidx-build" url="https://github.com/Pushwoosh/cordova-androidx-build.git#1.1-OS" />
         <source-file framework="true" src="libs/android/commonlib.aar" target-dir="libs/android" />
         <source-file src="src/android/Zoom.java" target-dir="src/cordova/plugin/zoom" />
+
+        <!-- Copy build-extras.gradle so Gradle natively picks it up -->
+        <resource-file src="src/android/build-extras.gradle" target="build-extras.gradle" />
+        <resource-file src="src/android/proguard-rules.pro" target="proguard-rules.pro" />
+
         <framework custom="true" src="src/android/build-android.gradle" target-dir="." type="gradleReference" />
+        
         <hook type="after_plugin_install" src="hooks/setUserPasswordZoomSDK.js" />
         
         <hook type="before_compile" src="hooks/modifyManifest.js" />
         <hook type="after_prepare" src="hooks/fixAllowBackup.js" />
         <hook type="before_prepare" src="hooks/fixAllowBackup.js" />
 
-        <!-- <hook type="after_prepare" src="hooks/removeDisableBackupPlugin.js" /> -->
+        <!-- Resolve FileProvider merge conflicts from mobilertc.aar -->
+         <!--
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <provider
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="${applicationId}.cdv.core.file.provider"
+                android:exported="false"
+                android:grantUriPermissions="true"
+                tools:replace="android:authorities">
+                <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/cdv_core_file_provider_paths"
+                    tools:replace="android:resource" />
+            </provider>
+        </config-file>
+    -->
+
+        <!-- Target Android SDK requirements -->
+        <preference name="android-minSdkVersion" value="28" />
+        <preference name="android-targetSdkVersion" value="36" />
+        <preference name="android-compileSdkVersion" value="36" />
+
+        <!-- Dependencies -->
+        <framework src="androidx.multidex:multidex:2.0.1" />
+        <framework src="androidx.appcompat:appcompat:1.6.1" />
+        <framework src="com.google.android.material:material:1.11.0" />
 
     </platform>
 

@@ -50,6 +50,14 @@ module.exports = function (context) {
                 console.log("--- 🩵 --- Set android:allowBackup=\"false\" (same as OutSystems disable-backup).");
             }
 
+            const networkSecurityConfig = application.attrib['android:networkSecurityConfig'];
+            console.log("--- 🩵 --- Current networkSecurityConfig: ", application.attrib['android:networkSecurityConfig']);
+            if(!networkSecurityConfig){
+                application.attrib['android:networkSecurityConfig'] = '@xml/network_security_config';
+                changed = true;
+                console.log("--- 🩵 --- Updated android:networkSecurityConfig:", application.attrib['android:networkSecurityConfig']);
+            }
+
             // Add our networkSecurityConfig replace rule
             changed = checkAndAddToolsReplace(application, 'android:allowBackup') || changed;
             changed = checkAndAddToolsReplace(application, 'android:networkSecurityConfig') || changed;
