@@ -12,10 +12,10 @@ module.exports = function (context) {
 
     const configData = fs.readFileSync(configXmlPath, 'utf8');
 
-    // Extract preference values using regex without requiring xml2js
     let password = '';
     let username = 'Jacksun84';
 
+    // 1. Try reading from config.xml preferences
     const passMatch = configData.match(/<preference\s+name=["'](?:ANDROID_ZOOM_SDK_PASSWORD|GITHUB_TOKEN)["']\s+value=["']([^"']+)["']/i);
     if (passMatch && passMatch[1]) {
         password = passMatch[1];
@@ -26,17 +26,28 @@ module.exports = function (context) {
         username = userMatch[1];
     }
 
+    // 2. Fallback: Try reading from CLI cmdline variables passed by Cordova/MABS
+    if (!password && context.opts && context.opts.cli_variables) {
+        password = context.opts.cli_variables.ANDROID_ZOOM_SDK_PASSWORD || context.opts.cli_variables.GITHUB_TOKEN || '';
+    }
+
     if (password) {
         console.log('✅ [Zoom Plugin] Writing GitHub authentication token to gradle.properties');
         let content = fs.existsSync(gradlePropsPath) ? fs.readFileSync(gradlePropsPath, 'utf8') : '';
 
-        // Prevent duplicate entries on consecutive builds
-        if (!content.includes('ANDROID_ZOOM_SDK_PASSWORD=')) {
+        // Overwrite or append property safely
+        if (content.includes('ANDROID_ZOOM_SDK_PASSWORD=')) {
+            content = content.replace(/ANDROID_ZOOM_SDK_PASSWORD=.*/g, `ANDROID_ZOOM_SDK_PASSWORD=${password}`);
+        } else {
             content += `\nANDROID_ZOOM_SDK_PASSWORD=${password}\n`;
-            //content += `GITHUB_USERNAME=${username}\n`;
-            fs.writeFileSync(gradlePropsPath, content, 'utf8');
         }
+
+        if (!content.includes('GITHUB_USERNAME=')) {
+            content += `GITHUB_USERNAME=${username}\n`;
+        }
+
+        fs.writeFileSync(gradlePropsPath, content, 'utf8');
     } else {
-        console.log('⚠️ [Zoom Plugin] ANDROID_ZOOM_SDK_PASSWORD not found in config.xml preferences!');
+        console.log('⚠️ [Zoom Plugin] ANDROID_ZOOM_SDK_PASSWORD not found in config.xml preferences or plugin variables!');
     }
 };
