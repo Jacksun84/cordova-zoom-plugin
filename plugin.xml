@@ -13,20 +13,6 @@
         <clobbers target="cordova.plugins.Zoom" />
     </js-module>
 
-
-
-    <!-- Disable Gradle build cache persistently -->
-    <config-file target="gradle.properties" parent="/*">
-        <property name="android.useAndroidX" value="true" />
-        <property name="android.enableJetifier" value="true" />
-        <property name="android.enableDexingArtifactTransform" value="false" />
-        
-        <!-- FORCE CACHE DISABLE FLAGS -->
-        <property name="org.gradle.caching" value="false" />
-        <property name="org.gradle.vfs.watch" value="false" />
-    </config-file>
-
-
      <!-- Android section -->
     <platform name="android">
         <hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
