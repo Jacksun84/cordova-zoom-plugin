@@ -19,10 +19,12 @@
     <preference name="ANDROID-TARGETSDKVERSION" value="36" />
     -->
 
+    <preference name="ANDROID_ZOOM_SDK_PASSWORD"/>
+    <variable name="ANDROID_ZOOM_SDK_PASSWORD"/>
+
      <!-- Android section -->
     <platform name="android">
         <hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
-        <preference name="ANDROID_ZOOM_SDK_PASSWORD"/>
 
         <!-- Execute hook before Gradle compilation starts -->
         <hook type="before_compile" src="hooks/exportGradleProperties.js" />
@@ -41,30 +43,8 @@
         </config-file>
 
         <!-- Force root manifest attributes to bind tools namespace -->
+         <!--
         <config-file target="AndroidManifest.xml" parent="/manifest">
-            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-            <uses-permission android:name="android.permission.INTERNET" />
-            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-            <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-            <uses-permission android:name="android.permission.RECORD_AUDIO" />
-            <uses-permission android:name="android.permission.CAMERA" />
-            <uses-permission android:name="android.permission.BLUETOOTH"/>
-            <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-            <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-            <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
-            <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-            <uses-permission android:name="android.permission.WAKE_LOCK" />
-            <uses-permission android:name="android.permission.CALL_PHONE" />
-            <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-            <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" tools:node="remove" />
-            <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" tools:node="remove" />
-            <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" tools:node="remove" />
-        </config-file>
-
-        <!--
-        <config-file parent="/*" target="AndroidManifest.xml">
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -87,18 +67,28 @@
         </config-file>
         -->
 
-        <!-- Inject gradle.properties settings persistently -->
-        <!--
-        <config-file target="gradle.properties" parent="/*">
-            <property name="android.useAndroidX" value="true" />
-            <property name="android.enableJetifier" value="true" />
-            <property name="android.defaults.buildfeatures.buildconfig" value="true" />
-            <property name="android.nonFinalResIds" value="false" />
-            <property name="android.nonTransitiveRClass" value="false" />
-            <property name="android.enableDexingArtifactTransform" value="false" />
+        <config-file parent="/*" target="AndroidManifest.xml">
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+            <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+            <uses-permission android:name="android.permission.RECORD_AUDIO" />
+            <uses-permission android:name="android.permission.CAMERA" />
+            <uses-permission android:name="android.permission.BLUETOOTH"/>
+            <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+            <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+            <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+            <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+            <uses-permission android:name="android.permission.WAKE_LOCK" />
+            <uses-permission android:name="android.permission.CALL_PHONE" />
+            <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+            <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" tools:node="remove" />
+            <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" tools:node="remove" />
+            <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" tools:node="remove" />
         </config-file>
-    -->
-
+        
         <!-- Update pushwoosh cordova dependencies to avoid conflicts between zoom and pushwoosh-->
         <dependency id="cordova-androidx-build" url="https://github.com/Pushwoosh/cordova-androidx-build.git#1.1-OS" />
         <source-file framework="true" src="libs/android/commonlib.aar" target-dir="libs/android" />
@@ -114,23 +104,6 @@
         <hook type="before_compile" src="hooks/modifyManifest.js" />
         <hook type="after_prepare" src="hooks/fixAllowBackup.js" />
         <hook type="before_prepare" src="hooks/fixAllowBackup.js" />
-
-        <!-- Resolve FileProvider merge conflicts from mobilertc.aar -->
-         <!--
-        <config-file target="AndroidManifest.xml" parent="/manifest/application">
-            <provider
-                android:name="androidx.core.content.FileProvider"
-                android:authorities="${applicationId}.cdv.core.file.provider"
-                android:exported="false"
-                android:grantUriPermissions="true"
-                tools:replace="android:authorities">
-                <meta-data
-                    android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/cdv_core_file_provider_paths"
-                    tools:replace="android:resource" />
-            </provider>
-        </config-file>
-    -->
 
         <!-- Target Android SDK requirements -->
         <preference name="android-minSdkVersion" value="28" />
