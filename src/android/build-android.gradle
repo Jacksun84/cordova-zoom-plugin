@@ -42,11 +42,12 @@ repositories {
         url = uri("https://maven.pkg.github.com/Jacksun84/mobile-sdk-android")
         credentials {
             username = "Jacksun84"
-            password = project.hasProperty("ANDROID_ZOOM_SDK_PASSWORD") ? project.property("ANDROID_ZOOM_SDK_PASSWORD") : System.getenv("ANDROID_ZOOM_SDK_PASSWORD")
+            password = "ANDROID_ZOOM_SDK_PASSWORD"
         }
     }
 }
 
+// project.hasProperty("ANDROID_ZOOM_SDK_PASSWORD") ? project.property("ANDROID_ZOOM_SDK_PASSWORD") : System.getenv("ANDROID_ZOOM_SDK_PASSWORD") 
 // Global exclude rule to prevent duplicate class conflicts between protobuf-java and protobuf-javalite
 configurations.all {
     exclude group: 'com.google.protobuf', module: 'protobuf-java'
