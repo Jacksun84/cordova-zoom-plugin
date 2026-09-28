@@ -50,12 +50,23 @@ repositories {
 // Global exclude rule to prevent duplicate class conflicts between protobuf-java and protobuf-javalite
 configurations.all {
     exclude group: 'com.google.protobuf', module: 'protobuf-java'
+    // Force Gradle to check remote repositories for new artifact versions on every build
+    resolutionStrategy {
+        // Cache dynamic versions for 0 seconds
+        cacheDynamicVersionsFor 0, 'seconds'
+        // Cache changing modules (like updated AAR releases) for 0 seconds
+        cacheChangingModulesFor 0, 'seconds'
+    }
 }
 
 dependencies {
     //implementation 'com.outsystems.experts:zoom-sdk-android:6.3.10.27979'
 
-    implementation 'com.jacksun:zoom-sdk-android:7.1.6.41900'
+    //implementation 'com.jacksun:zoom-sdk-android:7.1.6.41900'
+    // Force changing flag so Gradle checks GitHub Packages every time
+    implementation('com.jacksun:zoom-sdk-android:7.1.6.41900') {
+        changing = true
+    }
 
     // Required dependency for D8 core library desugaring
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs_nio:2.0.4'
