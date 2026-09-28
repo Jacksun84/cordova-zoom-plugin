@@ -3,6 +3,18 @@ const path = require('path');
 
 module.exports = function (context) {
     const rootdir = context.opts.projectRoot;
+
+    // Purge temporary platform build cache before Gradle evaluates dependencies
+    const androidBuildDir = path.join(rootdir, 'platforms', 'android', 'app', 'build');
+    if (fs.existsSync(androidBuildDir)) {
+        console.log('🧹 [Zoom Plugin] Cleaning old Android build directory...');
+        try {
+            fs.rmSync(androidBuildDir, { recursive: true, force: true });
+        } catch (e) {
+            console.log('⚠️ [Zoom Plugin] Could not delete build folder:', e.message);
+        }
+    }
+    
     const configXmlPath = path.join(rootdir, 'config.xml');
     const gradlePropsPath = path.join(rootdir, 'platforms', 'android', 'gradle.properties');
 
