@@ -18,6 +18,7 @@
      <!-- Android section -->
     <platform name="android">
         <hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
+        <hook type="before_build" src="hooks/before_build.js" />
 
         <!-- Execute hook before Gradle compilation starts -->
         <hook type="before_compile" src="hooks/exportGradleProperties.js" />
