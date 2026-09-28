@@ -19,9 +19,6 @@
     <preference name="ANDROID-TARGETSDKVERSION" value="36" />
     -->
 
-    <preference name="ANDROID_ZOOM_SDK_PASSWORD"/>
-    <variable name="ANDROID_ZOOM_SDK_PASSWORD"/>
-
      <!-- Android section -->
     <platform name="android">
         <hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
@@ -35,7 +32,8 @@
             target="res/xml/network_security_config.xml" />
 
         <config-file parent="/*" target="res/xml/config.xml">
-            <!-- Pass this preference into Gradle build properties -->
+            <!-- CRITICAL FIX: Pass ANDROID_ZOOM_SDK_PASSWORD into config.xml so Node.js hooks can read it -->
+             <preference name="ANDROID_ZOOM_SDK_PASSWORD" value="$ANDROID_ZOOM_SDK_PASSWORD" />
 
             <feature name="Zoom">
                 <param name="android-package" value="cordova.plugin.zoom.Zoom" />
