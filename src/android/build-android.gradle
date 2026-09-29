@@ -98,7 +98,7 @@ repositories {
 // Global exclude rule to prevent duplicate class conflicts between protobuf-java and protobuf-javalite
 configurations.all {
     // Exclude group annotations to avoid duplicate class collisions with kotlin-gradle-plugin
-    exclude group: 'org.jetbrains', module: 'annotations'
+    //exclude group: 'org.jetbrains', module: 'annotations'
     resolutionStrategy {
         // Cache dynamic versions for 0 seconds
         cacheDynamicVersionsFor 0, 'seconds'
@@ -414,6 +414,8 @@ dependencies {
 
     implementation 'androidx.datastore:datastore:1.1.1'
     implementation 'androidx.datastore:datastore-preferences-android:1.1.1'
+
+    implementation 'org.jetbrains:annotations:23.0.0'
 
     /*
     implementation 'androidx.activity:activity-compose:1.11.0'
