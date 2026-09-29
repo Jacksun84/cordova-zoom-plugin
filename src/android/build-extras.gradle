@@ -4,12 +4,12 @@ allprojects {
         mavenCentral()
         maven { url "https://maven.pkg.jetbrains.space/public/p/compose/dev" }
         maven {
-        url = uri("https://maven.pkg.github.com/Jacksun84/mobile-sdk-android")
-        credentials {
-            username = "Jacksun84"
-            //password = "ANDROID_ZOOM_SDK_PASSWORD"
-            // Read from environment variable, fallback to project property
-            password= System.getenv("ANDROID_ZOOM_SDK_PASSWORD") ?: (project.hasProperty("ANDROID_ZOOM_SDK_PASSWORD") ? project.ANDROID_ZOOM_SDK_PASSWORD : "")
+            url = uri("https://maven.pkg.github.com/Jacksun84/mobile-sdk-android")
+            credentials {
+                username = "Jacksun84"
+                //password = "ANDROID_ZOOM_SDK_PASSWORD"
+                // Read from environment variable, fallback to project property
+                password= System.getenv("ANDROID_ZOOM_SDK_PASSWORD") ?: (project.hasProperty("ANDROID_ZOOM_SDK_PASSWORD") ? project.ANDROID_ZOOM_SDK_PASSWORD : "")
         }
     }
     }

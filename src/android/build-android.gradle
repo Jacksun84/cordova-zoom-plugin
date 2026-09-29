@@ -59,7 +59,6 @@ ext.postBuildExtras = {
 repositories {
     google()
     mavenCentral()
-    jcenter()
     maven { url 'https://maven.google.com/'}
     maven { url "https://maven.pkg.jetbrains.space/public/p/compose/dev" }
     flatDir {
@@ -338,7 +337,7 @@ dependencies {
 
 
     // New dependencies
-    implementation platform('androidx.compose:compose-bom:2025.10.01')
+    //implementation platform('androidx.compose:compose-bom:2025.10.01')
 
 // 2. Jetpack Compose BOM (Manages all Compose library versions cleanly)
     implementation platform('androidx.compose:compose-bom:2024.09.00')
@@ -379,8 +378,8 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.17.1'
     implementation 'androidx.media:media:1.6.0'
 
-    implementation 'androidx.datastore:datastore:1.1.1'
-    implementation 'androidx.datastore:datastore-preferences-android:1.1.1'
+    implementation 'androidx.datastore:datastore:1.0.0'
+    implementation 'androidx.datastore:datastore-preferences-android:1.0.0'
 
     /*
     implementation 'androidx.activity:activity-compose:1.11.0'
