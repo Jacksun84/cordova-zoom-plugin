@@ -361,6 +361,15 @@ dependencies {
     implementation 'com.airbnb.android:lottie:6.4.0'
     implementation 'androidx.window:window:1.2.0'
 
+    implementation 'com.google.android.exoplayer:exoplayer-common:2.17.1'
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.17.1'
+    implementation 'com.google.android.exoplayer:exoplayer-database:2.17.1'
+    implementation 'com.google.android.exoplayer:exoplayer-datasource:2.17.1'
+    implementation 'com.google.android.exoplayer:exoplayer-decoder:2.17.1'
+    implementation 'com.google.android.exoplayer:exoplayer-extractor:2.17.1'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.17.1'
+    implementation 'androidx.media:media:1.6.0'
+
     /*
     implementation 'androidx.activity:activity-compose:1.11.0'
     implementation 'androidx.activity:activity-ktx:1.11.0'
