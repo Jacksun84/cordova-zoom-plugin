@@ -105,6 +105,11 @@ tasks.matching { it.class.name.startsWith("org.jetbrains.kotlin.gradle.tasks.Kot
 tasks.matching { it.class.name.startsWith("org.jetbrains.kotlin.gradle.tasks.KotlinCompile") }.configureEach {
     kotlinOptions {
         jvmTarget = "17"
+        // Force Kotlin compiler to allow Compose compilation with Kotlin 1.9.x
+        freeCompilerArgs += [
+            "-P",
+            "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=true"
+        ]
     }
 }
 
