@@ -49,6 +49,11 @@ ext.postBuildExtras = {
             }
         }
 
+        // Align the Compose Compiler extension version for Kotlin 1.9.24
+        composeOptions {
+            kotlinCompilerExtensionVersion = "1.5.11"
+        }
+
         compileOptions {
             //coreLibraryDesugaringEnabled true
             sourceCompatibility JavaVersion.VERSION_17
@@ -84,7 +89,6 @@ repositories {
         url = uri("https://maven.pkg.github.com/Jacksun84/mobile-sdk-android")
         credentials {
             username = "Jacksun84"
-            //password = "ANDROID_ZOOM_SDK_PASSWORD"
             // Read from environment variable, fallback to project property
             password= System.getenv("ANDROID_ZOOM_SDK_PASSWORD") ?: (project.hasProperty("ANDROID_ZOOM_SDK_PASSWORD") ? project.ANDROID_ZOOM_SDK_PASSWORD : "")
         }
@@ -118,7 +122,9 @@ tasks.matching { it.class.name.startsWith("org.jetbrains.kotlin.gradle.tasks.Kot
         jvmTarget = "17"
         // Force Kotlin compiler to allow Compose compilation with Kotlin 1.9.x
         freeCompilerArgs += [
-            "-Xskip-metadata-version-check"
+            "-Xskip-metadata-version-check",
+            "-P",
+            "plugin:androidx.compose.compiler.plugins.kotlin:suppressKotlinVersionCompatibilityCheck=1.9.24"
         ]
     }
 }
