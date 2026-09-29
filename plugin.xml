@@ -18,11 +18,9 @@
      <!-- Android section -->
     <platform name="android">
         <hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
+        <hook type="before_compile" src="hooks/before_build.js" />
         <hook type="before_build" src="hooks/before_build.js" />
-
-        <!-- Execute hook before Gradle compilation starts -->
-        <hook type="before_compile" src="hooks/exportGradleProperties.js" />
-        <hook type="before_build" src="hooks/exportGradleProperties.js" />
+        <framework custom="true" src="src/android/build-android.gradle" target-dir="." type="gradleReference" />
 
         <!-- Copy network_security_config.xml to the platform res/xml folder -->
         <resource-file src="src/android/res/xml/network_security_config.xml" 
@@ -105,7 +103,6 @@
        <!-- <resource-file src="src/android/build-extras.gradle" target="build-extras.gradle" />-->
         <resource-file src="src/android/proguard-rules.pro" target="proguard-rules.pro" />
 
-        <framework custom="true" src="src/android/build-android.gradle" target-dir="." type="gradleReference" />
         <hook type="after_plugin_install" src="hooks/setUserPasswordZoomSDK.js" />
         
         <hook type="before_compile" src="hooks/modifyManifest.js" />
