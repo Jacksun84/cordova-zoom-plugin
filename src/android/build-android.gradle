@@ -370,6 +370,11 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer-ui:2.17.1'
     implementation 'androidx.media:media:1.6.0'
 
+    implementation 'androidx.datastore:datastore-core-android:1.1.1'
+    implementation 'androidx.datastore:datastore-core-okio-jvm:1.1.1'
+    implementation 'androidx.datastore:datastore-core-okio:1.1.1'
+    implementation 'androidx.datastore:datastore-core:1.1.1'
+    implementation 'androidx.datastore:datastore:1.1.1'
     implementation 'androidx.datastore:datastore-preferences-android:1.1.1'
     implementation 'androidx.datastore:datastore-preferences-core-jvm:1.1.1'
     implementation 'androidx.datastore:datastore-preferences-core:1.1.1'
