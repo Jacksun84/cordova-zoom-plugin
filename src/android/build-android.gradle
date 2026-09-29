@@ -90,11 +90,11 @@ configurations.all {
 dependencies {
     //implementation 'com.outsystems.experts:zoom-sdk-android:6.3.10.27979'
 
-    implementation 'com.jacksun:zoom-sdk-android:7.1.6.41900'
+    //implementation 'com.jacksun:zoom-sdk-android:7.2.1.43944'
     // Force changing flag so Gradle checks GitHub Packages every time
-    //implementation('com.jacksun:zoom-sdk-android:7.1.6.41900') {
-    //    changing = true
-    //}
+    implementation('com.jacksun:zoom-sdk-android:7.2.1.43944') {
+        changing = true
+    }
 
     // Required dependency for D8 core library desugaring
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs_nio:2.0.4'
@@ -319,5 +319,5 @@ dependencies {
     implementation 'org.checkerframework:checker-qual:3.43.0'
 
     // Jetpack Compose (using BOM so you don't need external Compose Gradle plugins)
-    implementation platform('androidx.compose:compose-bom:2024.02.02')
+    implementation platform('androidx.compose:compose-bom:2025.10.01')
 }
