@@ -1,3 +1,14 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        // Upgrade project Kotlin plugin so MABS uses a compiler capable of reading Kotlin 2.2 metadata
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.21"
+    }
+}
+
 // 1. Set Cordova project extensions explicitly so Cordova applies compileSdk to :app
 ext.cdvCompileSdkVersion = 36
 ext.cdvBuildToolsVersion = "36.0.0"
@@ -82,8 +93,8 @@ repositories {
 
 // Global exclude rule to prevent duplicate class conflicts between protobuf-java and protobuf-javalite
 configurations.all {
-    //exclude group: 'com.google.protobuf', module: 'protobuf-java'
-    // Force Gradle to check remote repositories for new artifact versions on every build
+    // Exclude group annotations to avoid duplicate class collisions with kotlin-gradle-plugin
+    exclude group: 'org.jetbrains', module: 'annotations'
     resolutionStrategy {
         // Cache dynamic versions for 0 seconds
         cacheDynamicVersionsFor 0, 'seconds'
@@ -398,8 +409,6 @@ dependencies {
 
     implementation 'androidx.datastore:datastore:1.1.1'
     implementation 'androidx.datastore:datastore-preferences-android:1.1.1'
-
-    implementation 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.4.20'
 
     /*
     implementation 'androidx.activity:activity-compose:1.11.0'
