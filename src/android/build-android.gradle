@@ -93,9 +93,18 @@ configurations.all {
 }
 
 // FIX: Target Kotlin compile tasks safely using String class matching instead of `org....` property lookup
+/*
 tasks.matching { it.class.name.startsWith("org.jetbrains.kotlin.gradle.tasks.KotlinCompile") }.configureEach {
     compilerOptions {
         jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+    }
+}
+*/
+
+// Align Kotlin compilation to JVM 17 without throwing Groovy delegate property errors
+tasks.matching { it.class.name.startsWith("org.jetbrains.kotlin.gradle.tasks.KotlinCompile") }.configureEach {
+    kotlinOptions {
+        jvmTarget = "17"
     }
 }
 
