@@ -99,11 +99,25 @@ repositories {
     }
 }
 
+// Targeted exclusions to mirror the Zoom sample lockfile behavior
+configurations {
+    runtimeClasspath {
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-daemon-client'
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-daemon-embeddable'
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-compiler-embeddable'
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-klib-commonizer-embeddable'
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-build-tools-api'
+    }
+    implementation {
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-daemon-client'
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-daemon-embeddable'
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-compiler-embeddable'
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-klib-commonizer-embeddable'
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-build-tools-api'
+    }
+}
 // Global exclude rule to prevent duplicate class conflicts between protobuf-java and protobuf-javalite
 configurations.all {
-    // Exclude group annotations to avoid duplicate class collisions with kotlin-gradle-plugin
-    //exclude group: 'org.jetbrains', module: 'annotations'
-
     resolutionStrategy {
         // Cache dynamic versions for 0 seconds
         cacheDynamicVersionsFor 0, 'seconds'
@@ -437,8 +451,8 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-build-tools-impl:2.2.20'
     implementation 'org.jetbrains.kotlin:kotlin-compiler-runner:2.2.20'
     implementation 'org.jetbrains.kotlin:kotlin-compose-compiler-plugin-embeddable:2.2.20'
-    //implementation 'org.jetbrains.kotlin:kotlin-daemon-client:2.2.20'
-    //implementation 'org.jetbrains.kotlin:kotlin-daemon-embeddable:2.2.20'
+    implementation 'org.jetbrains.kotlin:kotlin-daemon-client:2.2.20'
+    implementation 'org.jetbrains.kotlin:kotlin-daemon-embeddable:2.2.20'
     implementation 'org.jetbrains.kotlin:kotlin-parcelize-runtime:2.2.20'
     implementation 'org.jetbrains.kotlin:kotlin-reflect:1.6.10'
     implementation 'org.jetbrains.kotlin:kotlin-reflect:1.8.21'
