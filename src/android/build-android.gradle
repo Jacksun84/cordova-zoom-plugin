@@ -70,7 +70,11 @@ ext.postBuildExtras = {
                     'META-INF/LICENSE',
                     'META-INF/LICENSE.txt',
                     'META-INF/NOTICE',
-                    'META-INF/NOTICE.txt'
+                    'META-INF/NOTICE.txt',
+                    'META-INF/COPYRIGHT',
+                    'META-INF/COPYRIGHT.txt',
+                    '**/*.kotlin_builtins',
+                    '**/*.kotlin_module'
                 ]
             }
         }
@@ -100,12 +104,6 @@ configurations.all {
     // Exclude group annotations to avoid duplicate class collisions with kotlin-gradle-plugin
     //exclude group: 'org.jetbrains', module: 'annotations'
 
-    // Exclude Kotlin build-time tooling modules from runtime APK packaging
-    exclude group: 'org.jetbrains.kotlin', module: 'kotlin-daemon-client'
-    exclude group: 'org.jetbrains.kotlin', module: 'kotlin-daemon-embeddable'
-    exclude group: 'org.jetbrains.kotlin', module: 'kotlin-compiler-embeddable'
-    exclude group: 'org.jetbrains.kotlin', module: 'kotlin-klib-commonizer-embeddable'
-    exclude group: 'org.jetbrains.kotlin', module: 'kotlin-build-tools-api'
     resolutionStrategy {
         // Cache dynamic versions for 0 seconds
         cacheDynamicVersionsFor 0, 'seconds'
@@ -137,9 +135,7 @@ tasks.matching { it.class.name.startsWith("org.jetbrains.kotlin.gradle.tasks.Kot
 }
 
 dependencies {
-    //implementation 'com.outsystems.experts:zoom-sdk-android:6.3.10.27979'
-
-     implementation 'org.jetbrains:annotations:23.0.0'
+    implementation 'org.jetbrains:annotations:23.0.0'
 
     // Force changing flag so Gradle checks GitHub Packages every time
     implementation('com.jacksun:zoom-sdk-android:7.2.1.43944') {
