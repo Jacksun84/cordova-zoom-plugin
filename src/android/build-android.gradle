@@ -437,8 +437,6 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-compose-compiler-plugin-embeddable:2.2.20'
     implementation 'org.jetbrains.kotlin:kotlin-daemon-client:2.2.20'
     implementation 'org.jetbrains.kotlin:kotlin-daemon-embeddable:2.2.20'
-    implementation 'org.jetbrains.kotlin:kotlin-klib-commonizer-embeddable:2.2.20'
-    implementation 'org.jetbrains.kotlin:kotlin-metadata-jvm:2.2.20'
     implementation 'org.jetbrains.kotlin:kotlin-parcelize-runtime:2.2.20'
     implementation 'org.jetbrains.kotlin:kotlin-reflect:1.6.10'
     implementation 'org.jetbrains.kotlin:kotlin-reflect:1.8.21'
