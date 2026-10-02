@@ -34,6 +34,6 @@ module.exports = function (context) {
     fs.writeFileSync(gradlePropertiesPath, content);
 
     console.log(
-        "[Zoom Plugin] Gradle JVM memory configured: 4 GB:", content
+        "[Zoom Plugin] Gradle JVM memory configured: 4 GB:\n", content
     );
 };
