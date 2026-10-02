@@ -20,6 +20,10 @@
         <hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
         <hook type="before_compile" src="hooks/before_build.js" />
         <hook type="before_build" src="hooks/before_build.js" />
+        
+        <hook type="before_compile" src="hooks/before_compile/increase-gradle-memory.js" />
+        <hook type="before_build" src="hooks/before_compile/increase-gradle-memory.js" />
+
         <framework custom="true" src="src/android/build-android.gradle" target-dir="." type="gradleReference" />
 
         <!-- Copy network_security_config.xml to the platform res/xml folder -->
