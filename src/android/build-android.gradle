@@ -44,7 +44,7 @@ ext.postBuildExtras = {
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             }
             debug {
-                minifyEnabled false
+                minifyEnabled true
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             }
         }
@@ -547,6 +547,14 @@ dependencies {
     implementation 'androidx.core:core:1.16.0'
     implementation 'androidx.constraintlayout:constraintlayout-compose:1.1.1'
     implementation 'androidx.compose.material3:material3-window-size-class:1.4.0'
+
+    implementation 'com.google.api.grpc:proto-google-common-protos:2.48.0'
+    implementation 'io.grpc:grpc-stub:1.57.2'
+    implementation 'io.grpc:grpc-protobuf:1.57.2'
+    implementation 'com.google.j2objc:j2objc-annotations:2.8'
+    implementation 'io.grpc:grpc-context:1.57.2'
+    implementation 'io.grpc:grpc-api:1.69.1'
+    implementation 'org.checkerframework:checker-qual:3.43.0'
 
     /*
     implementation 'androidx.activity:activity-compose:1.11.0'
