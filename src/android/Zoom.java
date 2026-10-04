@@ -78,9 +78,10 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
                 String meetingNo = args.getString(0);
                 String meetingPassword = args.getString(1);
                 String displayName = args.optString(2, "User");
-                boolean noAudio = args.optBoolean(3, false);
-                boolean noVideo = args.optBoolean(4, false);
-                ensureZoomSDKInitialized(() -> this.joinMeeting(meetingNo, meetingPassword, displayName, noAudio, noVideo, callbackContext));
+                String zak = args.getString(3);                     //Join Meeting passing BOTH Meeting Credentials and the Guest ZAK Token
+                boolean noAudio = args.optBoolean(4, false);
+                boolean noVideo = args.optBoolean(5, false);
+                ensureZoomSDKInitialized(() -> this.joinMeeting(meetingNo, meetingPassword, displayName, zak, noAudio, noVideo, callbackContext));
                 break;
             case "setLocale":
                 String localeId = args.getString(0);
@@ -234,7 +235,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
      * @param noVideo           meeting no video.
      * @param callbackContext   cordova callback context.
      */
-    private void joinMeeting(String meetingNo, String meetingPassword, String displayName, boolean noAudio, boolean noVideo, CallbackContext callbackContext) {
+    private void joinMeeting(String meetingNo, String meetingPassword, String displayName, String zak, boolean noAudio, boolean noVideo, CallbackContext callbackContext) {
         cordova.getActivity().runOnUiThread(() -> {
             Log.v(TAG, "********** Zoom's join meeting called ,meetingNo=" + meetingNo +" **********");
 
@@ -273,6 +274,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             params.displayName = displayName;
             params.meetingNo = meetingNumber;
             params.password = meetingPassword;
+            params.zak = zak;
 
             JoinMeetingOptions opts = new JoinMeetingOptions();
             opts.no_audio = noAudio;

@@ -19,8 +19,8 @@ var zoom = {
         callNativeFunction('initialize', [token, language], success, error);
     },
 
-    joinMeeting: function(meetingNo, meetingPassword, displayName, noAudio, noVideo, success, error) {
-         callNativeFunction('joinMeeting', [meetingNo, meetingPassword, displayName, noAudio, noVideo], success, error);
+    joinMeeting: function(meetingNo, meetingPassword, displayName, zakToken, noAudio, noVideo, success, error) {
+         callNativeFunction('joinMeeting', [meetingNo, meetingPassword, displayName, zakToken, noAudio, noVideo], success, error);
     },
 
     setMeetingCallback: function(success, error) {

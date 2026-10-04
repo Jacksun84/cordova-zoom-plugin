@@ -44,3 +44,19 @@
 -dontwarn java.awt.**
 -dontwarn javax.swing.**
 -dontwarn kotlin.uuid.**
+-dontwarn kotlin.uuid.ExperimentalUuidApi
+
+
+
+# New ones (to test this, the minification needs to be enable for debug build)
+-dontwarn com.android.billingclient.**
+-dontwarn com.google.android.play.core.**
+-dontwarn com.google.firebase.**
+-dontwarn com.google.zxing.**
+-dontwarn com.google.i18n.phonenumbers.**
+-dontwarn com.google.mlkit.**
+-dontwarn com.microsoft.intune.mam.**
+-dontwarn com.scwang.smart.refresh.**
+-dontwarn com.symbol.emdk.**
+-dontwarn io.noties.markwon.**
+-dontwarn io.noties.prism4j.**
