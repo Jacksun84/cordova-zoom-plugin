@@ -34,53 +34,13 @@
         <resource-file src="src/android/res/xml/network_security_config.xml" 
             target="res/xml/network_security_config.xml" />
 
-        <!-- Target Android SDK requirements -->
-         <!--
-        <preference name="android-minSdkVersion" value="28" />
-        <preference name="android-targetSdkVersion" value="36" />
-        <preference name="android-compileSdkVersion" value="36" />
--->
-
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="Zoom">
                 <param name="android-package" value="cordova.plugin.zoom.Zoom" />
             </feature>
         </config-file>
 
-        <!-- Force root manifest attributes to bind tools namespace -->
-         <!--
-        <config-file target="AndroidManifest.xml" parent="/manifest">
-            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-            <uses-permission android:name="android.permission.INTERNET" />
-            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-            <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
-            <uses-permission android:name="android.permission.RECORD_AUDIO" />
-            <uses-permission android:name="android.permission.CAMERA" />
-            <uses-permission android:name="android.permission.BLUETOOTH"/>
-            <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-            <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
-            <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
-            <uses-permission android:name="android.permission.BROADCAST_STICKY" />
-            <uses-permission android:name="android.permission.WAKE_LOCK" />
-            <uses-permission android:name="android.permission.CALL_PHONE" />
-            <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-            <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" tools:node="remove" />
-            <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" tools:node="remove" />
-            <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" tools:node="remove" />
-        </config-file>
-        -->
-
         <config-file parent="/*" target="AndroidManifest.xml">
-
-            <!-- Option B: Enforce in AndroidManifest.xml -->
-             <!--
-            <uses-sdk android:minSdkVersion="28" />
-            <uses-sdk android:targetSdkVersion="36" />
-            <uses-sdk android:compileSdkVersion="36" /> 
--->
-
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.INTERNET" />
             <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -107,8 +67,6 @@
         <source-file framework="true" src="libs/android/commonlib.aar" target-dir="libs/android" />
         <source-file src="src/android/Zoom.java" target-dir="src/cordova/plugin/zoom" />
 
-        <!-- Copy build-extras.gradle so Gradle natively picks it up -->
-       <!-- <resource-file src="src/android/build-extras.gradle" target="build-extras.gradle" />-->
         <resource-file src="src/android/proguard-rules.pro" target="proguard-rules.pro" />
 
         <hook type="after_plugin_install" src="hooks/setUserPasswordZoomSDK.js" />
