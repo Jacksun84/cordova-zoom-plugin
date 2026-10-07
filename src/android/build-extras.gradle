@@ -36,8 +36,15 @@ dependencies {
 }
 
 // Bypass D8 isolated record desugaring by enabling multidex / full dexing options
+// Fixed task hook syntax using string type name instead of direct class reference
 afterEvaluate {
-    tasks.withType(com.android.build.gradle.internal.tasks.DexArchiveBuilderTask).configureEach {
-        options.additionalParameters.add("--min-api=28")
+    tasks.matching { it.name.startsWith("dexBuilder") || it.name.startsWith("mergeExtDex") }.configureEach { task ->
+        if (task.hasProperty("options")) {
+            try {
+                task.options.additionalParameters.add("--min-api=28")
+            } catch (Exception e) {
+                // Ignore if task options structure differs
+            }
+        }
     }
 }
