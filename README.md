@@ -30,9 +30,9 @@ Before you try out our SDK, you would need the following to get started:
   * Android
     * Android 5.0 (API Level 21) or later.
     * CPU: armeabi-v7a, x86, armeabi, arm64-v8a, x86_64
-    * **compileSdkVersion**: 29+
-    * **buildToolsVersion**: 29+
-    * **minSdkVersion**: 21
+    * **compileSdkVersion**: 36
+    * **buildToolsVersion**: 36
+    * **minSdkVersion**: 28
     * **Required dependencies**
     ```
     implementation 'androidx.multidex:multidex:2.0.0'
