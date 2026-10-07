@@ -55,9 +55,11 @@ ext.postBuildExtras = {
         }
 
         compileOptions {
-            //coreLibraryDesugaringEnabled true
             sourceCompatibility JavaVersion.VERSION_17
             targetCompatibility JavaVersion.VERSION_17
+
+            // ***** D8 *****
+            coreLibraryDesugaringEnabled true
         }
         packagingOptions {
             jniLibs {
@@ -150,6 +152,9 @@ tasks.matching { it.class.name.startsWith("org.jetbrains.kotlin.gradle.tasks.Kot
 
 dependencies {
     implementation 'org.jetbrains:annotations:23.0.0'
+    
+    // ***** D8 *****
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
 
     // Force changing flag so Gradle checks GitHub Packages every time
     implementation('com.jacksun:zoom-sdk-android:7.2.1.43944') {
