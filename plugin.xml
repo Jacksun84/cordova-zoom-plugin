@@ -25,6 +25,7 @@
         <hook type="before_compile" src="hooks/increase-gradle-memory.js" />
         <hook type="before_build" src="hooks/increase-gradle-memory.js" />
 
+        <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
         <framework custom="true" src="src/android/build-android.gradle" target-dir="." type="gradleReference" />
 
         <!-- Copy network_security_config.xml to the platform res/xml folder -->
