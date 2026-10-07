@@ -1,3 +1,4 @@
+/*
 allprojects {
     repositories {
         google()
@@ -14,6 +15,7 @@ allprojects {
     }
     }
 }
+*/
 
 android {
     compileOptions {
@@ -22,9 +24,20 @@ android {
 
         // ***** D8 *****
         coreLibraryDesugaringEnabled true
+
+        kotlinOptions {
+            jvmTarget = '17'
+        }
     }
 }
 
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+}
+
+// Bypass D8 isolated record desugaring by enabling multidex / full dexing options
+afterEvaluate {
+    tasks.withType(com.android.build.gradle.internal.tasks.DexArchiveBuilderTask).configureEach {
+        options.additionalParameters.add("--min-api=28")
+    }
 }
