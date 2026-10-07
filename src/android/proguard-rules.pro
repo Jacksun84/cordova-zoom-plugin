@@ -14,6 +14,10 @@
 
 -keep class us.zoom.** { *; }
 -keep class com.zipow.** { *; }
+
+#D8
+-keep class com.zoom.** { *; }
+
 -keep class us.zipow.** { *; }
 -keep class org.webrtc.** { *; }
 -keep class us.google.protobuf.** { *; }
@@ -45,6 +49,9 @@
 -dontwarn javax.swing.**
 -dontwarn kotlin.uuid.**
 -dontwarn kotlin.uuid.ExperimentalUuidApi
+
+#D8
+-dontwarn java.lang.Record
 
 
 
