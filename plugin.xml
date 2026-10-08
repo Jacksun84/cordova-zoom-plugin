@@ -26,7 +26,7 @@
         <hook type="before_build" src="hooks/increase-gradle-memory.js" />
 
         // ***** D8 *****
-        <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
+        <!--<framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />-->
 
         <framework custom="true" src="src/android/build-android.gradle" target-dir="." type="gradleReference" />
 
