@@ -15,8 +15,8 @@
 -keep class us.zoom.** { *; }
 -keep class com.zipow.** { *; }
 
-#D8
--keep class com.zoom.** { *; }
+#***** D8 *****
+#-keep class com.zoom.** { *; }
 
 -keep class us.zipow.** { *; }
 -keep class org.webrtc.** { *; }
@@ -50,10 +50,8 @@
 -dontwarn kotlin.uuid.**
 -dontwarn kotlin.uuid.ExperimentalUuidApi
 
-#D8
--dontwarn java.lang.Record
-
-
+#***** D8 *****
+#-dontwarn java.lang.Record
 
 # New ones (to test this, the minification needs to be enable for debug build)
 -dontwarn com.android.billingclient.**
