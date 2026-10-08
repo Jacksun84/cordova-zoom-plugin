@@ -23,6 +23,7 @@ import us.zoom.sdk.ZoomSDK;
 import us.zoom.sdk.ZoomSDKInitParams;
 import us.zoom.sdk.ZoomSDKInitializeListener;
 import us.zoom.sdk.ZoomSDKRawDataMemoryMode;
+import us.zoom.sdk.JoinMeetingParam4WithoutLogin;
 
 public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, MeetingServiceListener {
 
@@ -269,16 +270,27 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             MeetingService meetingService = mZoomSDK.getMeetingService();
             meetingService.addListener(this);
             
+            JoinMeetingOptions opts = new JoinMeetingOptions();
+            opts.no_audio = noAudio;
+            opts.no_video = noVideo;
+
+            /*
+            // Current implementation working
             JoinMeetingParams params = new JoinMeetingParams();
             params.displayName = displayName;
             params.meetingNo = meetingNumber;
             params.password = meetingPassword;
-
-            JoinMeetingOptions opts = new JoinMeetingOptions();
-            opts.no_audio = noAudio;
-            opts.no_video = noVideo;
- 
+            
             int response = meetingService.joinMeetingWithParams(cordova.getActivity().getApplicationContext(), params, opts);
+            */
+
+            // New attemp
+            JoinMeetingParam4WithoutLoginUser params = new JoinMeetingParam4WithoutLoginUser();
+            params.meetingNo = meetingNumber;
+            params.displayName = displayName;
+            params.password = meetingPassword; // plain passcode, not encrypted
+            int response =  meetingService.joinMeetingWithParams(cordova.getActivity().getApplicationContext(), params, opts);
+
             PluginResult pluginResult1;
             if (response != MeetingError.MEETING_ERROR_SUCCESS) {
                 pluginResult1 =  new PluginResult(PluginResult.Status.ERROR, getMeetingErrorMessage(response));
