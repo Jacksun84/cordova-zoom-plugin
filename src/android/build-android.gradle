@@ -59,7 +59,7 @@ ext.postBuildExtras = {
             targetCompatibility JavaVersion.VERSION_17
 
             // ***** D8 *****
-            coreLibraryDesugaringEnabled true
+            // coreLibraryDesugaringEnabled true
         }
         packagingOptions {
             jniLibs {
