@@ -64,7 +64,10 @@
         
         <!-- Update pushwoosh cordova dependencies to avoid conflicts between zoom and pushwoosh-->
         <dependency id="cordova-androidx-build" url="https://github.com/Pushwoosh/cordova-androidx-build.git#1.1-OS" />
+        
+        <!-- Testing if this is still needed for the new versions
         <source-file framework="true" src="libs/android/commonlib.aar" target-dir="libs/android" />
+        -->
         <source-file src="src/android/Zoom.java" target-dir="src/cordova/plugin/zoom" />
 
         <resource-file src="src/android/proguard-rules.pro" target="proguard-rules.pro" />
