@@ -274,7 +274,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             opts.no_audio = noAudio;
             opts.no_video = noVideo;
 
-            /*
+        
             // Current implementation working
             JoinMeetingParams params = new JoinMeetingParams();
             params.displayName = displayName;
@@ -282,14 +282,18 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
             params.password = meetingPassword;
             
             int response = meetingService.joinMeetingWithParams(cordova.getActivity().getApplicationContext(), params, opts);
-            */
 
-            // New attemp
+            /*
+            * New strategy using JoinMeetingParam4WithoutLogin also works
+            */
+            /*
             JoinMeetingParam4WithoutLogin params = new JoinMeetingParam4WithoutLogin();
             params.meetingNo = meetingNumber;
             params.displayName = displayName;
             params.password = meetingPassword; // plain passcode, not encrypted
+            
             int response =  meetingService.joinMeetingWithParams(cordova.getActivity().getApplicationContext(), params, opts);
+             */
 
             PluginResult pluginResult1;
             if (response != MeetingError.MEETING_ERROR_SUCCESS) {
