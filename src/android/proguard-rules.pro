@@ -6,6 +6,12 @@
 }
 
 # -------------------------------------------------------------
+# keep these (the Zoom SDK is already obfuscated)
+# -------------------------------------------------------------
+-dontobfuscate
+-dontoptimize
+
+# -------------------------------------------------------------
 # 2. Keep Interfaces and Inner Classes for Zoom & WebRTC
 # -------------------------------------------------------------
 -keep interface us.zoom.** { *; }
@@ -30,9 +36,9 @@
 # 3. Existing Framework Keep Rules
 # -------------------------------------------------------------
 -keep class androidx.security.crypto.** { *; }
--keep class androidx.** { *; }
--keep class android.support.** { *; }
--keep class com.google.** { *; }
+#-keep class androidx.** { *; }
+#-keep class android.support.** { *; }
+#-keep class com.google.** { *; }
 
 # Don't Warnings
 -dontwarn com.android.**

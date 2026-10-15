@@ -19,7 +19,8 @@ module.exports = function (context) {
 
     let content = fs.readFileSync(gradlePropertiesPath, "utf8");
 
-    const jvmArgs = "org.gradle.jvmargs=-Xmx8192m -XX:MaxMetaspaceSize=1024m";
+    //const jvmArgs = "org.gradle.jvmargs=-Xmx8192m -XX:MaxMetaspaceSize=1024m -XX:+HeapDumpOnOutOfMemoryError";
+    const jvmArgs = "org.gradle.jvmargs=-Xmx6144m -XX:MaxMetaspaceSize=1024m -XX:+HeapDumpOnOutOfMemoryError";
 
     if (/^org\.gradle\.jvmargs=.*$/m.test(content)) {
         console.log("Found org.gradle.jvmargs property.");
@@ -34,6 +35,6 @@ module.exports = function (context) {
     fs.writeFileSync(gradlePropertiesPath, content);
 
     console.log(
-        "[Zoom Plugin] Gradle JVM memory configured: 4 GB:\n", content
+        "[Zoom Plugin] Gradle JVM memory configured: 6G GB:\n", content
     );
 };
