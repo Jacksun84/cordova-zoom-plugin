@@ -65,3 +65,9 @@
 -dontwarn com.symbol.emdk.**
 -dontwarn io.noties.markwon.**
 -dontwarn io.noties.prism4j.**
+
+-dontwarn com.davemorrissey.**
+-dontwarn javax.lang.model.**
+-dontwarn kotlinx.coroutines.swing.**
+-dontwarn org.commonmark.**
+-dontwarn org.jetbrains.kotlin.**
