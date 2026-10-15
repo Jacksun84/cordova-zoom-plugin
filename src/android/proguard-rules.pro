@@ -72,8 +72,26 @@
 -dontwarn io.noties.markwon.**
 -dontwarn io.noties.prism4j.**
 
+# 15/10/2025 - Test release buildtype to confirm if the minifyEnable true work with this configs.
 -dontwarn com.davemorrissey.**
 -dontwarn javax.lang.model.**
 -dontwarn kotlinx.coroutines.swing.**
 -dontwarn org.commonmark.**
 -dontwarn org.jetbrains.kotlin.**
+-dontwarn com.huawei.**
+-dontwarn com.hihonor.**
+-dontwarn com.xiaomi.**
+-dontwarn com.heytap.**
+-dontwarn com.vivo.**
+-dontwarn com.samsung.**
+-dontwarn com.sec.**
+-dontwarn com.honeywell.**
+-dontwarn com.zebra.**
+-dontwarn com.symbol.**
+-dontwarn org.bouncycastle.**
+-dontwarn org.conscrypt.**
+-dontwarn org.openjsse.**
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+-dontwarn kotlinx.**
