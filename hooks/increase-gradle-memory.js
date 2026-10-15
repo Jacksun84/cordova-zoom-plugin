@@ -19,7 +19,7 @@ module.exports = function (context) {
 
     let content = fs.readFileSync(gradlePropertiesPath, "utf8");
 
-    const jvmArgs = "org.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=1024m";
+    const jvmArgs = "org.gradle.jvmargs=-Xmx8192m -XX:MaxMetaspaceSize=1024m";
 
     if (/^org\.gradle\.jvmargs=.*$/m.test(content)) {
         console.log("Found org.gradle.jvmargs property.");
