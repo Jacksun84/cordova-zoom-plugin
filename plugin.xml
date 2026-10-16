@@ -91,15 +91,44 @@
         <preference name="IOS_MICROPHONE_USAGE_DESCRIPTION" default="This app requires access to the microphone." />
         <hook type="before_plugin_install" src="hooks/install_prerequisites.js"/>
         <hook type="after_plugin_add" src="hooks/add_swift_support.js" />
+
         <config-file parent="/*" target="config.xml">
             <feature name="Zoom">
                 <param name="ios-package" value="Zoom" />
             </feature>
         </config-file>
         <resource-file src="libs/ios/MobileRTCResources.bundle" />
+
+        <!-- Comment only for now during compilation testing-->
+        <!--
         <source-file src="libs/ios/MobileRTC.framework" target-dir="lib" framework="true" />
         <framework custom="true" embed="true" src="libs/ios/MobileRTC.framework" />
+        -->
+        <!-- Comment only for now during compilation testing-->
+        
         <source-file src="src/ios/Zoom.swift" />
+
+
+        <!-- NEw changes Set the deployment target to 15.0 -->
+        <preference name="deployment-target" default="15.0" />
+        <config-file parent="MinimumOSVersion" target="*-Info.plist">
+            <string>15.0</string>
+        </config-file>
+
+        <!-- Download the iOS SDK -->
+        <hook type="before_plugin_install" src="hooks/download-ios-sdk.js" />
+        <hook type="before_build" src="hooks/download-ios-sdk.js" />
+        <!-- End of Download the iOS SDK -->
+
+        <!-- Updated framework paths pointing to libs/ios -->
+        <framework custom="true" embed="true" src="libs/ios/MobileRTC.xcframework" />
+        <framework custom="true" embed="true" src="libs/ios/zoomcml.xcframework" />
+        <framework custom="true" embed="true" src="libs/ios/MobileRTCScreenShare.xcframework" />
+        <!-- New changes end Set the deployment target to 15.0 -->
+
+
+
+
         <!--
         <source-file src="src/ios/AppDelegate+Zoom.swift" />
         <source-file src="src/ios/JWTGenerator.swift" />
