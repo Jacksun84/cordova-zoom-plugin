@@ -165,9 +165,9 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
         this.callStatusCallback = null;
     }
 
-    private void sendMeetingCallback(MeetingStatus meetingStatus) {
+    private void sendMeetingCallback(MeetingStatus meetingStatus, int errorCode, int internalErrorCode) {
         if(this.callStatusCallback != null) {
-            PluginResult pluginResult =  new PluginResult(PluginResult.Status.OK, "meetingStatus:  "+meetingStatus);
+            PluginResult pluginResult =  new PluginResult(PluginResult.Status.OK, "meetingStatus:  "+meetingStatus+" errorCode: "+errorCode+" internalErrorCode: "+internalErrorCode);
             pluginResult.setKeepCallback(true);
             this.callStatusCallback.sendPluginResult(pluginResult);
         }
@@ -294,7 +294,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKInitializeListener, Me
     public void onMeetingStatusChanged(MeetingStatus meetingStatus, int errorCode, int internalErrorCode) {
         Log.i(TAG, "onMeetingStatusChanged, meetingStatus=" + meetingStatus + ", errorCode=" + errorCode + ", internalErrorCode=" + internalErrorCode);
 
-        sendMeetingCallback(meetingStatus);
+        sendMeetingCallback(meetingStatus, errorCode, internalErrorCode);
     }
 
     @Override
